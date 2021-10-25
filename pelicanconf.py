@@ -62,14 +62,14 @@ PAGE_URL = '{category}/{slug}/'
 PAGE_SAVE_AS = '{category}/{slug}/index.html'
 
 # Plugins
-#PLUGIN_PATHS = ['plugins']
-#PLUGINS = ['articles_lists_json', 'pelican_javascript']
+PLUGIN_PATHS = ['plugins']
+PLUGINS = ['pelican_javascript']
 
-# Plugin articles_list_json
-#ARTICLES_LISTS_JSON_OUTPUT_PATH = 'json'
-#ARTICLES_LISTS_JSON_OUTPUT_ALL = 'all.json'
-#ARTICLES_LISTS_JSON_CATEGORIES_FILTERS = None
-#ARTICLES_LISTS_JSON_LIMIT = None
+# Plugin articles_list_json, add 'articles_lists_json' to PLUGINS
+# ARTICLES_LISTS_JSON_OUTPUT_PATH = 'json'
+# ARTICLES_LISTS_JSON_OUTPUT_ALL = 'all.json'
+# ARTICLES_LISTS_JSON_CATEGORIES_FILTERS = None
+# ARTICLES_LISTS_JSON_LIMIT = None
 
 # Tema
 THEME = 'themes/bs5'

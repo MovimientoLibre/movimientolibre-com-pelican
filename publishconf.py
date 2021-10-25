@@ -34,26 +34,26 @@ DEFAULT_PAGINATION = True
 DEFAULT_PAGINATION = 8
 DEFAULT_ORPHANS = 2
 
-# Plugins
-#PLUGINS = ['articles_lists_json', 'pelican_javascript', 'sitemap']
+# Plugins, disabled: 'articles_lists_json'
+PLUGINS = ['pelican_javascript', 'sitemap']
 
 # Plugin sitemap
-#SITEMAP = {
-#    'format': 'xml',
-#    'priorities': {
-#        'articles': 1,
-#        'indexes': 0.5,
-#        'pages': 1,
-#    },
-#    'changefreqs': {
-#        'articles': 'weekly',
-#        'indexes': 'daily',
-#        'pages': 'monthly',
-#    },
-#    'exclude': [
-#        'archives.html',
-#        'tags.html',
-#        'categories.html',
-#        'author/',
-#    ],
-#}
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 1,
+        'indexes': 0.5,
+        'pages': 1,
+    },
+    'changefreqs': {
+        'articles': 'weekly',
+        'indexes': 'daily',
+        'pages': 'monthly',
+    },
+    'exclude': [
+        'archives.html',
+        'tags.html',
+        'categories.html',
+        'author/',
+    ],
+}

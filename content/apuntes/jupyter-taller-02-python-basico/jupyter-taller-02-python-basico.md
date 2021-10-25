@@ -1,9 +1,9 @@
 Title: Proyecto Jupyter (parte 2) Python Básico
 Slug: jupyter-taller-02-python-basico
 Summary: Segunda parte del taller sobre el proyecto Jupyter donde se practican algunos ejercicios básicos de Python.
-Tags: Python
+Tags: python, jupyter
 Date: 2021-10-25 09:21:00
-Modified: 2021-10-25 09:36:00
+Modified: 2021-10-25 09:54:00
 Category: Apuntes
 Preview: jupyter.png
 
@@ -12,7 +12,9 @@ Preview: jupyter.png
 
 Python es un lenguaje de programación interpretado cuya filosofía hace hincapié en la legibilidad de su código. Python usa tipado dinámico y conteo de referencias para la administración de memoria.
 
-Python fue creado a finales de los ochenta4​ por [Guido van Rossum](https://es.wikipedia.org/wiki/Guido_van_Rossum).
+Python fue creado a finales de los ochenta​ por [Guido van Rossum](https://es.wikipedia.org/wiki/Guido_van_Rossum).
+
+De forma sencilla, vamos a conocer algunos conceptos básicos y ejemplos de Python...
 
 ## Variables
 
@@ -33,3 +35,38 @@ Los comentarios se pueden poner de dos formas. La primera y más apropiada para 
 Python está destinado a ser un lenguaje de fácil lectura. Su formato es visualmente ordenado y, a menudo, usa palabras clave en inglés donde otros idiomas usan puntuación. A diferencia de muchos otros lenguajes, **no utiliza llaves para delimitar bloques, ni se necesitan puntos y comas después de las declaraciones** (aunque se puede, pero es rara la vez que se usan).
 
 El contenido de los bloques de código (bucles, funciones, clases, etc.) es delimitado mediante espacios (o tabuladores), conocidos como indentación. **El estándar es usar cuatro espacios para identar.**
+
+## Condiciones
+
+Una sentencia condicional **if** ejecuta su bloque de código interno solo si se cumple cierta condición. Se define usando la palabra clave **if** seguida de la condición, y el bloque de código. Condiciones adicionales, si las hay, se introducen usando **elif** seguida de la condición y su bloque de código. Todas las condiciones se evalúan secuencialmente hasta encontrar la primera que sea verdadera, y su bloque de código asociado es el único que se ejecuta. Opcionalmente, puede haber un bloque final (la palabra clave **else** seguida de un bloque de código) que se ejecuta solo cuando todas las condiciones fueron falsas.
+
+    # Comparar textos
+    fruta_1 = 'manzana'
+    fruta_2 = 'MANZANA'
+    if fruta_1 == fruta_2:
+        print('Son iguales')
+    else:
+        print('Son diferentes')
+        if len(fruta_1) > len(fruta_2):
+            print('Tiene más letras el primero')
+        elif len(fruta_1) == len(fruta_2):
+            print('Tienen la misma cantidad de letras')
+        else:
+            print('Tiene más letras el segundo')
+    if fruta_1.lower() == fruta_2.lower():
+        print('Si las cambio a minúsculas ¡SON IGUALES!')
+
+## Tipos de datos
+
+De inicio se pueden tener valores boleanos, enteros, números racionales y textos.
+
+El tipo de datos **listado** es una secuencia de datos del mismo tipo o diferentes.
+
+    # Mostrar las vocales
+    vocales = ['a', 'e', 'i', 'o', 'u']
+    print('Estas son las vocales:')
+    for vocal in vocales:
+        print(vocal)
+    print()
+
+_Continuará..._

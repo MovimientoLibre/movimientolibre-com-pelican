@@ -1,9 +1,9 @@
 Title: Proyecto Jupyter (parte 1) Instalar
 Slug: jupyter-taller-01-instalar
 Summary: Taller sobre el proyecto Jupyter; en la primera parte se describe qué es y cómo instalarlo.
-Tags: Python
+Tags: python, jupyter
 Date: 2021-10-25 06:59:00
-Modified: 2021-10-25 07:27:00
+Modified: 2021-10-25 09:52:00
 Category: Apuntes
 Preview: jupyter.png
 
@@ -75,18 +75,20 @@ Los _notebooks_ se guardarán en Google Drive. Lee la [Introducción a Colab](ht
 
 ## El Dashboard
 
-<img class="img-fluid" src="dashboard_notebooks_tab_5_0.png" alt="Jupyter notebook Dashboard">
-
 Cuando arranca por primera vez el servicio se muestra el Dashboard. El Dashboard es la página inicial del Notebook.
 
-- Pestaña Files
-- Pestaña Running
-- Pestaña Clusters: requiere IPython Parallel
+<img class="img-fluid" src="dashboard_notebooks_tab_5_0.png" alt="Jupyter notebook Dashboard">
 
-Botones
+Notarás que aparecen las siguientes pestañas:
 
-- New
-- Upload
+- Pestaña Files: Te permite localizar un archivo o directorio para abrirlo.
+- Pestaña Running: Lista los _notebook_ que están en ejecución.
+- Pestaña Clusters: requiere IPython Parallel.
+
+Y los botones
+
+- New: Para crear un nuevo _notebook_.
+- Upload: Para cargar un _notebook_ desde un archivo.
 
 ## Notebook
 
