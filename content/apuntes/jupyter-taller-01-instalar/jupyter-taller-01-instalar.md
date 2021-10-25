@@ -5,7 +5,7 @@ Tags: Python
 Date: 2021-10-25 06:59:00
 Modified: 2021-10-25 07:27:00
 Category: Apuntes
-Preview: jupiter.png
+Preview: jupyter.png
 
 
 El [Proyecto Jupyter](https://jupyter.org/) es una organización sin ánimo de lucro creada para "desarrollar software de código abierto, estándares abiertos y servicios para computación interactiva en docenas de lenguajes de programación".

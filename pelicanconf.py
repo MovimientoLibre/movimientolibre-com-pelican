@@ -79,16 +79,13 @@ DEFAULT_LANG = 'es'
 TIMEZONE = 'America/Mexico_City'
 
 # Para desarrollo, se desactiva la paginacion
-#DEFAULT_PAGINATION = False
-DEFAULT_PAGINATION = True
-DEFAULT_PAGINATION = 8
-DEFAULT_ORPHANS = 2
+DEFAULT_PAGINATION = False
 
 # Para desarrollo, borrar todo output
 DELETE_OUTPUT_DIRECTORY = True
 
 # No eliminar de output los siguientes directorios y archivos
-OUTPUT_RETENTION = ['.git', '.gitignore']
+# OUTPUT_RETENTION = ['.git', '.gitignore']
 
 # Siempre aprovechar lo que se tenga en caché
 LOAD_CONTENT_CACHE = True

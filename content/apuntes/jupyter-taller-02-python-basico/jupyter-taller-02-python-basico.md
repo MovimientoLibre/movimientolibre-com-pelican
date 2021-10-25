@@ -5,7 +5,7 @@ Tags: Python
 Date: 2021-10-25 09:21:00
 Modified: 2021-10-25 09:36:00
 Category: Apuntes
-Preview: jupiter.png
+Preview: jupyter.png
 
 
 ## Introducción a Python
