@@ -1,0 +1,7 @@
+.directory
+.bashrc
+*.pyc
+.vscode
+__pycache__
+output/
+venv/

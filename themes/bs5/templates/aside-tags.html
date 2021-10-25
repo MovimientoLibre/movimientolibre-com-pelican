@@ -1,0 +1,10 @@
+<div class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <p class="card-text">
+            <ul class="list-unstyled mb-0">
+                {% for tag, null in tags|sort -%}<li><a href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a></li>{% endfor %}
+            </ul>
+        </p>
+    </div>
+</div>
