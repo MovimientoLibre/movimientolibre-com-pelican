@@ -69,4 +69,22 @@ El tipo de datos **listado** es una secuencia de datos del mismo tipo o diferent
         print(vocal)
     print()
 
+## Funciones
+
+Una función es una palabra clave seguida de paréntesis, dentro de estos puede haber parámetros.
+
+Puede entregar uno o varios resultados por un **return**.
+
+    # La función len entrega la cantidad de caracteres de un texto
+    nombre = "Miguel de Icaza"
+    print('La cantidad de letras que tiene es', len(nombre))
+
+## Métodos
+
+Python es un lenguaje orientado a objetos. Prácticamente cualquier dato es un objeto que tiene propiedades y métodos. Depués de un objeto se escribe un punto y el nombre del método a llamar, con parámetros entre paréntesis de ser necesario.
+
+    # Los textos tienen los métodos upper para convertir a mayúsculas y lower para convertir a minúsculas
+    print('En mayúsculas es {}'.format(nombre.upper()))
+    print('En minúsculas es {}'.format(nombre.lower()))
+
 _Continuará..._

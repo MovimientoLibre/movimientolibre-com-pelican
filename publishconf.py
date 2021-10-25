@@ -9,7 +9,7 @@ sys.path.append(os.curdir)
 from pelicanconf import *
 
 # Para producción
-SITEURL = 'https://movimientolibre.com/movimientolibre-com-pelican'
+SITEURL = 'https://movimientolibre.com'
 RELATIVE_URLS = False
 
 # Feed generation
