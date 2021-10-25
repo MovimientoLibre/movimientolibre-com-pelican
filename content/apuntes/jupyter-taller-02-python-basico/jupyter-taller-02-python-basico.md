@@ -3,7 +3,7 @@ Slug: jupyter-taller-02-python-basico
 Summary: Segunda parte del taller sobre el proyecto Jupyter donde se practican algunos ejercicios básicos de Python.
 Tags: Python
 Date: 2021-10-25 09:21:00
-Modified: 2021-10-25 09:21:00
+Modified: 2021-10-25 09:36:00
 Category: Apuntes
 Preview: jupiter.png
 

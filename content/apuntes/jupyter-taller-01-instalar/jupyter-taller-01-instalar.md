@@ -1,6 +1,6 @@
 Title: Proyecto Jupyter (parte 1) Instalar
 Slug: jupyter-taller-01-instalar
-Summary: Taller sobre el proyecto Jupyter
+Summary: Taller sobre el proyecto Jupyter; en la primera parte se describe qué es y cómo instalarlo.
 Tags: Python
 Date: 2021-10-25 06:59:00
 Modified: 2021-10-25 07:27:00
