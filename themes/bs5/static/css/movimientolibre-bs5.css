@@ -88,6 +88,8 @@ pre {
 
     .card { background-color: #1c1c1c; }
 
+    #asideTags li.list-group-item { background-color: #1c1c1c; }
+
     pre { background-color: #282828; color: #eeeeee; }
     code { color: #4fd2d2; }
 
