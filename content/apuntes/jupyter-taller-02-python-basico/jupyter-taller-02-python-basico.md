@@ -3,10 +3,16 @@ Slug: jupyter-taller-02-python-basico
 Summary: Segunda parte del taller sobre el proyecto Jupyter donde se practican algunos ejercicios básicos de Python.
 Tags: python, jupyter
 Date: 2021-10-25 09:21:00
-Modified: 2021-10-25 09:54:00
+Modified: 2021-10-25 22:10:00
 Category: Apuntes
 Preview: jupyter.png
 
+
+## Descargar
+
+Puede obtener el contenido de esta página como un _notebook_:
+
+- [jupyter-taller-02-python-basico.ipynb](jupyter-taller-02-python-basico.ipynb)
 
 ## Introducción a Python
 
@@ -83,8 +89,66 @@ Puede entregar uno o varios resultados por un **return**.
 
 Python es un lenguaje orientado a objetos. Prácticamente cualquier dato es un objeto que tiene propiedades y métodos. Depués de un objeto se escribe un punto y el nombre del método a llamar, con parámetros entre paréntesis de ser necesario.
 
-    # Los textos tienen los métodos upper para convertir a mayúsculas y lower para convertir a minúsculas
+    # Los textos tienen los métodos
+    # - upper para convertir a mayúsculas y
+    # - lower para convertir a minúsculas
     print('En mayúsculas es {}'.format(nombre.upper()))
     print('En minúsculas es {}'.format(nombre.lower()))
 
-_Continuará..._
+## Bucles
+
+La estructura **for** es sencilla de hacer un ciclo...
+
+    # De inicio, crear una tabla de multiplicar del dos
+    factor = 2
+    for numero in [1, 2, 3, 4, 5]:
+        print(' {} x {} = {} '.format(numero, factor, numero * factor))
+
+    # Luego, hagamos más tablas
+    for factor in range(1, 5):
+        print(f'Tabla del {factor}')
+        print()
+        for numero in range(1, 5):
+            print(f' {numero} x {factor} = {numero * factor} ')
+        print()
+
+## Funciones hechas por nosotros mismos
+
+Las funciones se definen con la palabra clave **def**, seguida del nombre de la función y sus parámetros.
+
+El valor devuelto en las funciones será el dado con la instrucción **return**.
+
+    # Vamos a eliminar las vocales
+    def quitar_vocales(nombre):
+        nombre_sin_vocales = ''
+        for numero in range(0, len(nombre)):
+            letra = nombre[numero].lower()
+            if letra not in vocales:
+                nombre_sin_vocales = nombre_sin_vocales + letra
+        return(nombre_sin_vocales)
+
+    print(quitar_vocales('Tim Berners-Lee'))
+    print(quitar_vocales('Richard Matthew Stallman'))
+    print(quitar_vocales('Linus Benedict Torvalds'))
+
+    # Vamos a escribir al revés los nombres
+    def cambiar_al_reves_1(nombre):
+        al_reves = ''
+        for posicion in range(len(nombre) - 1, -1, -1):
+            al_reves = al_reves + nombre[posicion]
+        return(al_reves.upper())
+
+    # Ahora usando reverse
+    def cambiar_al_reves_2(nombre):
+        lista = list(reversed(nombre))
+        al_reves = ''.join(lista)
+        return(al_reves.upper())
+
+    # Y ahora usando join
+    def cambiar_al_reves_3(nombre):
+        al_reves = ''.join(list(reversed(nombre)))
+        return(al_reves.upper())
+
+    print(cambiar_al_reves_1('Tim Berners-Lee'))
+    print(cambiar_al_reves_1('Richard Matthew Stallman'))
+    print(cambiar_al_reves_1('Linus Benedict Torvalds'))

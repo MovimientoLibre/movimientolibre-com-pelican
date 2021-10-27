@@ -3,10 +3,18 @@ Slug: jupyter-taller-01-instalar
 Summary: Taller sobre el proyecto Jupyter; en la primera parte se describe qué es y cómo instalarlo.
 Tags: python, jupyter
 Date: 2021-10-25 06:59:00
-Modified: 2021-10-25 09:52:00
+Modified: 2021-10-26 21:58:00
 Category: Apuntes
 Preview: jupyter.png
 
+
+## Descargar
+
+Puede obtener el contenido de esta página como un _notebook_:
+
+- [jupyter-taller-01-instalar.ipynb](jupyter-taller-01-instalar.ipynb)
+
+## Proyecto Jupyter
 
 El [Proyecto Jupyter](https://jupyter.org/) es una organización sin ánimo de lucro creada para "desarrollar software de código abierto, estándares abiertos y servicios para computación interactiva en docenas de lenguajes de programación".
 
@@ -114,3 +122,5 @@ Una celda puede tener dos modos
 ## Atajos de teclado
 
 <img class="img-fluid" src="notebook_shortcuts_4_0.png" alt="Jupyter notebook shortcuts">
+
+## [Ir a la segunda parte](../jupyter-taller-02-python-basico/)
