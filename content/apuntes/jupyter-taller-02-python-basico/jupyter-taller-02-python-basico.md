@@ -3,7 +3,7 @@ Slug: jupyter-taller-02-python-basico
 Summary: Segunda parte del taller sobre el proyecto Jupyter donde se practican algunos ejercicios básicos de Python.
 Tags: python, jupyter
 Date: 2021-10-25 09:21:00
-Modified: 2021-10-25 22:10:00
+Modified: 2021-10-27 19:58:00
 Category: Apuntes
 Preview: jupyter.png
 
@@ -152,3 +152,7 @@ El valor devuelto en las funciones será el dado con la instrucción **return**.
     print(cambiar_al_reves_1('Tim Berners-Lee'))
     print(cambiar_al_reves_1('Richard Matthew Stallman'))
     print(cambiar_al_reves_1('Linus Benedict Torvalds'))
+
+## Ir a la primera parte [Proyecto Jupyter: Instalar](../jupyter-taller-01-instalar/)
+
+## Ir a la tercera parte [Proyecto Jupyter: Pandas](../jupyter-taller-03-pandas/)

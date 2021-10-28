@@ -3,7 +3,7 @@ Slug: jupyter-taller-01-instalar
 Summary: Taller sobre el proyecto Jupyter; en la primera parte se describe qué es y cómo instalarlo.
 Tags: python, jupyter
 Date: 2021-10-25 06:59:00
-Modified: 2021-10-26 21:58:00
+Modified: 2021-10-27 19:56:00
 Category: Apuntes
 Preview: jupyter.png
 
@@ -123,4 +123,6 @@ Una celda puede tener dos modos
 
 <img class="img-fluid" src="notebook_shortcuts_4_0.png" alt="Jupyter notebook shortcuts">
 
-## [Ir a la segunda parte](../jupyter-taller-02-python-basico/)
+## Ir a la segunda parte [Proyecto Jupyter: Python Básico](../jupyter-taller-02-python-basico/)
+
+## Ir a la tercera parte [Proyecto Jupyter: Pandas](../jupyter-taller-03-pandas/)
