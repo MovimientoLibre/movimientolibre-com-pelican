@@ -2,7 +2,7 @@ Title: Post-instalación de Fedora 35 KDE Plasma Desktop
 Summary: Después de instalar Fedora 35 KDE Plasma Desktop siga estas recomendaciones para mejorar su nuevo sistema operativo.
 Slug: fedora-35-kde-plasma-desktop
 Date: 2021-10-31 13:36:00
-Modified: 2021-10-31 13:36:00
+Modified: 2021-10-31 21:21:00
 Category: apuntes
 Tags: fedora
 Preview: fedora-logo-icon.png
@@ -25,13 +25,13 @@ Y reiniciamos...
 
 A continuación vamos a convertir la instalación de un KDE _puro_ a una _herramienta poderosa_ para desarrollo de software.
 
-## A a partir de aquí use root
+## A partir de aquí use root
 
 Abra una terminal y cambie a _root_
 
     sudo su -
 
-## ¡Vamos a instalar!
+## ¡Comenzamos a instalar!
 
 Instalar LibreOffice
 
@@ -106,7 +106,7 @@ Instalar RClone
 
 ## Eliminar KDE PIM
 
-Bueno, siendo _fan_ de KDE no uso la suite de información personal (PIM), así que la retiro con...
+Bueno, aun siendo _fan_ de KDE no uso la suite de información personal (PIM), así que la retiro para mejorar el desempeño con...
 
     dnf remove kdepim-runtime kdepim-addons
     dnf remove akregator
@@ -114,7 +114,7 @@ Bueno, siendo _fan_ de KDE no uso la suite de información personal (PIM), así 
 
 ## RMP Fusion
 
-RPM Fusion nos brinda el software que necesitamos pero que no cumple con las directrices del Software Libre. Ejecutar
+RPM Fusion nos brinda el software que necesitamos pero que no cumple con las directrices del Software Libre. Ejecutar...
 
     dnf install https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
