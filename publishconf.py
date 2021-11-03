@@ -31,7 +31,7 @@ RSS_FEED_SUMMARY_ONLY = True
 
 # Paginacion
 DEFAULT_PAGINATION = True
-DEFAULT_PAGINATION = 8
+DEFAULT_PAGINATION = 16
 DEFAULT_ORPHANS = 2
 
 # Plugins, disabled: 'articles_lists_json'
@@ -57,3 +57,6 @@ SITEMAP = {
         'author/',
     ],
 }
+
+# Habilitar los servicios de terceros, como Google Analytics y Search
+USE_REMOTE_SERVICES = True
