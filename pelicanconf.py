@@ -10,6 +10,10 @@ SITELOGO = 'theme/images/movimientolibre.png'
 SITEDESCRIPTION = 'Plataforma de divulgación de conocimiento'
 SITETWITTER = '@guivaloz'
 
+# Año actual para el copyright
+from datetime import datetime
+YEAR = datetime.now().year
+
 # Autor
 AUTHOR = 'Guillermo Valdés Lozano (guivaloz)'
 
