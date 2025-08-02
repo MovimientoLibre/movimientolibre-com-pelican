@@ -95,6 +95,11 @@ pre {
 
     a.page-link { background-color: #161616; border: 1px solid gray; }
 
+    .table {
+        background-color: #1c1c1c;
+        color: #eeeeee;
+    }
+
 }
 
 /* Used by navigation.js to show the main navigation when scroll ups */
