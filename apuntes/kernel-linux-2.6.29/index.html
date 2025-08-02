@@ -1,0 +1,643 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="El Kernel Linux versión 2.6.29 fue liberado por Linus Torvalds en marzo de 2009. Entre muchas novedades, otorga un soporte inicial del nuevo sistema de archivos Btrfs.">
+    <meta name="keywords" content="gentoo linux, kernel linux, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux">
+    <meta name="twitter:description" content="El Kernel Linux versión 2.6.29 fue liberado por Linus Torvalds en marzo de 2009. Entre muchas novedades, otorga un soporte inicial del nuevo sistema de archivos Btrfs.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/kernel-linux-2.6.29/preview.jpg">
+    <meta property="og:title" content="Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/kernel-linux-2.6.29/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/kernel-linux-2.6.29/preview.jpg">
+    <meta property="og:description" content="El Kernel Linux versión 2.6.29 fue liberado por Linus Torvalds en marzo de 2009. Entre muchas novedades, otorga un soporte inicial del nuevo sistema de archivos Btrfs.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux",
+                "headline": "Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux",
+                "description": "El Kernel Linux versión 2.6.29 fue liberado por Linus Torvalds en marzo de 2009. Entre muchas novedades, otorga un soporte inicial del nuevo sistema de archivos Btrfs.",
+                "dateCreated": "2009-06-17 21:45:00-05:00",
+                "datePublished": "2009-06-17 21:45:00-05:00",
+                "dateModified": "2009-06-17 21:45:00-05:00",
+                "image": "https://movimientolibre.com/apuntes/kernel-linux-2.6.29/preview.jpg",
+                "url": "https://movimientolibre.com/apuntes/kernel-linux-2.6.29/"
+            }
+        </script>
+        <h2>Kernel Linux 2.6.29 para Dell Inspiron 9300 con Gentoo Linux</h2>
+        <p class="lead">El Kernel Linux versión 2.6.29 fue liberado por Linus Torvalds en marzo de 2009. Entre muchas novedades, otorga un soporte inicial del nuevo sistema de archivos Btrfs.</p>
+        <p>17 June 2009</p>
+        <p>El <a href="http://www.linux.org/">Kernel Linux</a> versión 2.6.29 fue liberado por <a href="http://es.wikipedia.org/wiki/Linus_Torvalds">Linus Torvalds</a> en marzo de 2009. Entre muchas novedades, otorga un <em>soporte inicial</em> del nuevo sistema de archivos <a href="http://es.wikipedia.org/wiki/Btrfs">Btrfs</a>. Cuando el <em>Btrfs</em> sea considerado como <em>estable</em> se espera que sustituya por completo al <a href="http://es.wikipedia.org/wiki/Ext3">Ext</a>.</p>
+<p><a href="http://es.wikipedia.org/wiki/Tux">Tux</a>, la mascota de Linux, se ha tomado tres meses sábaticos. La mascota de la versión 2.6.29 es <a href="http://en.wikipedia.org/wiki/Tux#Tuz">Tuz</a>. <em>Tuz</em> es un <a href="http://es.wikipedia.org/wiki/Sarcophilus_harrisii">Demonio de Tazmania</a> con un antifaz en forma de pico.</p>
+<p>La razón de esta nueva imagen es promover las labores de conservación de esta especie. Su población ha disminuido significativamente por un <a href="http://es.wikipedia.org/wiki/Sarcophilus_harrisii#Tumor_facial_de_los_demonios">tumor facial</a>, enfermedad mortal para estos animales. Más información en <a href="http://tassiedevil.com.au/">Save The Tasmanian Devil</a>.</p>
+<p>Regresando al software libre, hace un par de semanas esta versión del Linux (en concreto <em>gentoo-sources-2.6.29-r5</em>) fue marcada como <em>estable</em> en el <em>portage</em> de <a href="http://www.gentoo.org/">Gentoo Linux</a>. A continuación describo la configuración y compilación de este kernel para la portátil Dell Inspiron 9300...</p>
+<h3>Descarga</h3>
+<p>Como es habitual para <em>Gentoo Linux</em>, actualizamos primero el <em>portage</em>.</p>
+<div class="highlight"><pre><span></span><code># emerge --sync
+</code></pre></div>
+
+<p>Ejecutamos <em>emerge</em> con el parámetro "p" que nos dirá la versión que pretendería instalar de <em>gentoo-sources</em>.</p>
+<div class="highlight"><pre><span></span><code># emerge -pu gentoo-sources
+</code></pre></div>
+
+<p>Si estamos de acuerdo, instalamos el código fuente del kernel.</p>
+<div class="highlight"><pre><span></span><code># emerge -u gentoo-sources
+</code></pre></div>
+
+<p>Encontraremos el código fuente en el directorio /usr/src</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># ls -l /usr/src/</span>
+<span class="n">lrwxrwxrwx</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w">   </span><span class="mi">22</span><span class="w"> </span><span class="n">jun</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">20</span><span class="o">:</span><span class="mi">19</span><span class="w"> </span><span class="n">linux</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">linux</span><span class="o">-</span><span class="mf">2.6.29</span><span class="o">-</span><span class="n">gentoo</span><span class="o">-</span><span class="n">r5</span>
+<span class="n">drwxr</span><span class="o">-</span><span class="n">xr</span><span class="o">-</span><span class="n">x</span><span class="w"> </span><span class="mi">22</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="mi">4096</span><span class="w"> </span><span class="n">jun</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="mi">20</span><span class="o">:</span><span class="mi">19</span><span class="w"> </span><span class="n">linux</span><span class="o">-</span><span class="mf">2.6.29</span><span class="o">-</span><span class="n">gentoo</span><span class="o">-</span><span class="n">r5</span>
+</code></pre></div>
+
+<p>Haga el enlace "linux" al "linux-2.6.29-gentoo-r5" manualmente si no lo tiene.</p>
+<p>Nos cambiamos al directorio de las nuevas fuentes del kernel.</p>
+<div class="highlight"><pre><span></span><code># cd /usr/src/linux
+</code></pre></div>
+
+<p>Esta es una representación gráfica del tamaño de los archivos contenidos en <em>/usr/src/linux-2.6.29-gentoo-r5</em></p>
+<p><img class="img-fluid" src="usr-src-linux.png"></p>
+<h3><em>Hackear</em> el controlador ipw2200</h3>
+<p>Por defecto, la tarjeta inalámbrica Intel ipw2200 me permite usar <em>11 canales</em>. Es posible cambiar este parámetro a <em>14 canales</em>.</p>
+<p>Con este cambio y con un <em>punto de acceso</em> en el canal 14 podrá establecer una comunicación fuera del rango de los equipos nacionales. En pocas palabras, una capa más de seguridad. Por ejemplo, un <em>LinkSys WRT54G</em> con <em>DD-WRT</em> me permite usar el canal 14:</p>
+<p><img class="img-fluid" src="linksys-wrt54g-dd-wrt-channel-14.png"></p>
+<p>Hay dos formas de cambiar este parámetro a <em>14</em>: alterando el EEPROM de la tarjeta inalábrica o cambiando el código fuente del controlador de la tarjeta antes de compilar el kernel. Le mostraré la segunda opción.</p>
+<p>Por medio del editor <em>vim</em> cargue el código fuente del controlador.</p>
+<div class="highlight"><pre><span></span><code><span class="p">#</span><span class="w"> </span><span class="n">vim</span><span class="w"> </span><span class="n">drivers</span><span class="o">/</span><span class="n">net</span><span class="o">/</span><span class="n">wireless</span><span class="o">/</span><span class="n">ipw2x00</span><span class="o">/</span><span class="n">ipw2200</span><span class="p">.</span><span class="n">c</span>
+</code></pre></div>
+
+<p>Busque el texto <em>EEPROM_COUNTRY_CODE</em>. Para ello teclee "/", la cadena a buscar <em>EEPROM_COUNTRY_CODE</em> y presione <em>ENTER</em>.</p>
+<div class="highlight"><pre><span></span><code>/EEPROM_COUNTRY_CODE
+</code></pre></div>
+
+<p>Lo anterior nos llevará a la línea del código del controlador que toma el valor de la locación geográfica fijada en la fábrica.</p>
+<p>Observe el siguiente fragmento donde la línea con "-" es la original y la línea con "+" es la cambiada. Presione "i" para editar el texto y efectúe el cambio a "ZZR".</p>
+<div class="highlight"><pre><span></span><code><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">j</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">ARRAY_SIZE</span><span class="p">(</span><span class="n">ipw_geos</span><span class="p">);</span><span class="w"> </span><span class="n">j</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="err">{</span>
+<span class="o">-</span><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">!</span><span class="n">memcmp</span><span class="p">(</span><span class="o">&amp;</span><span class="n">priv</span><span class="o">-&gt;</span><span class="n">eeprom</span><span class="o">[</span><span class="n">EEPROM_COUNTRY_CODE</span><span class="o">]</span><span class="p">,</span>
+<span class="o">+</span><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="err">!</span><span class="n">memcmp</span><span class="p">(</span><span class="ss">&quot;ZZR&quot;</span><span class="p">,</span>
+<span class="w">             </span><span class="n">ipw_geos</span><span class="o">[</span><span class="n">j</span><span class="o">]</span><span class="p">.</span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">))</span>
+<span class="w">     </span><span class="k">break</span><span class="p">;</span>
+<span class="w"> </span><span class="err">}</span>
+</code></pre></div>
+
+<p>Para terminar de editar, presione <em>ESC</em> para salir del modo de edición. Luego, para guardar y salir teclee dos puntos, "w", "q" y <em>ENTER</em>.</p>
+<p>La región "ZZR" nos permite los 14 canales en redes 802.11bg. En el archivo <em>README</em> del controlador se encuentra la siguiente tabla sobre las regiones y canales que utilizan:</p>
+<div class="highlight"><pre><span></span><code>                                          Supported channels
+Code    Geography                       802.11bg        802.11a
+
+---     Restricted                      11               0
+ZZF     Custom US/Canada                11               8
+ZZD     Rest of World                   13               0
+ZZA     Custom USA &amp; Europe &amp; High      11              13
+ZZB     Custom NA &amp; Europe              11              13
+ZZC     Custom Japan                    11               4
+ZZM     Custom                          11               0
+ZZE     Europe                          13              19
+ZZJ     Custom Japan                    14               4
+ZZR     Rest of World                   14               0
+ZZH     High Band                       13               4
+ZZG     Custom Europe                   13               4
+ZZK     Europe                          13              24
+ZZL     Europe                          11              13
+</code></pre></div>
+
+<h3>Configurar el kernel</h3>
+<p>Para configurar el kernel Linux usando la interfaz <em>ncurses</em> y estando en el directorio del kernel mismo ejecute el siguiente comando.</p>
+<div class="highlight"><pre><span></span><code># make menuconfig
+</code></pre></div>
+
+<p>A partir de aquí estamos trabajando en la configuración, habilitando y deshabilitando opciones.</p>
+<p>La portátil <em>Dell Inspiron 9300</em> tiene un procesador <em>Intel Pentium-M</em>, así que deshabilito el soporte multi-procesador y selecciono "Pentium M" como la <em>familia</em> del procesador. Note también que he habilitado como módulo a "Dell laptop support" que me permite monitorear la temperatura y controlar la velocidad de los ventiladores.</p>
+<div class="highlight"><pre><span></span><code><span class="k">Proc</span><span class="nv">essor</span><span class="w"> </span><span class="nv">type</span><span class="w"> </span><span class="nv">and</span><span class="w"> </span><span class="nv">features</span>
+<span class="err">[</span><span class="w"> </span><span class="err">]</span><span class="w"> </span><span class="nf">Symmetric</span><span class="w"> </span><span class="nv">multi</span><span class="o">-</span><span class="nv">processing</span><span class="w"> </span><span class="nv">support</span>
+<span class="w">    </span><span class="k">Proc</span><span class="nv">essor</span><span class="w"> </span><span class="nv">family</span><span class="w"> </span><span class="p">(</span><span class="nv">Pentium</span><span class="w"> </span><span class="nv">M</span><span class="p">)</span>
+<span class="err">&lt;</span><span class="nf">M</span><span class="o">&gt;</span><span class="w"> </span><span class="nv">Dell</span><span class="w"> </span><span class="nv">laptop</span><span class="w"> </span><span class="nv">support</span>
+</code></pre></div>
+
+<p>Habilito las características de ahorro de energía y de variación de la frecuencia del procesador.</p>
+<div class="highlight"><pre><span></span><code>Power management and ACPI options
+CPU Frequency scaling
+[*] CPU Frequency scaling
+[*]   Enable CPUfreq debugging
+&lt;*&gt;   CPU frequency translation statistics
+[*]     CPU frequency translation statistics details
+       Default CPUFreq governor (ondemand)
+-*-   &#39;performance&#39; governor
+&lt;*&gt;   &#39;powersave&#39; governor
+&lt;*&gt;   &#39;userspace&#39; governor for userspace frequency scaling
+-*-   &#39;ondemand&#39; cpufreq policy governor
+&lt;*&gt;   &#39;conservative&#39; cpufreq governor
+      *** CPUFreq processor drivers ***
+&lt;*&gt;   ACPI Processor P-States driver
+</code></pre></div>
+
+<p>Esta portátil tiene una ranura <em>PCMCIA</em> con la cual conecto una segunda tarjeta inalámbrica con chip <em>Atheros</em>.</p>
+<div class="highlight"><pre><span></span><code>Bus options (PCI etc.)
+&lt;M&gt; PCCard (PCMCIA/CardBus) support
+&lt;M&gt;   16-bit PCMCIA support
+[*]     Load CIS updates from userspace (EXPERIMENTAL)
+[*]     PCMCIA control ioctl (obsolete)
+-*-   32-bit CardBus support
+*** PC-card bridges ***
+&lt;M&gt;   CardBus yenta-compatible bridge support
+</code></pre></div>
+
+<p>Deshabilito el soporte para <em>IPv6</em> ya que en la práctica no he tenido necesidad de usarlo. Habilito las opciones para <em>IP Tables</em> que me permiten configurar un <em>muro de fuego</em>.</p>
+<div class="highlight"><pre><span></span><code>Networking support ---&gt;
+&lt; &gt;   The IPv6 protocol
+[*] Network packet filtering framework (Netfilter) ---&gt;
+[ ]   Advanced netfilter configuration
+Core Netfilter Configuration ---&gt;
+-*- Netfilter LOG over NFNETLINK interface
+&lt;*&gt; Netfilter connection tracking support
+[*]   Connection tracking security mark support
+&lt;*&gt;   FTP protocol support
+&lt;*&gt;   IRC protocol support
+&lt;*&gt;   SIP protocol support
+&lt;*&gt;   Connection tracking netlink interface
+-*- Netfilter Xtables support (required for ip_tables)
+&lt;*&gt;   &quot;CONNSECMARK&quot; target support
+&lt;*&gt;   &quot;MARK&quot; target support
+&lt;*&gt;   &quot;NFLOG&quot; target support
+&lt;*&gt;   &quot;SECMARK&quot; target support
+&lt;*&gt;   &quot;TCPMSS&quot; target support
+&lt;*&gt;   &quot;conntrack&quot; connection tracking match support
+&lt;*&gt;   &quot;mark&quot; match support
+&lt;*&gt;   &quot;state&quot; match support
+IP: Netfilter Configuration ---&gt;
+&lt;*&gt; IPv4 connection tracking support (required for NAT)
+[*]   proc/sysctl compatibility with old connection tracking
+&lt;*&gt; IP tables support (required for filtering/masq/NAT)
+&lt;*&gt;   Packet filtering
+&lt;*&gt;     REJECT target support
+&lt;*&gt;   LOG target support
+&lt;*&gt;   ULOG target support
+&lt;*&gt;   Full NAT
+&lt;*&gt;     MASQUERADE target support
+&lt;*&gt;   Packet mangling
+</code></pre></div>
+
+<p>Tengo una llave <em>bluetooth</em> que conecto por USB.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Networking</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="o">---</span><span class="w"> </span><span class="n">Bluetooth</span><span class="w"> </span><span class="n">subsystem</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">L2CAP</span><span class="w"> </span><span class="n">protocol</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">SCO</span><span class="w"> </span><span class="n">links</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">RFCOMM</span><span class="w"> </span><span class="n">protocol</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">RFCOMM</span><span class="w"> </span><span class="n">TTY</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">BNEP</span><span class="w"> </span><span class="n">protocol</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Multicast</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Protocol</span><span class="w"> </span><span class="n">filter</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">HIDP</span><span class="w"> </span><span class="n">protocol</span><span class="w"> </span><span class="n">support</span>
+<span class="w">      </span><span class="n">Bluetooth</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">drivers</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w"> </span><span class="n">HCI</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">driver</span>
+</code></pre></div>
+
+<p>Tanto el disco duro como el lector de DVD funcionan bajo <em>SATA</em>. Opciones que habilito.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Serial</span><span class="w"> </span><span class="n">ATA</span><span class="w"> </span><span class="p">(</span><span class="n">prod</span><span class="p">)</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="kr">Parallel</span><span class="w"> </span><span class="n">ATA</span><span class="w"> </span><span class="p">(</span><span class="n">experimental</span><span class="p">)</span><span class="w"> </span><span class="n">drivers</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">ATA</span><span class="w"> </span><span class="n">ACPI</span><span class="w"> </span><span class="n">Support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">SATA</span><span class="w"> </span><span class="n">Port</span><span class="w"> </span><span class="n">Multiplier</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">AHCI</span><span class="w"> </span><span class="n">SATA</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">ATA</span><span class="w"> </span><span class="n">SFF</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">Intel</span><span class="w"> </span><span class="n">ESB</span><span class="p">,</span><span class="w"> </span><span class="n">ICH</span><span class="p">,</span><span class="w"> </span><span class="n">PIIX3</span><span class="p">,</span><span class="w"> </span><span class="n">PIIX4</span><span class="w"> </span><span class="n">PATA</span><span class="o">/</span><span class="n">SATA</span><span class="w"> </span><span class="n">support</span>
+</code></pre></div>
+
+<p>Habilito mis dispositivos de red: la alámbrica (Broadcom 440x/47xx), la inalámbrica (Intel PRO/Wireless 2200BG) y la inalámbrica PCMCIA (Atheros 5xxx).</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Network</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Ethernet</span><span class="w"> </span><span class="p">(</span><span class="mh">10</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="mh">100</span><span class="n">Mbit</span><span class="p">)</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Broadcom</span><span class="w"> </span><span class="mh">440</span><span class="n">x</span><span class="o">/</span><span class="mh">47</span><span class="n">xx</span><span class="w"> </span><span class="n">ethernet</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="n">Wireless</span><span class="w"> </span><span class="n">LAN</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Wireless</span><span class="w"> </span><span class="n">LAN</span><span class="w"> </span><span class="p">(</span><span class="n">IEEE</span><span class="w"> </span><span class="mf">802.11</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Atheros</span><span class="w"> </span><span class="mh">5</span><span class="n">xxx</span><span class="w"> </span><span class="n">wireless</span><span class="w"> </span><span class="n">cards</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Intel</span><span class="w"> </span><span class="n">PRO</span><span class="o">/</span><span class="n">Wireless</span><span class="w"> </span><span class="mh">2200</span><span class="n">BG</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="mh">2915</span><span class="n">ABG</span><span class="w"> </span><span class="n">Network</span><span class="w"> </span><span class="n">Connection</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">promiscuous</span><span class="w"> </span><span class="n">mode</span>
+<span class="o">-*-</span><span class="w">       </span><span class="n">Enable</span><span class="w"> </span><span class="n">radiotap</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="mf">802.11</span><span class="w"> </span><span class="n">raw</span><span class="w"> </span><span class="n">packet</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">       </span><span class="n">Enable</span><span class="w"> </span><span class="n">creation</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">RF</span><span class="w"> </span><span class="n">radiotap</span><span class="w"> </span><span class="n">promiscuous</span><span class="w"> </span><span class="n">interface</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">QoS</span><span class="w"> </span><span class="n">support</span>
+</code></pre></div>
+
+<p>Dentro de "Input device support" se encuentra "User level driver support" un módulo que me permite usar el <a href="http://es.wikipedia.org/wiki/Wiimote con la computadora">Wiimote</a>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="n">Input</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">-*-</span><span class="w"> </span><span class="n">Generic</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="p">(</span><span class="n">needed</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">keyboard</span><span class="p">,</span><span class="w"> </span><span class="n">mouse</span><span class="p">,</span><span class="w"> </span><span class="p">...)</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">Support</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">memoryless</span><span class="w"> </span><span class="n">force</span><span class="o">-</span><span class="n">feedback</span><span class="w"> </span><span class="n">devices</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Polled</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">skeleton</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">Mouse</span><span class="w"> </span><span class="kr">interface</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Joystick</span><span class="w"> </span><span class="kr">interface</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="nf">Event</span><span class="w"> </span><span class="kr">interface</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">Keyboards</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Mice</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Joysticks</span><span class="o">/</span><span class="n">Gamepads</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">   </span><span class="n">Tablets</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">   </span><span class="n">Touchscreens</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Miscellaneous</span><span class="w"> </span><span class="n">devices</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">User</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="n">driver</span><span class="w"> </span><span class="n">support</span>
+</code></pre></div>
+
+<p>Habilito el soporte <em>I2C</em> para el chip <em>Intel 82801</em> presente en la Dell Inspiron 9300.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="o">-*-</span><span class="w"> </span><span class="n">I2C</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">I2C</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="kr">interface</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Autoselect</span><span class="w"> </span><span class="n">pertinent</span><span class="w"> </span><span class="n">helper</span><span class="w"> </span><span class="n">modules</span>
+<span class="w">      </span><span class="n">I2C</span><span class="w"> </span><span class="n">Hardware</span><span class="w"> </span><span class="n">Bus</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Intel</span><span class="w"> </span><span class="mi">82801</span><span class="w"> </span><span class="p">(</span><span class="n">ICH</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Mi portátil tiene una tarjeta de video <em>ATI Radeon Mobility X300 (M22)</em> la cual <em>no</em> es de alto desempeño gráfico. Me ha satisfecho el controlador libre, mismo que se configura en el kernel.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="n">Graphics</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">agpgart</span><span class="w"> </span><span class="p">(</span><span class="n">AGP</span><span class="w"> </span><span class="n">Support</span><span class="p">)</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">ATI</span><span class="w"> </span><span class="n">chipset</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Direct</span><span class="w"> </span><span class="n">Rendering</span><span class="w"> </span><span class="n">Manager</span><span class="w"> </span><span class="p">(</span><span class="n">XFree86</span><span class="w"> </span><span class="mf">4.1.0</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">higher</span><span class="w"> </span><span class="n">DRI</span><span class="w"> </span><span class="n">support</span><span class="p">)</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">ATI</span><span class="w"> </span><span class="n">Radeon</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Backlight</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">LCD</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Lowlevel</span><span class="w"> </span><span class="n">Backlight</span><span class="w"> </span><span class="n">controls</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">Generic</span><span class="w"> </span><span class="p">(</span><span class="n">aka</span><span class="w"> </span><span class="n">Sharp</span><span class="w"> </span><span class="n">Corgi</span><span class="p">)</span><span class="w"> </span><span class="n">Backlight</span><span class="w"> </span><span class="n">Driver</span>
+</code></pre></div>
+
+<p>El dispositivo de sonido de esta portátil es <em>Intel AC97</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Sound</span><span class="w"> </span><span class="n">card</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Advanced</span><span class="w"> </span><span class="n">Linux</span><span class="w"> </span><span class="n">Sound</span><span class="w"> </span><span class="n">Architecture</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Sequencer</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">     </span><span class="n">Sequencer</span><span class="w"> </span><span class="n">dummy</span><span class="w"> </span><span class="n">client</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">OSS</span><span class="w"> </span><span class="n">Mixer</span><span class="w"> </span><span class="n">API</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">OSS</span><span class="w"> </span><span class="n">PCM</span><span class="w"> </span><span class="p">(</span><span class="n">digital</span><span class="w"> </span><span class="n">audio</span><span class="p">)</span><span class="w"> </span><span class="n">API</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">OSS</span><span class="w"> </span><span class="n">PCM</span><span class="w"> </span><span class="p">(</span><span class="n">digital</span><span class="w"> </span><span class="n">audio</span><span class="p">)</span><span class="w"> </span><span class="n">API</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">Include</span><span class="w"> </span><span class="n">plugin</span><span class="w"> </span><span class="n">system</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">OSS</span><span class="w"> </span><span class="n">Sequencer</span><span class="w"> </span><span class="n">API</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Dynamic</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">minor</span><span class="w"> </span><span class="n">numbers</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Support</span><span class="w"> </span><span class="n">old</span><span class="w"> </span><span class="n">ALSA</span><span class="w"> </span><span class="n">API</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Verbose</span><span class="w"> </span><span class="n">procfs</span><span class="w"> </span><span class="n">contents</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Generic</span><span class="w"> </span><span class="n">sound</span><span class="w"> </span><span class="n">devices</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">AC97</span><span class="w"> </span><span class="nf">Power</span><span class="o">-</span><span class="n">Saving</span><span class="w"> </span><span class="n">Mode</span>
+<span class="w">      </span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">     </span><span class="n">Default</span><span class="w"> </span><span class="n">time</span><span class="o">-</span><span class="n">out</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">AC97</span><span class="w"> </span><span class="nf">power</span><span class="o">-</span><span class="n">save</span><span class="w"> </span><span class="n">mode</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">PCI</span><span class="w"> </span><span class="n">sound</span><span class="w"> </span><span class="n">devices</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Intel</span><span class="o">/</span><span class="n">SiS</span><span class="o">/</span><span class="n">nVidia</span><span class="o">/</span><span class="n">AMD</span><span class="o">/</span><span class="n">ALi</span><span class="w"> </span><span class="n">AC97</span><span class="w"> </span><span class="n">Controller</span>
+</code></pre></div>
+
+<p>Es indispensable el soporte <em>USB</em>. Una opción que recomiendo activar es "USB selective suspend/resume and wakeup" que permite al equipo portátil ahorrar energía en lo que a dispositivos USB se refiere.</p>
+<div class="highlight"><pre><span></span><code><span class="n">Device</span><span class="w"> </span><span class="n">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">USB</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Support</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">Host</span><span class="o">-</span><span class="n">side</span><span class="w"> </span><span class="n">USB</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">USB</span><span class="w"> </span><span class="n">verbose</span><span class="w"> </span><span class="n">debug</span><span class="w"> </span><span class="n">messages</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">USB</span><span class="w"> </span><span class="n">announce</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">devices</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">USB</span><span class="w"> </span><span class="n">device</span><span class="w"> </span><span class="n">filesystem</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">USB</span><span class="w"> </span><span class="n">selective</span><span class="w"> </span><span class="n">suspend</span><span class="o">/</span><span class="n">resume</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">wakeup</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">USB</span><span class="w"> </span><span class="n">Monitor</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">EHCI</span><span class="w"> </span><span class="n">HCD</span><span class="w"> </span><span class="p">(</span><span class="n">USB</span><span class="w"> </span><span class="mf">2.0</span><span class="p">)</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">OHCI</span><span class="w"> </span><span class="n">HCD</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">     </span><span class="n">UHCI</span><span class="w"> </span><span class="n">HCD</span><span class="w"> </span><span class="p">(</span><span class="n">most</span><span class="w"> </span><span class="n">Intel</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">VIA</span><span class="p">)</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">USB</span><span class="w"> </span><span class="n">Modem</span><span class="w"> </span><span class="p">(</span><span class="n">CDC</span><span class="w"> </span><span class="n">ACM</span><span class="p">)</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">USB</span><span class="w"> </span><span class="n">Printer</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">USB</span><span class="w"> </span><span class="n">Mass</span><span class="w"> </span><span class="n">Storage</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">The</span><span class="w"> </span><span class="kr">shared</span><span class="w"> </span><span class="nf">table</span><span class="w"> </span><span class="kr">of</span><span class="w"> </span><span class="n">common</span><span class="w"> </span><span class="p">(</span><span class="kr">or</span><span class="w"> </span><span class="n">usual</span><span class="p">)</span><span class="w"> </span><span class="n">storage</span><span class="w"> </span><span class="n">devices</span>
+</code></pre></div>
+
+<p>Habilito el controlador del lector de tarjetas <em>SD</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="nx">Device</span><span class="w"> </span><span class="nx">Drivers</span><span class="w"> </span><span class="o">---&gt;</span>
+<span class="p">&lt;</span><span class="nx">M</span><span class="p">&gt;</span><span class="w"> </span><span class="nx">MMC</span><span class="o">/</span><span class="nx">SD</span><span class="o">/</span><span class="nx">SDIO</span><span class="w"> </span><span class="nx">card</span><span class="w"> </span><span class="nx">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">&lt;</span><span class="nx">M</span><span class="p">&gt;</span><span class="w">   </span><span class="nx">MMC</span><span class="w"> </span><span class="nx">block</span><span class="w"> </span><span class="nx">device</span><span class="w"> </span><span class="nx">driver</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="nx">Use</span><span class="w"> </span><span class="nx">bounce</span><span class="w"> </span><span class="nx">buffer</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="nx">simple</span><span class="w"> </span><span class="nx">hosts</span>
+<span class="p">&lt;</span><span class="nx">M</span><span class="p">&gt;</span><span class="w">   </span><span class="nx">Secure</span><span class="w"> </span><span class="nx">Digital</span><span class="w"> </span><span class="nx">Host</span><span class="w"> </span><span class="nx">Controller</span><span class="w"> </span><span class="nx">Interface</span><span class="w"> </span><span class="nx">support</span>
+<span class="p">&lt;</span><span class="nx">M</span><span class="p">&gt;</span><span class="w">     </span><span class="nx">SDHCI</span><span class="w"> </span><span class="nx">support</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">PCI</span><span class="w"> </span><span class="nx">bus</span>
+<span class="p">&lt;</span><span class="nx">M</span><span class="p">&gt;</span><span class="w">       </span><span class="nx">Ricoh</span><span class="w"> </span><span class="nx">MMC</span><span class="w"> </span><span class="nx">Controller</span><span class="w"> </span><span class="nx">Disabler</span><span class="w">  </span><span class="p">(</span><span class="nx">EXPERIMENTAL</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Luego de haber habilitado los dispositivos de red, regreso a habilitar las opciones de "Wireless" en "Networking support".</p>
+<div class="highlight"><pre><span></span><code><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Networking</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Wireless</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="p">{</span><span class="n">M</span><span class="p">}</span><span class="w">   </span><span class="n">Improved</span><span class="w"> </span><span class="n">wireless</span><span class="w"> </span><span class="n">configuration</span><span class="w"> </span><span class="n">API</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">     </span><span class="n">cfg80211</span><span class="w"> </span><span class="n">regulatory</span><span class="w"> </span><span class="n">debugging</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">nl80211</span><span class="w"> </span><span class="n">new</span><span class="w"> </span><span class="n">netlink</span><span class="w"> </span><span class="n">interface</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Old</span><span class="w"> </span><span class="n">wireless</span><span class="w"> </span><span class="n">static</span><span class="w"> </span><span class="n">regulatory</span><span class="w"> </span><span class="n">definitions</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">Wireless</span><span class="w"> </span><span class="n">extensions</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Wireless</span><span class="w"> </span><span class="n">extensions</span><span class="w"> </span><span class="n">sysfs</span><span class="w"> </span><span class="n">files</span>
+<span class="p">{</span><span class="n">M</span><span class="p">}</span><span class="w">   </span><span class="n">Common</span><span class="w"> </span><span class="n">routines</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">IEEE802</span><span class="mf">.11</span><span class="w"> </span><span class="n">drivers</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">   </span><span class="n">lib80211</span><span class="w"> </span><span class="n">debugging</span><span class="w"> </span><span class="n">messages</span>
+<span class="o">&lt;</span><span class="n">M</span><span class="o">&gt;</span><span class="w">   </span><span class="n">Generic</span><span class="w"> </span><span class="n">IEEE</span><span class="w"> </span><span class="mf">802.11</span><span class="w"> </span><span class="n">Networking</span><span class="w"> </span><span class="n">Stack</span><span class="w"> </span><span class="p">(</span><span class="n">mac80211</span><span class="p">)</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">mac80211</span><span class="w"> </span><span class="n">mesh</span><span class="w"> </span><span class="n">networking</span><span class="w"> </span><span class="p">(</span><span class="n">pre</span><span class="o">-</span><span class="mf">802.11</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">support</span>
+<span class="o">-*-</span><span class="w">     </span><span class="n">Enable</span><span class="w"> </span><span class="n">LED</span><span class="w"> </span><span class="n">triggers</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">     </span><span class="n">Export</span><span class="w"> </span><span class="n">mac80211</span><span class="w"> </span><span class="n">internals</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="n">DebugFS</span>
+</code></pre></div>
+
+<p>La sección "File systems" es sumamente importante. Sencillamente, si se intenta cargar un GNU/Linux desde una partición con un sistema de archivos no soportado, nos ocasionaría un <em>kernel panic</em>. Note que aquí aparece el nuevo sistema de archivos <em>Btrfs</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="n">File</span><span class="w"> </span><span class="n">systems</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Second</span><span class="w"> </span><span class="n">extended</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Ext3</span><span class="w"> </span><span class="n">journalling</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Reiserfs</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">Btrfs</span><span class="w"> </span><span class="n">filesystem</span><span class="w"> </span><span class="p">(</span><span class="n">EXPERIMENTAL</span><span class="p">)</span><span class="w"> </span><span class="n">Unstable</span><span class="w"> </span><span class="n">disk</span><span class="w"> </span><span class="n">format</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Dnotify</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Inotify</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">change</span><span class="w"> </span><span class="n">notification</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Inotify</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">userspace</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Quota</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Report</span><span class="w"> </span><span class="n">quota</span><span class="w"> </span><span class="n">messages</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">netlink</span><span class="w"> </span><span class="kr">interface</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Quota</span><span class="w"> </span><span class="n">format</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="n">support</span>
+<span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">Kernel</span><span class="w"> </span><span class="n">automounter</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="mi">4</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="p">(</span><span class="n">also</span><span class="w"> </span><span class="n">supports</span><span class="w"> </span><span class="n">v3</span><span class="p">)</span>
+<span class="w">    </span><span class="n">CD</span><span class="o">-</span><span class="n">ROM</span><span class="o">/</span><span class="n">DVD</span><span class="w"> </span><span class="n">Filesystems</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">ISO</span><span class="w"> </span><span class="mi">9660</span><span class="w"> </span><span class="n">CDROM</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Microsoft</span><span class="w"> </span><span class="n">Joliet</span><span class="w"> </span><span class="n">CDROM</span><span class="w"> </span><span class="n">extensions</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Transparent</span><span class="w"> </span><span class="n">decompression</span><span class="w"> </span><span class="n">extension</span>
+<span class="w">    </span><span class="n">DOS</span><span class="o">/</span><span class="n">FAT</span><span class="o">/</span><span class="n">NT</span><span class="w"> </span><span class="n">Filesystems</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">MSDOS</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w"> </span><span class="n">VFAT</span><span class="w"> </span><span class="p">(</span><span class="n">Windows</span><span class="o">-</span><span class="mi">95</span><span class="p">)</span><span class="w"> </span><span class="n">fs</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="n">Pseudo</span><span class="w"> </span><span class="n">filesystems</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="o">-*-</span><span class="w"> </span><span class="o">/</span><span class="n">proc</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">kcore</span><span class="w"> </span><span class="n">support</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="o">/</span><span class="n">proc</span><span class="o">/</span><span class="n">vmcore</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="p">(</span><span class="n">EXPERIMENTAL</span><span class="p">)</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="kr">Virtual</span><span class="w"> </span><span class="n">memory</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="p">(</span><span class="n">former</span><span class="w"> </span><span class="n">shm</span><span class="w"> </span><span class="n">fs</span><span class="p">)</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w">   </span><span class="n">Tmpfs</span><span class="w"> </span><span class="n">POSIX</span><span class="w"> </span><span class="n">Access</span><span class="w"> </span><span class="n">Control</span><span class="w"> </span><span class="n">Lists</span>
+<span class="w">    </span><span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">HugeTLB</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="n">support</span>
+<span class="p">[</span><span class="o">*</span><span class="p">]</span><span class="w"> </span><span class="n">Network</span><span class="w"> </span><span class="n">File</span><span class="w"> </span><span class="n">Systems</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">CIFS</span><span class="w"> </span><span class="n">support</span><span class="w"> </span><span class="p">(</span><span class="n">advanced</span><span class="w"> </span><span class="n">network</span><span class="w"> </span><span class="n">filesystem</span><span class="p">,</span><span class="w"> </span><span class="n">SMBFS</span><span class="w"> </span><span class="n">successor</span><span class="p">)</span>
+<span class="w">    </span><span class="kr">Partition</span><span class="w"> </span><span class="n">Types</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w"> </span><span class="n">Advanced</span><span class="w"> </span><span class="kr">partition</span><span class="w"> </span><span class="n">selection</span>
+<span class="o">-*-</span><span class="w"> </span><span class="n">Native</span><span class="w"> </span><span class="n">language</span><span class="w"> </span><span class="n">support</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">    </span><span class="p">(</span><span class="n">utf8</span><span class="p">)</span><span class="w"> </span><span class="n">Default</span><span class="w"> </span><span class="n">NLS</span><span class="w"> </span><span class="n">Option</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Codepage</span><span class="w"> </span><span class="mi">437</span><span class="w"> </span><span class="p">(</span><span class="n">United</span><span class="w"> </span><span class="n">States</span><span class="p">,</span><span class="w"> </span><span class="n">Canada</span><span class="p">)</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w">   </span><span class="kt">ASCII</span><span class="w"> </span><span class="p">(</span><span class="n">United</span><span class="w"> </span><span class="n">States</span><span class="p">)</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">NLS</span><span class="w"> </span><span class="n">ISO</span><span class="w"> </span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span><span class="w">  </span><span class="p">(</span><span class="n">Latin</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">Western</span><span class="w"> </span><span class="n">European</span><span class="w"> </span><span class="n">Languages</span><span class="p">)</span>
+<span class="w">    </span><span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">NLS</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</code></pre></div>
+
+<p>Es necesario habilitar las siguientes opciones para usar redes <em>WiFi</em> cifradas como <em>WEP</em> y <em>WPA</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="o">-*-</span><span class="w"> </span><span class="n">Cryptographic</span><span class="w"> </span><span class="n">API</span><span class="w">  </span><span class="o">---&gt;</span>
+<span class="w">      </span><span class="o">***</span><span class="w"> </span><span class="n">Crypto</span><span class="w"> </span><span class="n">core</span><span class="w"> </span><span class="kr">or</span><span class="w"> </span><span class="n">helper</span><span class="w"> </span><span class="o">***</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">Cryptographic</span><span class="w"> </span><span class="n">algorithm</span><span class="w"> </span><span class="n">manager</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">Authenc</span><span class="w"> </span><span class="n">support</span>
+<span class="w">      </span><span class="o">***</span><span class="w"> </span><span class="n">Block</span><span class="w"> </span><span class="n">modes</span><span class="w"> </span><span class="o">***</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">CBC</span><span class="w"> </span><span class="n">support</span>
+<span class="p">{</span><span class="o">*</span><span class="p">}</span><span class="w">   </span><span class="n">ECB</span><span class="w"> </span><span class="n">support</span>
+<span class="w">      </span><span class="o">***</span><span class="w"> </span><span class="nf">Hash</span><span class="w"> </span><span class="n">modes</span><span class="w"> </span><span class="o">***</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">HMAC</span><span class="w"> </span><span class="n">support</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">MD5</span><span class="w"> </span><span class="n">digest</span><span class="w"> </span><span class="n">algorithm</span>
+<span class="p">{</span><span class="n">M</span><span class="p">}</span><span class="w">   </span><span class="n">Michael</span><span class="w"> </span><span class="n">MIC</span><span class="w"> </span><span class="kr">keyed</span><span class="w"> </span><span class="n">digest</span><span class="w"> </span><span class="n">algorithm</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">SHA1</span><span class="w"> </span><span class="n">digest</span><span class="w"> </span><span class="n">algorithm</span>
+<span class="w">      </span><span class="o">***</span><span class="w"> </span><span class="n">Ciphers</span><span class="w"> </span><span class="o">***</span>
+<span class="o">-*-</span><span class="w">   </span><span class="n">AES</span><span class="w"> </span><span class="n">cipher</span><span class="w"> </span><span class="n">algorithms</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">AES</span><span class="w"> </span><span class="n">cipher</span><span class="w"> </span><span class="n">algorithms</span><span class="w"> </span><span class="p">(</span><span class="n">i586</span><span class="p">)</span>
+<span class="p">{</span><span class="o">*</span><span class="p">}</span><span class="w">   </span><span class="n">ARC4</span><span class="w"> </span><span class="n">cipher</span><span class="w"> </span><span class="n">algorithm</span>
+<span class="o">&lt;*&gt;</span><span class="w">   </span><span class="n">DES</span><span class="w"> </span><span class="kr">and</span><span class="w"> </span><span class="n">Triple</span><span class="w"> </span><span class="n">DES</span><span class="w"> </span><span class="n">EDE</span><span class="w"> </span><span class="n">cipher</span><span class="w"> </span><span class="n">algorithms</span>
+<span class="w">      </span><span class="o">***</span><span class="w"> </span><span class="nf">Random</span><span class="w"> </span><span class="n">Number</span><span class="w"> </span><span class="n">Generation</span><span class="w"> </span><span class="o">***</span>
+<span class="p">[</span><span class="w"> </span><span class="p">]</span><span class="w">   </span><span class="n">Hardware</span><span class="w"> </span><span class="n">crypto</span><span class="w"> </span><span class="n">devices</span><span class="w">  </span><span class="o">---&gt;</span>
+</code></pre></div>
+
+<p>Para terminar, vaya a la pantalla inicial de la configuración y elija <em>Exit</em>.</p>
+<p>Le preguntará <em>Do you wish to save your new kernel configuration?</em> a lo que debemos responder <em>YES</em> de lo contrario perderemos todos los cambios hechos.</p>
+<h3>Compilar</h3>
+<p>De vuelta en la terminal, ejecutamos <em>make</em> para compilar.</p>
+<div class="highlight"><pre><span></span><code># make
+</code></pre></div>
+
+<h3>Instalar</h3>
+<p>El siguiente paso en instalar los <em>módulos</em>. Si hubiera una instalación de esta misma verisón del kernel hay que eliminar los módulos anteriores antes de instalar los nuevos.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> rm -rf /lib/modules/2.6.29-gentoo-r5
+<span class="gh">#</span> make modules_install
+</code></pre></div>
+
+<p>Como tengo una partición para el arranque, la monto y elimino los archivos de alguna instalación anterior de esta misma versión del kernel.</p>
+<div class="highlight"><pre><span></span><code># mount /boot
+# rm /boot/config
+# rm /boot/config-2.6.29-gentoo-r5
+# rm /boot/System.map
+# rm /boot/System.map-2.6.29-gentoo-r5
+# rm /boot/vmlinuz
+# rm /boot/vmlinuz-2.6.29-gentoo-r5
+</code></pre></div>
+
+<p>Ejecuto <em>make install</em> para que me copie <em>vmlinuz</em>, <em>System.map</em> y <em>config</em> a /boot</p>
+<div class="highlight"><pre><span></span><code># make install
+</code></pre></div>
+
+<p>Edito la configuración del gestor de arranque <em>Grub</em> para tener la opción de este nuevo kernel.</p>
+<div class="highlight"><pre><span></span><code># nano /boot/grub/grub.conf
+</code></pre></div>
+
+<p>Mi archivo <em>grub.conf</em> es así...</p>
+<div class="highlight"><pre><span></span><code>#
+# /boot/grub/grub.conf
+#
+
+default 0
+timeout 3
+splashimage=(hd0,0)/boot/grub/splash.xpm.gz
+
+title Gentoo Linux - KDE 3.5.9 - 2.6.29-r5 NUEVO
+root (hd0,0)
+kernel /vmlinuz-2.6.29-gentoo-r5 root=/dev/sda7 resume=/dev/sda5
+</code></pre></div>
+
+<p>Puede necesitar cargar algunos módulos cada vez que arranque el equipo. Eso se configura en el archivo /etc/modules.autoload.d/kernel-2.6</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># nano /etc/modules.autoload.d/kernel-2.6</span>
+</code></pre></div>
+
+<p>En /etc/modules.autoload.d/kernel-2.6 tengo:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Dell Inspiron, monitor temperatura y ventiladores
+i8k
+
+<span class="gh">#</span> Tarjeta PCMCIA
+yenta_socket
+
+<span class="gh">#</span> Lector de tarjetas SD
+mmc_core
+ricoh_mmc
+
+<span class="gh">#</span> Red inalámbrica Intel IPW2200
+ipw2200
+
+<span class="gh">#</span> WiiMote
+uinput
+</code></pre></div>
+
+<p>La configuración de la tarjeta de sonido reside en el archivo /etc/modprobe.d/alsa</p>
+<div class="highlight"><pre><span></span><code># nano /etc/modprobe.d/alsa
+</code></pre></div>
+
+<p>Y lo tengo con este contenido apropiado para la <em>Intel AC97</em>...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span>
+# /etc/modprobe.d/alsa
+#
+
+<span class="gh">#</span> ALSA portion
+alias char-major-116 snd
+<span class="gh">#</span> OSS/Free portion
+alias char-major-14 soundcore
+
+<span class="gh">#</span>
+# Intel AC97
+<span class="gh">#</span>
+# ALSA portion
+alias snd-card-0 snd-intel8x0
+<span class="gh">#</span> OSS/Free portion
+alias sound-slot-0 snd-card-0
+
+<span class="gh">#</span> OSS/Free portion - card #1
+alias sound-service-0-0 snd-mixer-oss
+alias sound-service-0-1 snd-seq-oss
+alias sound-service-0-3 snd-pcm-oss
+alias sound-service-0-8 snd-seq-oss
+alias sound-service-0-12 snd-pcm-oss
+
+alias /dev/mixer snd-mixer-oss
+alias /dev/dsp snd-pcm-oss
+alias /dev/midi snd-seq-oss
+
+<span class="gh">#</span> Set this to the correct number of cards.
+options snd cards_limit=1
+</code></pre></div>
+
+<p>Después de modificar estos archivos refresque los módulos a cargar con <em>update-modules</em>.</p>
+<div class="highlight"><pre><span></span><code># update-modules
+</code></pre></div>
+
+<p>Reinicie el equipo y pruebe su kernel 2.6.29.</p>
+<h3>Revisión del controlador ipw2200 <em>hackeado</em></h3>
+<p>Para revisar la carga del controlador de la tarjeta inalámbrica ipw2200 ejecute...</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ipw
+</code></pre></div>
+
+<p>Si aparece "Detected geography ZZR (14 802.11bg channels, 0 802.11a channels)" tendrá su controlador <em>hackeado</em>.</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>dmesg<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>ipw
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.641026<span class="o">]</span><span class="w"> </span>ipw2200:<span class="w"> </span>Intel<span class="o">(</span>R<span class="o">)</span><span class="w"> </span>PRO/Wireless<span class="w"> </span><span class="m">2200</span>/2915<span class="w"> </span>Network<span class="w"> </span>Driver,<span class="w"> </span><span class="m">1</span>.2.2kmprq
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.641029<span class="o">]</span><span class="w"> </span>ipw2200:<span class="w"> </span>Copyright<span class="o">(</span>c<span class="o">)</span><span class="w"> </span><span class="m">2003</span>-2006<span class="w"> </span>Intel<span class="w"> </span>Corporation
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.641090<span class="o">]</span><span class="w"> </span>ipw2200<span class="w"> </span><span class="m">0000</span>:03:03.0:<span class="w"> </span>PCI<span class="w"> </span>INT<span class="w"> </span>A<span class="w"> </span>-&gt;<span class="w"> </span>GSI<span class="w"> </span><span class="m">17</span><span class="w"> </span><span class="o">(</span>level,<span class="w"> </span>low<span class="o">)</span><span class="w"> </span>-&gt;<span class="w"> </span>IRQ<span class="w"> </span><span class="m">17</span>
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.663652<span class="o">]</span><span class="w"> </span>ipw2200:<span class="w"> </span>Detected<span class="w"> </span>Intel<span class="w"> </span>PRO/Wireless<span class="w"> </span>2200BG<span class="w"> </span>Network<span class="w"> </span>Connection
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.663693<span class="o">]</span><span class="w"> </span>eth1<span class="w"> </span><span class="o">(</span>ipw2200<span class="o">)</span>:<span class="w"> </span>not<span class="w"> </span>using<span class="w"> </span>net_device_ops<span class="w"> </span>yet
+<span class="o">[</span><span class="w">    </span><span class="m">4</span>.663697<span class="o">]</span><span class="w"> </span>ipw2200<span class="w"> </span><span class="m">0000</span>:03:03.0:<span class="w"> </span>firmware:<span class="w"> </span>requesting<span class="w"> </span>ipw2200-bss.fw
+<span class="o">[</span><span class="w">    </span><span class="m">5</span>.121085<span class="o">]</span><span class="w"> </span>ipw2200:<span class="w"> </span>Detected<span class="w"> </span>geography<span class="w"> </span>ZZR<span class="w"> </span><span class="o">(</span><span class="m">14</span><span class="w"> </span><span class="m">802</span>.11bg<span class="w"> </span>channels,<span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="m">802</span>.11a<span class="w"> </span>channels<span class="o">)</span>
+</code></pre></div>
+
+<p>Otra forma de comprobar esto es ejecutando <em>iwlist <em>dispositivo</em> channel</em>:</p>
+<div class="highlight"><pre><span></span><code># iwlist eth1 channel
+eth1      14 channels in total; available frequencies :
+    Channel 01 : 2.412 GHz
+    Channel 02 : 2.417 GHz
+    Channel 03 : 2.422 GHz
+    Channel 04 : 2.427 GHz
+    Channel 05 : 2.432 GHz
+    Channel 06 : 2.437 GHz
+    Channel 07 : 2.442 GHz
+    Channel 08 : 2.447 GHz
+    Channel 09 : 2.452 GHz
+    Channel 10 : 2.457 GHz
+    Channel 11 : 2.462 GHz
+    Channel 12 : 2.467 GHz
+    Channel 13 : 2.472 GHz
+    Channel 14 : 2.484 GHz
+    Current Frequency=2.412 GHz (Channel 1)
+</code></pre></div>
+
+<p>Le deseo un desempeño exitoso en su nuevo kernel.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

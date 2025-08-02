@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Turpial es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en Python, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad.">
+    <meta name="keywords" content="gentoo linux, software libre, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Instalación de Turpial (cliente de Twitter) en Gentoo Linux">
+    <meta name="twitter:description" content="Turpial es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en Python, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/twitter-turpial/turpial-icon.png">
+    <meta property="og:title" content="Instalación de Turpial (cliente de Twitter) en Gentoo Linux">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/twitter-turpial/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/twitter-turpial/turpial-icon.png">
+    <meta property="og:description" content="Turpial es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en Python, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Instalación de Turpial (cliente de Twitter) en Gentoo Linux - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Instalación de Turpial (cliente de Twitter) en Gentoo Linux",
+                "headline": "Instalación de Turpial (cliente de Twitter) en Gentoo Linux",
+                "description": "Turpial es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en Python, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad.",
+                "dateCreated": "2010-10-18 14:00:00-05:00",
+                "datePublished": "2010-10-18 14:00:00-05:00",
+                "dateModified": "2010-10-18 14:00:00-05:00",
+                "image": "https://movimientolibre.com/apuntes/twitter-turpial/turpial-icon.png",
+                "url": "https://movimientolibre.com/apuntes/twitter-turpial/"
+            }
+        </script>
+        <h2>Instalación de Turpial (cliente de Twitter) en Gentoo Linux</h2>
+        <p class="lead">Turpial es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en Python, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad.</p>
+        <p>18 October 2010</p>
+        <p><a href="http://turpial.org.ve/">Turpial</a> es un proyecto que busca ser un cliente alternativo para Twitter. Está escrito en <em>Python</em>, tiene como meta ser una aplicación con bajo consumo de recursos y que se integre al escritorio del usuario pero sin renunciar a ninguna funcionalidad. Es software libre de origen venezolano, liberado bajo la licencia GPL 3.</p>
+<h3>1) Descargue</h3>
+<p>La última versión al escribir este artículo es la 1.3.4 y lo encontrará en:</p>
+<div class="highlight"><pre><span></span><code>http://code.google.com/p/turpial/
+</code></pre></div>
+
+<h3>2) Desempaque</h3>
+<p>Como está hecho en Python no se requiere compilación o instalación (es opcional). Desempaque con:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>tar<span class="w"> </span>xvf<span class="w"> </span>turpial-1.3.4.tar.gz
+</code></pre></div>
+
+<h3>3) Instale las dependencias</h3>
+<p>Según el archivo <em>README.rst</em> se necesitan los siguientes paquetes:</p>
+<div class="highlight"><pre><span></span><code><span class="n">python</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">2.5</span>
+<span class="n">python</span><span class="o">-</span><span class="n">simplejson</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">1.9</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">python</span><span class="o">-</span><span class="n">gtk2</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">2.12</span>
+<span class="n">python</span><span class="o">-</span><span class="n">notify</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0.1</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">python</span><span class="o">-</span><span class="n">pygame</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">1.7</span>
+<span class="n">python</span><span class="o">-</span><span class="n">pybabel</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">0.9</span><span class="o">.</span><span class="mi">1</span>
+<span class="n">python</span><span class="o">-</span><span class="n">gtkspell</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mf">2.25</span><span class="o">.</span><span class="mi">3</span>
+<span class="n">python</span><span class="o">-</span><span class="n">webkit</span>
+<span class="n">python</span><span class="o">-</span><span class="n">setuptools</span>
+</code></pre></div>
+
+<p>Si usa Ubuntu o Debian lea el mismo archivo <em>README.rst</em> donde se detalla la instalación de los paquetes anteriores.</p>
+<p>Para Gentoo Linux podemos asegurar que Python está instalado por defecto. Así que, como root, revisamos cuáles paquetes nos faltan con:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># emerge -pv simplejson pygtk notify-python pygame Babel gtkspell-python pywebkitgtk setuptools</span>
+</code></pre></div>
+
+<p>Tras la revisión, en mi caso particular veo que:</p>
+<ul>
+<li>Ya tengo instalado <em>pygtk</em> y <em>setuptools</em>.</li>
+<li>Como uso el entorno de escritorio KDE, desactivo el soporte <em>gstreamer</em> solicitado por <em>webkit-gtk</em> (otra dependencia más) agregando <em>-gstreamer</em> a la variable <em>USE</em> en <em>/etc/make.conf</em>. Si usted prefiere Gnome o usa GStreamer, no lo desactive.</li>
+</ul>
+<p>Reviso de nuevo...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">emerge</span><span class="w"> </span><span class="o">-</span><span class="nx">pv</span><span class="w"> </span><span class="nx">simplejson</span><span class="w"> </span><span class="nx">notify</span><span class="o">-</span><span class="nx">python</span><span class="w"> </span><span class="nx">pygame</span><span class="w"> </span><span class="nx">Babel</span><span class="w"> </span><span class="nx">gtkspell</span><span class="o">-</span><span class="nx">python</span><span class="w"> </span><span class="nx">pywebkitgtk</span>
+</code></pre></div>
+
+<p>Ahora sí, a instalar los paquetes faltantes...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">emerge</span><span class="w"> </span><span class="nx">simplejson</span><span class="w"> </span><span class="nx">notify</span><span class="o">-</span><span class="nx">python</span><span class="w"> </span><span class="nx">pygame</span><span class="w"> </span><span class="nx">Babel</span><span class="w"> </span><span class="nx">gtkspell</span><span class="o">-</span><span class="nx">python</span><span class="w"> </span><span class="nx">pywebkitgtk</span>
+</code></pre></div>
+
+<h3>4) Ejecute Turpial</h3>
+<p>Cámbiese al directorio donde desempacó Turpial, en mi caso es /mnt/archivos/software/turpial/turpial-1.3.4</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>/mnt/archivos/software/turpial/turpial-1.3.4
+</code></pre></div>
+
+<p>Agregue el directorio actual (donde se encuentra turpial-1.3.4) a la variable de entorno <em>PYTHONPATH</em>. La variable de entorno <em>$PWD</em> lo tiene:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PWD</span>
+</code></pre></div>
+
+<p>Ejecute con el parámetro <em>-i gtk</em> para usar la interfaz GTK+</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>turpial/main.py<span class="w"> </span>-i<span class="w"> </span>gtk
+</code></pre></div>
+
+<p>La primer ejecución involucra la autentificación con Twitter.</p>
+<p><img class="img-fluid" src="turpial-inicio-sesion.png" alt="Turpial inicio sesion"></p>
+<p><img class="img-fluid" src="turpial-ventana.jpg" alt="Turpial ventana"></p>
+<p>Para lanzar Turpial fácilmente, elabore un Bash Script con los pasos anteriores:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="nb">cd</span><span class="w"> </span>/mnt/archivos/software/turpial/turpial-1.3.4
+<span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span><span class="nv">$PWD</span>
+python<span class="w"> </span>turpial/main.py<span class="w"> </span>-i<span class="w"> </span>gtk
+</code></pre></div></td></tr></table></div>
+
+<h3>5) Opcionalmente puede instalarlo de forma permanente</h3>
+<p>Para integrarlo en su GNU/Linux:</p>
+<div class="highlight"><pre><span></span><code># python setup.py install
+</code></pre></div>
+
+<p>Un dato curioso de Turpial es que su nombre es el del ave nacional de venezuela. ¿Será por ello que el programa emite cantos de ave cuando llegan nuevos <em>twetts</em>?.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

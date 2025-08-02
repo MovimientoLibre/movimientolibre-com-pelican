@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Pasos para configurar un servidor del portage de Gentoo en la red local.">
+    <meta name="keywords" content="gentoo linux, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Gentoo Linux - Servidor local de portage">
+    <meta name="twitter:description" content="Pasos para configurar un servidor del portage de Gentoo en la red local.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/gentoo-portage-lan-server/preview.jpg">
+    <meta property="og:title" content="Gentoo Linux - Servidor local de portage">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/gentoo-portage-lan-server/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/gentoo-portage-lan-server/preview.jpg">
+    <meta property="og:description" content="Pasos para configurar un servidor del portage de Gentoo en la red local.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Gentoo Linux - Servidor local de portage - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Gentoo Linux - Servidor local de portage",
+                "headline": "Gentoo Linux - Servidor local de portage",
+                "description": "Pasos para configurar un servidor del portage de Gentoo en la red local.",
+                "dateCreated": "2017-03-23 07:42:00-06:00",
+                "datePublished": "2017-03-23 07:42:00-06:00",
+                "dateModified": "2017-03-23 07:42:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/gentoo-portage-lan-server/preview.jpg",
+                "url": "https://movimientolibre.com/apuntes/gentoo-portage-lan-server/"
+            }
+        </script>
+        <h2>Gentoo Linux - Servidor local de portage</h2>
+        <p class="lead">Pasos para configurar un servidor del portage de Gentoo en la red local.</p>
+        <p>23 March 2017</p>
+        <p><img alt="Pingüino armándose" src="imagen.jpg"></p>
+<h3>En el servidor local</h3>
+<p>Edite /etc/rsync.conf:</p>
+<div class="highlight"><pre><span></span><code># nano /etc/rsync.conf
+</code></pre></div>
+
+<p>Modifique el contenido de acuerdo a sus necesidades:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># This line is required by the /etc/init.d/rsyncd script</span>
+<span class="n">pid</span><span class="w"> </span><span class="n">file</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="k">var</span><span class="o">/</span><span class="n">run</span><span class="o">/</span><span class="n">rsyncd</span><span class="o">.</span><span class="n">pid</span>
+<span class="nb">max</span><span class="w"> </span><span class="n">connections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="n">use</span><span class="w"> </span><span class="n">chroot</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">yes</span>
+<span class="n">read</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">yes</span>
+<span class="n">uid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nobody</span>
+<span class="n">gid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">nobody</span>
+
+<span class="c1"># Si hay pocos equipos con Gentoo Linux</span>
+<span class="c1"># puede configurar el daemon para</span>
+<span class="c1"># limitar las comunicaciones con direcciones IP</span>
+<span class="c1">#hosts allow = 192.168.0.11 192.168.0.12 192.168.0.13</span>
+<span class="c1">#hosts deny  = *</span>
+
+<span class="p">[</span><span class="n">gentoo</span><span class="o">-</span><span class="n">portage</span><span class="p">]</span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">portage</span>
+<span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gentoo</span><span class="w"> </span><span class="n">Portage</span><span class="w"> </span><span class="n">tree</span>
+<span class="n">exclude</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">distfiles</span><span class="w"> </span><span class="o">/</span><span class="n">packages</span>
+
+<span class="p">[</span><span class="n">gentoo</span><span class="o">-</span><span class="n">distfiles</span><span class="p">]</span>
+<span class="n">path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">portage</span><span class="o">/</span><span class="n">distfiles</span>
+<span class="n">comment</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Gentoo</span><span class="w"> </span><span class="n">Portage</span><span class="w"> </span><span class="n">distfiles</span>
+</code></pre></div>
+
+<p>Arranque el <em>daemon</em>:</p>
+<div class="highlight"><pre><span></span><code># /etc/init.d/rsyncd start
+</code></pre></div>
+
+<p>Y configure que se inicie <strong>rsyncd</strong> al encender el equipo:</p>
+<div class="highlight"><pre><span></span><code># rc-update add rsyncd default
+</code></pre></div>
+
+<h3>En los clientes</h3>
+<p>En /etc/portage/make.conf</p>
+<div class="highlight"><pre><span></span><code># nano /etc/portage/make.conf
+</code></pre></div>
+
+<p>Defina el servidor local como fuente de los paquetes. Cambie <em>portage.redlocal.lan</em> por el nombre o dirección IP del servidor con el portage:</p>
+<div class="highlight"><pre><span></span><code>PORTDIR=&quot;/usr/portage&quot;
+DISTDIR=&quot;<span class="cp">${</span><span class="n">PORTDIR</span><span class="cp">}</span>/distfiles&quot;
+PKGDIR=&quot;<span class="cp">${</span><span class="n">PORTDIR</span><span class="cp">}</span>/packages&quot;
+FETCHCOMMAND=&quot;rsync<span class="w"> </span>rsync://portage.redlocal.lan/gentoo-distfiles/\<span class="cp">${</span><span class="n">FILE</span><span class="cp">}</span><span class="w"> </span>\<span class="cp">${</span><span class="n">DISTDIR</span><span class="cp">}</span>&quot;
+</code></pre></div>
+
+<p>Cree el directorio <strong>repos.conf</strong>:</p>
+<div class="highlight"><pre><span></span><code># mkdir /etc/portage/repos.conf
+# cd /etc/portage/repos.conf/
+</code></pre></div>
+
+<p>Y cree el archivo <strong>gentoo.conf</strong>:</p>
+<div class="highlight"><pre><span></span><code># nano gentoo.conf
+</code></pre></div>
+
+<p>Con este contenido, definiendo al servidor local de portage (no olvide cambiar <em>portage.redlocal.lan</em>):</p>
+<div class="highlight"><pre><span></span><code><span class="k">[DEFAULT]</span>
+<span class="na">main-repo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">gentoo</span>
+
+<span class="k">[gentoo]</span>
+<span class="na">location</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">/usr/portage</span>
+<span class="na">sync-type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">rsync</span>
+<span class="na">sync-uri</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">rsync://portage.redlocal.lan/gentoo-portage</span>
+<span class="na">auto-sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">yes</span>
+</code></pre></div>
+
+<p>Verifique que su muro de fuego para que el <strong>puerto 873</strong> esté abierto, tanto en el servidor como en los clientes.</p>
+<p>Pruebe que funcione en un cliente con el comando:</p>
+<div class="highlight"><pre><span></span><code># emerge --sync
+</code></pre></div>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

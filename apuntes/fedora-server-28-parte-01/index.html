@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Primeros pasos para la instalación de un servidor con Fedora Server 28.">
+    <meta name="keywords" content="fedora, gnu linux, servidores, software libre, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Instalación de Fedora Server 28, parte 1, instalación">
+    <meta name="twitter:description" content="Primeros pasos para la instalación de un servidor con Fedora Server 28.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-01/fedora-logo-icon.png">
+    <meta property="og:title" content="Instalación de Fedora Server 28, parte 1, instalación">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-01/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-01/fedora-logo-icon.png">
+    <meta property="og:description" content="Primeros pasos para la instalación de un servidor con Fedora Server 28.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Instalación de Fedora Server 28, parte 1, instalación - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Instalación de Fedora Server 28, parte 1, instalación",
+                "headline": "Instalación de Fedora Server 28, parte 1, instalación",
+                "description": "Primeros pasos para la instalación de un servidor con Fedora Server 28.",
+                "dateCreated": "2018-06-20 18:25:00-05:00",
+                "datePublished": "2018-06-20 18:25:00-05:00",
+                "dateModified": "2018-06-24 22:11:00-05:00",
+                "image": "https://movimientolibre.com/apuntes/fedora-server-28-parte-01/fedora-logo-icon.png",
+                "url": "https://movimientolibre.com/apuntes/fedora-server-28-parte-01/"
+            }
+        </script>
+        <h2>Instalación de Fedora Server 28, parte 1, instalación</h2>
+        <p class="lead">Primeros pasos para la instalación de un servidor con Fedora Server 28.</p>
+        <p>20 June 2018</p>
+        <h3>Acerca de Fedora Server</h3>
+<p><a href="https://getfedora.org/">Fedora Server</a> es un sistema operativo GNU/Linux poderoso y flexible que incorpora las mejores y últimas tecnologías para servidores.</p>
+<h3>Sobre esta serie de apuntes</h3>
+<p>Detallaré la instalación y configuración de un servidor que haga las funciones de DHCP, DNS, Proxy y servidor de archivos SAMBA para una red local.</p>
+<ul>
+<li>Parte 1, instalación. Justo la página en la que se encuentra.</li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-02/">Parte 2, configuración básica de red</a></li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-03/">Parte 3, servicios DHCP y DNS</a></li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-04/">Parte 4, muro de fuego para ruteador</a></li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-05/">Parte 5, proxy Squid</a></li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-06/">Parte 6, configuración del proxy en los clientes</a></li>
+<li><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-07/">Parte 7, servidor de archivos SAMBA</a></li>
+</ul>
+<h3>ADVERTENCIA</h3>
+<p><strong>Es obvio que el procedimiento de instalación borrará los contenidos del disco duro y memoria USB que utilice.</strong> Use componentes nuevos o que no tengan información que necesite.</p>
+<p>Su servidor usó un <em>modesto</em> servidor que consta de una tarjeta madre <em>micro</em> con un procesador <strong>Intel Celeron J1800</strong> sin ventilador, tiene un dispositivo de red ethernet incorporado y una ranura PCI. Además de 2 GB de memoria RAM, un disco duro SATA de 500 GB y una segunda tarjeta de red ethernet. Así, un dispositivo de red se conectará al <em>modem</em> que brinda Internet y el otro a la red local.</p>
+<p>El propósito de estos apuntes es contribuir a compartir el conocimiento del Software Libre sin ánimo de lucro. No me hago responsable por pérdidas, fallas o daños.</p>
+<h3>Descarga y preparación</h3>
+<p>Para preprarar el medio de instalación vía USB <a href="https://getfedora.org/es/server/download/">descargue Fedora Server</a> como un archivo ISO e inserte una memoria USB de una capacidad mayor al tamaño de ese archivo. Al momento de escribir este apunte, el archivo ISO es <code>Fedora-Server-dvd-x86_64-27-1.6.iso</code></p>
+<p>Ejecute <code>fdisk</code> como root para saber cuál dispositivo es la memoria USB...</p>
+<div class="highlight"><pre><span></span><code># fdisk -l
+</code></pre></div>
+
+<p>En mi caso es <code>/dev/sdc</code></p>
+<p>Para copiar el contenido ISO a la memoria USB y hacerla <em>booteable</em> ejecute como root...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> dd if=Fedora-Server-dvd-x86_64-27-1.6.iso of=/dev/sdc status=progress
+</code></pre></div>
+
+<p>Sea paciente, toma buen tiempo. Al término asegure de no dejar partes sin copiar con...</p>
+<div class="highlight"><pre><span></span><code># sync
+</code></pre></div>
+
+<p>Extraiga la memoria USB e insértela en el nuevo servidor estando apagado.</p>
+<h3>Instale remotamente</h3>
+<p>Es posible instalar a distancia vía VNC, para tomar imágenes y tener a la mano la documentación (como estos apuntes). Más detalles en <a href="https://docs.fedoraproject.org/f27/install-guide/advanced/VNC_Installations.html#chap-vnc-installations">Installing using VNC</a></p>
+<ol>
+<li>Conecte el dispositivo de red ethernet que haya elegido para red local a la red local (vaya redundancia).</li>
+<li>Encienda el equipo ordenando elegir el dispositivo USB como medio de carga del sistema. Por lo general se consigue presionando <code>F12</code> o <code>ESC</code>.</li>
+<li>Cuando arranque GRUB presione <code>e</code> para editar y agregue <code>inst.vnc</code> en la línea que cargará el kernel linux.</li>
+</ol>
+<p>Al terminar el arranque le mostrará en pantalla la dirección IP y el puerto para conectarse vía VNC. Elija el cliente VNC que prefiera, en estas imágenes se usó RNDC que es parte de KDE.</p>
+<h3>Anaconda - Idioma</h3>
+<p><img class="img-fluid" src="anaconda-idioma.png" alt="Anaconda selección de idioma"></p>
+<h3>Anaconda - Hora y fecha</h3>
+<p><img class="img-fluid" src="anaconda-hora-fecha.png" alt="Anaconda hora y fecha"></p>
+<h3>Anaconda - Red</h3>
+<p>Note que desde aquí se identifican los dos dispositivos de red.</p>
+<p><img class="img-fluid" src="anaconda-red.png" alt="Anaconda red"></p>
+<h3>Anaconda - Destino</h3>
+<p>Elija el disco duro a donde instalar.</p>
+<p>Y, como prefiero hacer las particiones <em>a mano</em>, activo la opción <strong>Personalizada</strong> de <strong>Configuración de almacenamiento</strong>.</p>
+<p><img class="img-fluid" src="anaconda-destino.png" alt="Anaconda destino"></p>
+<p>Al presionar el botón <strong>Hecho</strong> cambiará a la pantalla de particionado.</p>
+<h3>Anaconda - Particionado</h3>
+<p>Asigno 16 GB a la raíz de Fedora y separo <code>/var</code> a su propia partición de 16 GB. El área de intercambio <code>swap</code> puede ser <em>una y media</em> o <em>dos</em> veces la cantidad de memoria RAM instalada.</p>
+<p>Un detalle adicional es modificar el <strong>grupo del volumen</strong> para que ocupe el tamaño máximo, es decir, que use todo el espacio que queda en el disco duro. Esto no significa que vayamos a ocupar todo el disco en este momento, sino que más adelante podamos crear nuevas particiones lógicas sin cambiar las volúmenes (consulte sobre <strong>LVM</strong>).</p>
+<p>Por último, prefiero <code>ext4</code> como sistema de archivos en las particiones <em>root</em>, <em>var</em> y <em>home</em>.</p>
+<p><img class="img-fluid" src="anaconda-particionado.png" alt="Anaconda particionado"></p>
+<h3>Anaconda - Resumen</h3>
+<p>Revise todo lo anterior y de clic en <strong>Empezar instalación</strong>.</p>
+<p><img class="img-fluid" src="anaconda-resumen.png" alt="Anaconda resumen"></p>
+<h3>Anaconda - Instalación completada</h3>
+<p>Defina la contraseña de <em>root</em> y su cuenta de usuario.</p>
+<p><img class="img-fluid" src="anaconda-completado.png" alt="Anaconda instalación completada"></p>
+<p>Reinicie el equipo y retire la memoria USB para que arranque por primera vez Fedora Server.</p>
+<h3>Ingrese remotamente vía OpenSSH</h3>
+<p>Edite <code>/etc/ssh/sshd_config</code> y active estas líneas para permitir que podamos accesar remotamente por <code>ssh</code>...</p>
+<div class="highlight"><pre><span></span><code>ListenAddress 0.0.0.0
+</code></pre></div>
+
+<p>Reinice el daemon.</p>
+<div class="highlight"><pre><span></span><code># systemctl restart sshd
+</code></pre></div>
+
+<p>Tome nota de la dirección IP que tenga el servidor en la red local.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span>
+</code></pre></div>
+
+<p>E ingrese remotamente (cambie <code>192.168.n.m</code> por la dirección IP obtenida).</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>ssh<span class="w"> </span><span class="m">192</span>.168.n.m
+</code></pre></div>
+
+<h3>Actualice</h3>
+<p>Si usa un proxy agregue esa configuración a <code>/etc/dnf/dnf.conf</code> (cambie <code>proxy.redlocal.lan</code> por el nombre o dirección IP de su proxy).</p>
+<div class="highlight"><pre><span></span><code>proxy=http://proxy.redlocal.lan:3128
+</code></pre></div>
+
+<p>Realice una actualización general, ejecute este comando como <em>root</em>.</p>
+<div class="highlight"><pre><span></span><code># dnf upgrade
+</code></pre></div>
+
+<p>Después de la actualización podría tener una nueva versión del kernel linux, así que reinice para que ya la use.</p>
+<div class="highlight"><pre><span></span><code># systemctl reboot
+</code></pre></div>
+
+<h3>Continuación...</h3>
+<p><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-02/">Vaya a la parte 2, configuración básica de red</a>.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

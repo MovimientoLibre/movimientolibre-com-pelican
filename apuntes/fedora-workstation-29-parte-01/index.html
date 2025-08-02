@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="A través de esta serie de imágenes se vislumbra la instalación de Fedora 29 para usarse como estación de trabajo con el entrono gráfico KDE.">
+    <meta name="keywords" content="fedora, gnu linux, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Instalación de Fedora Workstation 29, parte 1">
+    <meta name="twitter:description" content="A través de esta serie de imágenes se vislumbra la instalación de Fedora 29 para usarse como estación de trabajo con el entrono gráfico KDE.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/fedora-workstation-29-parte-01/preview.png">
+    <meta property="og:title" content="Instalación de Fedora Workstation 29, parte 1">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/fedora-workstation-29-parte-01/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/fedora-workstation-29-parte-01/preview.png">
+    <meta property="og:description" content="A través de esta serie de imágenes se vislumbra la instalación de Fedora 29 para usarse como estación de trabajo con el entrono gráfico KDE.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Instalación de Fedora Workstation 29, parte 1 - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Instalación de Fedora Workstation 29, parte 1",
+                "headline": "Instalación de Fedora Workstation 29, parte 1",
+                "description": "A través de esta serie de imágenes se vislumbra la instalación de Fedora 29 para usarse como estación de trabajo con el entrono gráfico KDE.",
+                "dateCreated": "2019-01-01 12:22:00-06:00",
+                "datePublished": "2019-01-01 12:22:00-06:00",
+                "dateModified": "2019-01-01 12:22:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/fedora-workstation-29-parte-01/preview.png",
+                "url": "https://movimientolibre.com/apuntes/fedora-workstation-29-parte-01/"
+            }
+        </script>
+        <h2>Instalación de Fedora Workstation 29, parte 1</h2>
+        <p class="lead">A través de esta serie de imágenes se vislumbra la instalación de Fedora 29 para usarse como estación de trabajo con el entrono gráfico KDE.</p>
+        <p>01 January 2019</p>
+        <h3>Advertencia</h3>
+<p>Los comandos escritos en estos apuntes tienen el poder de borrar los archivos y sistemas operativos. <strong>Siempre es recomendable tener un respaldo de sus archivos más importantes y hacer este procedimiento en un dispositivo de almacenamiento vacío.</strong> Su servidor sólo comparte sus experiencias y no se hace responsable de los resultados.</p>
+<p><strong>Las imágenes fueron obtendidas a partir de hacer la instalación en una virtualización.</strong> Por lo que notará el tamaño de las particiones es muy pequeña, por debajo del mínimo recomendado. Sea libre de ajustar el tamaño de las particiones a medida de su dispositivo y necesidades.</p>
+<h3>Descargue Fedora 29</h3>
+<p>Fedora ofrece los archivos ISO para instalar en <a href="https://getfedora.org/">getfedora.org</a>. Para acelerar la instalación del entorno gráfico KDE, baje el <em>spin-off</em> <a href="https://spins.fedoraproject.org/kde/">KDE Plasma Destop</a>.</p>
+<h3>Transfiera a una memoria USB</h3>
+<p>Averigüe con <code>fdisk</code> cuál dispositivo es la memoria USB</p>
+<div class="highlight"><pre><span></span><code># fdisk -l
+</code></pre></div>
+
+<p>Si la memoria USB es <code>/dev/sdX</code> y descargó el ISO <code>Fedora-KDE-Live-x86_64-29-1.2.iso</code>, ejecute</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> dd if=Fedora-KDE-Live-x86_64-29-1.2.iso of=/dev/sdX status=progress
+</code></pre></div>
+
+<p>Este proceso es lento. Tenga paciencia. Cuando acabe el comando, asegúrese de que se haya copiado todo ejecutando</p>
+<div class="highlight"><pre><span></span><code># sync
+</code></pre></div>
+
+<p>Apague el equipo. Si tiene un disco duro nuevo, instálelo.</p>
+<p>Encienda y desde el arranque del BIOS o UEFI elija la memoria como medio de arranque.</p>
+<h3>Instale</h3>
+<p>Elija <code>Test this media &amp; start Fedora-KDE-Live 29</code> para comprobar que los datos en el dispositivo de almacenamiento no estén corruptos. Si ya lo probó con anterioridad, elija <code>Start Fedora-KDE-Live 29</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-01.png" alt="Fedora Workstation install step 01"></p>
+<p>Así tendrá un entorno "vivo" de Fedora 29 KDE. De doble clic a <code>Install to Hard Drive</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-02.jpg" alt="Fedora Workstation install step 02"></p>
+<p>Elija Español y su país.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-03.png" alt="Fedora Workstation install step 03"></p>
+<p>El <strong>Resumen de la Instalación</strong> nos muestra cuatro secciones a revisar o modificar. Elija <code>Destino de la instalación</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-04.png" alt="Fedora Workstation install step 04"></p>
+<p>Por defecto se detecta el dispositivo de almacenamiento y está habilitada la <strong>Configuración de almacenamiento</strong> en <strong>Automática</strong>. Yo recomiendo activar <code>Personalizada</code> y de clic en <code>Hecho</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-05.png" alt="Fedora Workstation install step 05"></p>
+<p>Por medio del <strong>Particionado manual</strong> tendremos completo control sobre cómo se hará la instalación. De clic en <code>Pulse aquí para crearlas automáticamente</code> para que el instalador nos ponga su recomendación.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-06.png" alt="Fedora Workstation install step 06"></p>
+<p>Como mínimo, debe haber una partición de arranque <em>boot</em>, la raíz del Fedora Linux y el área de intercambio <em>swap</em>. Se usa el moderno <strong>LVM</strong> para organizar el almacenamiento. De clic en <code>Modificar...</code> del <strong>Grupo Del Volumen</strong>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-07.png" alt="Fedora Workstation install step 07"></p>
+<p>Cambie el nombre del <strong>grupo de volúmenes</strong> por una palabra simple que lo identifique. Y lo más importante, cambie el <strong>Tamaño de la política</strong> por <code>Lo mayor posible</code>. Esto hace que <strong>LVM</strong> use todo el espacio del dispositivo.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-08.png" alt="Fedora Workstation install step 08"></p>
+<p>Ajuste el tamaño de las particiones y cree las que necesite, recomiendo:</p>
+<ul>
+<li>La raíz de Fedora Linux con 48 GB, mínimo 16 GB.</li>
+<li>El área de intercambio <em>swap</em> desde una vez al doble de su memoria RAM.</li>
+<li>Su <em>home</em> como lo que necesite.</li>
+<li>Deje espacio libre en su <strong>Grupo del volumen</strong>. Puede necesitar crear nuevas particiones en el futuro.</li>
+</ul>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-09.png" alt="Fedora Workstation install step 09"></p>
+<p>Al presionar el botón <code>Hecho</code> aparecerá una ventana que advierte los cambios que se harán al dispositivo. Revise y de clic en <code>Aceptar cambios</code> para aplicarlos.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-10.png" alt="Fedora Workstation install step 10"></p>
+<p>Salvo que requiera hacer otros ajustes, como cambiar la distribución del teclado o el huso horario, de clic en <code>Empezar instalación</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-11.png" alt="Fedora Workstation install step 11"></p>
+<p>Durante la instalación, defina la contraseña de <em>root</em> y cree un usuario.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-12.png" alt="Fedora Workstation install step 12"></p>
+<p>Defina la contraseña <em>root</em>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-13.png" alt="Fedora Workstation install step 13"></p>
+<p>Cree un nuevo usuario. Active la casilla <code>Hacer de este usuario un administrador</code> para que pueda ejecutar órdenes con <code>sudo</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-14.png" alt="Fedora Workstation install step 14"></p>
+<p>Terminada la instalación, de clic en el botón <code>Salir</code>.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-15.png" alt="Fedora Workstation install step 15"></p>
+<p>Recuerde que está en el arranque "vivo" desde la memoria USB, así que reinicie para arrancar con el nuevo Fedora Linux.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-16.jpg" alt="Fedora Workstation install step 16"></p>
+<p>¡Listo! Conozca, use y disfrute su nueva instalación de Fedora 29 Workstation con KDE. No deje de hacer las actualizaciones de software.</p>
+<p><img class="img-fluid" src="fedora-workstation-29-kde-install-17.jpg" alt="Fedora Workstation install step 17"></p>
+<p>En la <a href="https://movimientolibre.com/apuntes/fedora-workstation-29-parte-02/">segunda parte de esta guía</a>, se publicarán los comandos para instalar software adicional.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

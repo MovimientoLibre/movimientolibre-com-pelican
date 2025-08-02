@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Pelican es un constructor de sitios web estáticos programado en Python que no necesita de una base de datos.">
+    <meta name="keywords" content="python, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Pelican: Constructor de sitios web">
+    <meta name="twitter:description" content="Pelican es un constructor de sitios web estáticos programado en Python que no necesita de una base de datos.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/pelican-constructor-sitios-web/python.png">
+    <meta property="og:title" content="Pelican: Constructor de sitios web">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/pelican-constructor-sitios-web/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/pelican-constructor-sitios-web/python.png">
+    <meta property="og:description" content="Pelican es un constructor de sitios web estáticos programado en Python que no necesita de una base de datos.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Pelican: Constructor de sitios web - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Pelican: Constructor de sitios web",
+                "headline": "Pelican: Constructor de sitios web",
+                "description": "Pelican es un constructor de sitios web estáticos programado en Python que no necesita de una base de datos.",
+                "dateCreated": "2020-03-30 16:08:00-06:00",
+                "datePublished": "2020-03-30 16:08:00-06:00",
+                "dateModified": "2020-12-12 14:48:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/pelican-constructor-sitios-web/python.png",
+                "url": "https://movimientolibre.com/apuntes/pelican-constructor-sitios-web/"
+            }
+        </script>
+        <h2>Pelican: Constructor de sitios web</h2>
+        <p class="lead">Pelican es un constructor de sitios web estáticos programado en Python que no necesita de una base de datos.</p>
+        <p>30 March 2020</p>
+        <h3>Qué es Pelican</h3>
+<p><a href="https://blog.getpelican.com/">Pelican</a> es un constructor de sitios web estáticos programado en <a href="https://www.python.org/">Python</a> que no necesita de una base de datos.</p>
+<h3>Cómo funciona</h3>
+<p>Pelican puede recibir contenidos en archivos en <a href="https://movimientolibre.com/apuntes/markdown/">Markdown</a>, <a href="http://docutils.sourceforge.net/rst.html">reStructuredText</a> y/o HTML.</p>
+<p>Cada archivo en <em>contents</em> va crear un artículo o una página en el sitio web. La sintaxis indica que las primeras líneas deben ser para los <a href="https://docs.getpelican.com/en/stable/content.html#file-metadata">metadados</a>, por ejemplo, en el comienzo de un archivo <strong>md</strong> se define el título, la categoría y la fecha así:</p>
+<div class="highlight"><pre><span></span><code><span class="n">Title</span><span class="o">:</span><span class="w"> </span><span class="n">Hola</span><span class="w"> </span><span class="n">Mundo</span>
+<span class="n">Category</span><span class="o">:</span><span class="w"> </span><span class="n">Comunicados</span>
+<span class="n">Date</span><span class="o">:</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">21</span><span class="w"> </span><span class="mi">18</span><span class="o">:</span><span class="mi">32</span>
+</code></pre></div>
+
+<p>Cuando vaya a planear la estructura del sitio web, debe determinar qué va ser artículo y qué va ser página...</p>
+<ul>
+<li><strong>Artículos:</strong> Aquellos contenidos que se deben de ordenar cronológicamente, que se listen del más reciente al más antiguo.</li>
+<li><strong>Página:</strong> Aquellos contenidos atemporales que rara vez cambien, como los datos de contacto.</li>
+</ul>
+<p>Como parte de su versatilidad, Pelican es capaz de manejar <strong>temas</strong>. Hay <a href="http://pelicanthemes.com/">muchos temas compartidos por los usuarios</a> que puedes descargar y adecuar. O bien, porqué no, <a href="https://docs.getpelican.com/en/stable/themes.html">puedes crear uno desde cero.</a></p>
+<p>Además, también puedes agregar <strong>plug-ins</strong> para <a href="https://github.com/getpelican/pelican-plugins">obtener capacidades adicionales.</a></p>
+<h3>Requisitos</h3>
+<p>Previamente debe tener instalado Python, de preferencia la versión 3, verifique con...</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>python<span class="w"> </span>--version
+</code></pre></div>
+
+<p>El gestor de paquetes <a href="https://pypi.org/">Python Package Index</a> alias <em>pip</em>...</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>which<span class="w"> </span>pip
+</code></pre></div>
+
+<p>Y una herramienta para crear entornos virtuales de Python, como <strong>venv</strong> o <strong>virtualenv</strong>...</p>
+<h3>Pasos para su instalación</h3>
+<p>Puede crear los entornos virtuales en cualquier lugar de sus dispositivos de almacenamiento. Por ejemplo, pada disponer de esta herramienta en su escritorio...</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>~/Escritorio
+$<span class="w"> </span>mkdir<span class="w"> </span>Pelican
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>Pelican
+$<span class="w"> </span>python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</code></pre></div>
+
+<p>Active el entorno virtual</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>.<span class="w"> </span>venv/bin/activate
+</code></pre></div>
+
+<p>E instale los paquetes Pelican y Markdown...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ pip install pelican markdown
+</code></pre></div>
+
+<p>Revise los paquetes instalados con...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ pip list
+</code></pre></div>
+
+<h3>Crear un sitio web rápidamente con el asistente</h3>
+<p>El asistente nos pregunta las variables necesarias para crear un sitio web, ejecute con...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ pelican-quickstart
+</code></pre></div>
+
+<p>Por ejemplo, vamos a crear un sitio web llamado <em>Demostracion</em>...</p>
+<div class="highlight"><pre><span></span><code><span class="o">&gt;</span><span class="w"> </span><span class="k">Where</span><span class="w"> </span><span class="n">do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">create</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">site</span><span class="vm">?</span><span class="w"> </span><span class="o">[</span><span class="n">.</span><span class="o">]</span><span class="w"> </span><span class="n">Demostracion</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">title</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">site</span><span class="vm">?</span><span class="w"> </span><span class="n">Este</span><span class="w"> </span><span class="n">es</span><span class="w"> </span><span class="n">mi</span><span class="w"> </span><span class="n">primer</span><span class="w"> </span><span class="n">sitio</span><span class="w"> </span><span class="n">web</span><span class="err">!!!</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Who</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">author</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">site</span><span class="vm">?</span><span class="w"> </span><span class="n">Guillermo</span><span class="w"> </span><span class="n">Valdés</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="n">will</span><span class="w"> </span><span class="n">be</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="k">language</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">this</span><span class="w"> </span><span class="n">web</span><span class="w"> </span><span class="n">site</span><span class="vm">?</span><span class="w"> </span><span class="o">[</span><span class="n">es</span><span class="o">]</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">specify</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="k">prefix</span><span class="vm">?</span><span class="w"> </span><span class="n">e</span><span class="p">.</span><span class="n">g</span><span class="p">.,</span><span class="w"> </span><span class="nl">https</span><span class="p">:</span><span class="o">//</span><span class="n">example</span><span class="p">.</span><span class="n">com</span><span class="w">   </span><span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">enable</span><span class="w"> </span><span class="n">article</span><span class="w"> </span><span class="n">pagination</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">What</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="nc">time</span><span class="w"> </span><span class="k">zone</span><span class="vm">?</span><span class="w"> </span><span class="o">[</span><span class="n">Europe/Paris</span><span class="o">]</span><span class="w"> </span><span class="n">America</span><span class="o">/</span><span class="n">Mexico_City</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">tasks</span><span class="p">.</span><span class="n">py</span><span class="o">/</span><span class="n">Makefile</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">automate</span><span class="w"> </span><span class="n">generation</span><span class="w"> </span><span class="ow">and</span><span class="w"> </span><span class="n">publishing</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">n</span><span class="p">)</span><span class="w"> </span><span class="n">y</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">FTP</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">SSH</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Dropbox</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">S3</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">Rackspace</span><span class="w"> </span><span class="n">Cloud</span><span class="w"> </span><span class="n">Files</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="o">&gt;</span><span class="w"> </span><span class="n">Do</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">want</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">upload</span><span class="w"> </span><span class="n">your</span><span class="w"> </span><span class="n">website</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">GitHub</span><span class="w"> </span><span class="n">Pages</span><span class="vm">?</span><span class="w"> </span><span class="p">(</span><span class="n">y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="n">n</span>
+<span class="n">Done</span><span class="p">.</span><span class="w"> </span><span class="n">Your</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">project</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">available</span><span class="w"> </span><span class="k">at</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">guivaloz</span><span class="o">/</span><span class="n">Capacitacion</span><span class="o">/</span><span class="n">Pelican</span><span class="o">/</span><span class="n">Demostracion</span>
+</code></pre></div>
+
+<p>Al terminar nos crea un directorio <code>Demostracion</code>. Veamos lo que el asistente creó...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ cd Demostracion
+(venv) $ ls
+</code></pre></div>
+
+<p>Pelican necesita de estos directorios y archivos:</p>
+<ul>
+<li><code>contents</code> Directorio donde hay que poner los artículos y las páginas.</li>
+<li><code>output</code> Directorio donde se va a depositar el sitio web resultante cuando se contruya o publique.</li>
+<li><code>pelicanconf.py</code> Programa en Python donde se definen las variables para su uso local.</li>
+<li><code>publishconf.py</code> Programa en Python donde se carga <code>pelicanconf.py</code> y se definen variables para publicar en internet.</li>
+</ul>
+<p>Cuando en el asistente se contesta con Sí en generar <strong>tasks.py/Makefile</strong> también se crean:</p>
+<ul>
+<li><code>tasks.py</code> Contiene las configuraciones para publicar en los proveedores de hospedaje.</li>
+<li><code>Makefile</code> Sirve al comando <code>make</code>.</li>
+</ul>
+<h3>Agregue su primer contenido y contruya con make</h3>
+<p>Cámbiese al directorio <code>contents</code>...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ cd contents
+</code></pre></div>
+
+<p>Cree un archivo para un comunicado...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ nano -w primer-comunicado.md
+</code></pre></div>
+
+<p>Por ejemplo, inicie con los <a href="https://docs.getpelican.com/en/stable/content.html#file-metadata">metadados</a> y el contenido en <strong>markdown</strong>...</p>
+<div class="highlight"><pre><span></span><code><span class="n">Title</span><span class="o">:</span><span class="w"> </span><span class="n">Primer</span><span class="w"> </span><span class="n">Comunicado</span>
+<span class="n">Slug</span><span class="o">:</span><span class="w"> </span><span class="n">primer</span><span class="o">-</span><span class="n">comunicado</span>
+<span class="n">Category</span><span class="o">:</span><span class="w"> </span><span class="n">Comunicados</span>
+<span class="n">Date</span><span class="o">:</span><span class="w"> </span><span class="mi">2020</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">21</span><span class="w"> </span><span class="mi">18</span><span class="o">:</span><span class="mi">32</span>
+<span class="n">Tags</span><span class="o">:</span><span class="w"> </span><span class="n">Demostraciones</span><span class="o">,</span><span class="w"> </span><span class="n">Desarrollo</span><span class="o">,</span><span class="w"> </span><span class="n">Python</span>
+
+<span class="n">Lorem</span><span class="w"> </span><span class="n">ipsum</span><span class="w"> </span><span class="n">dolor</span><span class="w"> </span><span class="n">sit</span><span class="w"> </span><span class="n">amet</span><span class="o">,</span><span class="w"> </span><span class="n">consectetur</span><span class="w"> </span><span class="n">adipiscing</span><span class="w"> </span><span class="n">elit</span><span class="o">,</span><span class="w"> </span><span class="n">sed</span><span class="w"> </span><span class="k">do</span><span class="w"> </span><span class="n">eiusmod</span><span class="w"> </span><span class="n">tempor</span><span class="w"> </span><span class="n">incididunt</span><span class="w"> </span><span class="n">ut</span><span class="w"> </span><span class="n">labore</span><span class="w"> </span><span class="n">et</span><span class="w"> </span><span class="n">dolore</span><span class="w"> </span><span class="n">magna</span><span class="w"> </span><span class="n">aliqua</span><span class="o">.</span><span class="w"> </span><span class="n">Ut</span><span class="w"> </span><span class="n">enim</span><span class="w"> </span><span class="n">ad</span><span class="w"> </span><span class="n">minim</span><span class="w"> </span><span class="n">veniam</span><span class="o">,</span><span class="w"> </span><span class="n">quis</span><span class="w"> </span><span class="n">nostrud</span><span class="w"> </span><span class="n">exercitation</span><span class="w"> </span><span class="n">ullamco</span><span class="w"> </span><span class="n">laboris</span><span class="w"> </span><span class="n">nisi</span><span class="w"> </span><span class="n">ut</span><span class="w"> </span><span class="n">aliquip</span><span class="w"> </span><span class="n">ex</span><span class="w"> </span><span class="n">ea</span><span class="w"> </span><span class="n">commodo</span><span class="w"> </span><span class="n">consequat</span><span class="o">.</span><span class="w"> </span><span class="n">Duis</span><span class="w"> </span><span class="n">aute</span><span class="w"> </span><span class="n">irure</span><span class="w"> </span><span class="n">dolor</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">reprehenderit</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">voluptate</span><span class="w"> </span><span class="n">velit</span><span class="w"> </span><span class="n">esse</span><span class="w"> </span><span class="n">cillum</span><span class="w"> </span><span class="n">dolore</span><span class="w"> </span><span class="n">eu</span><span class="w"> </span><span class="n">fugiat</span><span class="w"> </span><span class="n">nulla</span><span class="w"> </span><span class="n">pariatur</span><span class="o">.</span><span class="w"> </span><span class="n">Excepteur</span><span class="w"> </span><span class="n">sint</span><span class="w"> </span><span class="n">occaecat</span><span class="w"> </span><span class="n">cupidatat</span><span class="w"> </span><span class="n">non</span><span class="w"> </span><span class="n">proident</span><span class="o">,</span><span class="w"> </span><span class="n">sunt</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">culpa</span><span class="w"> </span><span class="n">qui</span><span class="w"> </span><span class="n">officia</span><span class="w"> </span><span class="n">deserunt</span><span class="w"> </span><span class="n">mollit</span><span class="w"> </span><span class="n">anim</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="n">est</span><span class="w"> </span><span class="n">laborum</span><span class="o">.</span>
+</code></pre></div>
+
+<p>Regrese al directorio <code>Demostracion</code>...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ cd ..
+</code></pre></div>
+
+<p>Construya el sitio...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ make html
+</code></pre></div>
+
+<p>Arranque el servidor web, por defecto usará el puerto 8000...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ make serve
+</code></pre></div>
+
+<p>Revise en su navegador el sitio web <code>Demostracion</code>...</p>
+<div class="highlight"><pre><span></span><code>http://localhost:8000
+</code></pre></div>
+
+<p>Mate el servidor presionando <code>CTRL-C</code>.</p>
+<p>Ahora, pruebe el comando para construir el sitio web cada vez que haya cambios y levantar el servicio web al mismo tiempo...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ make devserver
+</code></pre></div>
+
+<p>Deje la terminal en el fondo y siga agregando o modificando. En su navegador de internet presione <code>F5</code> para refrescar. Mate presionando <code>CTRL-C</code>.</p>
+<p>Para generar el sitio web para subir a internet, leyendo las variables de <code>publishconf.py</code>, debe ejecutar...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ make publish
+</code></pre></div>
+
+<p>Copie el contenido de <code>output</code> a su servidor web o a su proveedor en la nube.</p>
+<h3>Comandos con pelican</h3>
+<p>Si contestó que NO en el asistente, donde pregunta <em>Do you want to generate a tasks.py/Makefile?</em>, no tendrá el archivo <code>Makefile</code> y no funciona <code>make</code>. Aun así puede ejecutar Pelican para hacer lo mismo...</p>
+<table>
+<thead>
+<tr>
+<th>Para</th>
+<th>Ejecute</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>construir</td>
+<td><code>pelican content</code></td>
+</tr>
+<tr>
+<td>reconstruir</td>
+<td><code>pelican --delete-output-directory content</code></td>
+</tr>
+<tr>
+<td>servir</td>
+<td><code>pelican --listen content</code></td>
+</tr>
+<tr>
+<td>desarrollar</td>
+<td><code>pelican --autoreload --listen content</code></td>
+</tr>
+<tr>
+<td>publicar</td>
+<td><code>pelican --settings publishconf.py content</code></td>
+</tr>
+</tbody>
+</table>
+<h3>Agregue un tema</h3>
+<p>Los temas deben estar contenidos en su propio directorio y dentro de <code>themes</code>.</p>
+<p>Cada tema tiene a su vez dos directorios:</p>
+<ul>
+<li>Un <code>static</code> para CSS, imágenes, JavaScript, etc.</li>
+<li>Un <code>templates</code> con las plantillas hechas con <a href="https://palletsprojects.com/p/jinja/">Jinja2</a>.</li>
+</ul>
+<p>La estructura básica de un tema es así...</p>
+<div class="highlight"><pre><span></span><code>├── static
+│   ├── css
+│   └── images
+└── templates
+    ├── archives.html   // índice de archivos
+    ├── article.html    // estructura para cada artículo
+    ├── author.html     // índice de contenidos de un autor
+    ├── authors.html    // índice de autores
+    ├── categories.html // índice de categorías
+    ├── category.html   // índice de contenidos de una categoría
+    ├── index.html      // índice o página inicial
+    ├── page.html       // estructura para cada página
+    ├── tag.html        // índice de contenidos de una etiqueta
+    └── tags.html       // índice de etiquetas
+</code></pre></div>
+
+<p>Luego, por ejemplo, si tiene listo el tema <code>blue-penguin</code>, edite el archivo <code>pelicanconf.py</code> y agregue...</p>
+<div class="highlight"><pre><span></span><code>THEME = &#39;themes/blue-penguin&#39;
+</code></pre></div>
+
+<p>Así la próxima vez que construya o publique se usará ese tema.</p>
+<p>Aprenda <a href="https://palletsprojects.com/p/jinja/">Jinja2</a> para dominar la creación y modificación de los temas.</p>
+<h3>Salir del entorno virtual</h3>
+<p>Si ya terminó, puede simplemente cerrar la terminal o pedir su desactivación...</p>
+<div class="highlight"><pre><span></span><code>(venv) $ deactivate
+</code></pre></div>
+
+<h3>Aprenda más en</h3>
+<ul>
+<li><a href="https://blog.getpelican.com/">Pelican Develpment Blog</a></li>
+<li><a href="https://docs.getpelican.com/en/stable/">Pelican Documentation</a></li>
+<li><a href="http://pelicanthemes.com/">Pelican Themes</a></li>
+<li><a href="https://github.com/getpelican/pelican-plugins">Collection of plugins for the Pelican static site generator</a></li>
+<li><a href="https://palletsprojects.com/p/jinja/">Jinja2</a></li>
+</ul>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

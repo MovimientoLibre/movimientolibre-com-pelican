@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer respaldos periódicos. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.">
+    <meta name="keywords" content="gentoo linux, software libre, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Respaldos con rsync">
+    <meta name="twitter:description" content="Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer respaldos periódicos. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/rsync-respaldos/backup.jpg">
+    <meta property="og:title" content="Respaldos con rsync">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/rsync-respaldos/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/rsync-respaldos/backup.jpg">
+    <meta property="og:description" content="Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer respaldos periódicos. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Respaldos con rsync - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Respaldos con rsync",
+                "headline": "Respaldos con rsync",
+                "description": "Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer respaldos periódicos. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.",
+                "dateCreated": "2011-12-29 20:50:00-06:00",
+                "datePublished": "2011-12-29 20:50:00-06:00",
+                "dateModified": "2011-12-29 20:50:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/rsync-respaldos/backup.jpg",
+                "url": "https://movimientolibre.com/apuntes/rsync-respaldos/"
+            }
+        </script>
+        <h2>Respaldos con rsync</h2>
+        <p class="lead">Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer respaldos periódicos. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.</p>
+        <p>29 December 2011</p>
+        <p>Algo que todo usuario de la informática debe mantener como parte de su quehacer es la labor de hacer <em>respaldos periódicos</em>. Ya sea en un medio de almacenamiento grande (por ejemplo, un disco duro externo) o bien en otro equipo en la red local.</p>
+<p>Existen muchas formas en las cuales podríamos perder nuestros archivos, que van desde el robo de nuestra <em>laptop</em> hasta el borrado accidental. <em>La verdad es que la gran mayoría de nosotros no piensa en respaldar sus documentos hasta que la fatal desgracia nos enseña que debimos haberlo hecho.</em> Y que cuando es por descompostura, pérdida o robo; nos dolerá más la pérdida de los archivos que el valor del equipo mismo.</p>
+<p>Como solución simple sugiero instalar un segundo disco duro en un equipo de escritorio, donde los los usuarios depositen el respaldo de sus <em>laptops</em> vía <em>wireless</em> desde sus equipos portátiles. <em>No confío que sea seguro compartir un disco duro externo entre varias personas, ya que se les puede caer o perder.</em></p>
+<p>Así pues instalé un segundo disco duro en el equipo de escritorio, el cual dedicaré enteramente a respaldos. Y como <em>tú y yo</em> usamos GNU/Linux, éste aparece como /dev/sdb.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> fdisk -l /dev/sdb
+
+Disk /dev/sdb: 250.1 GB, 250059350016 bytes
+81 heads, 63 sectors/track, 95707 cylinders, 488397168 sectores en total
+Units = sectores of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Identificador del disco: 0x7da5580f
+
+Disposit. Inicio    Comienzo      Fin      Bloques  Id  Sistema
+/dev/sdb1            2048   488397167   244197560   83  Linux
+</code></pre></div>
+
+<p>Su única partición la <em>formateé</em> bajo el confiable sistema de archivos Ext4.</p>
+<div class="highlight"><pre><span></span><code># mkfs.ext4 -L respaldos /dev/sdb1
+</code></pre></div>
+
+<p>Para luego montarlo manualmente en /mnt/respaldos</p>
+<div class="highlight"><pre><span></span><code># mount /dev/sdb1 /mnt/respaldos
+</code></pre></div>
+
+<p>Claro que me conviene que esta partición se monte cada vez que enciendo el equipo, así que agrego la siguiente línea a la configuración de /etc/fstab para ello.</p>
+<div class="highlight"><pre><span></span><code>/dev/sdb1   /mnt/respaldos    ext4    defaults    0 1
+</code></pre></div>
+
+<p>Ya <em>particionado</em> y <em>formateado</em> el disco, procedo a crear directorios para cada usuario que deba respaldar. Con anterioridad ya había creado los usuarios. Sustituya <em>usuario1</em>, <em>usuario2</em> y <em>usuario3</em> con los nombres de los usuarios que vayan a hacer respaldos.</p>
+<div class="highlight"><pre><span></span><code># mkdir /mnt/respaldos/usuario1
+# mkdir /mnt/respaldos/usuario2
+# mkdir /mnt/respaldos/usuario3
+# chown usuario1:users /mnt/respaldos/usuario1
+# chown usuario2:users /mnt/respaldos/usuario2
+# chown usuario3:users /mnt/respaldos/usuario3
+</code></pre></div>
+
+<p>El equipo mantiene en ejecución el <em>daemon</em> <em>SSH</em>. Por medio de éste se pueden transferir los archivos de forma cifrada protegiéndonos de que algún intruso pueda atraparlos fácilmente.</p>
+<p>En este punto, la computadora de escritorio está lista para recibir los respaldos. Punto aparte, tengo habilitado un servidor DNS que me resuelve el nombre <em>escritorio.casa.lan</em> por su respectiva dirección IP. Si no lo tiene, puede usar la dirección IP en los comandos que siguen.</p>
+<p>Para realizar un <em>respaldo manual</em> del directorio <em>Documentos</em> ejecuto este comando en la <em>laptop</em> bajo la sesión del usuario (si es necesario, sustituya <em>escritorio.casa.lan</em> por la dirección IP del equipo y <em>usuario1</em> por su nombre de usuario):</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>rsync<span class="w"> </span>-av<span class="w"> </span>-e<span class="w"> </span>ssh<span class="w"> </span>~/Documentos<span class="w"> </span>escritorio.casa.lan:/mnt/respaldos/usuario1/
+</code></pre></div>
+
+<p>Como iniciativa propia, no deseo respaldar videos o música, prefiero darle prioridad a lo que tengo en <em>Documentos</em>, Usted seguramente me entenderá.</p>
+<p>En las siguientes ejecuciones, el comando <em>rsync</em> copiará sólo los archivos nuevos o los que hayan cambiado.</p>
+<p>Sólo un detalle más: como el anterior comando es largo, prefiero ejecutarlo fácilmente con un <em>atajo</em>. Para ello edito el archivo <em>.bashrc</em> que tengo en la raíz de mi <em>home</em>:</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>nano<span class="w"> </span>-w<span class="w"> </span>~/.bashrc
+</code></pre></div>
+
+<p>Y agrego esta línea que habilita el <em>atajo</em>:</p>
+<div class="highlight"><pre><span></span><code>alias respaldar=&quot;rsync -av -e ssh ~/Documentos escritorio.casa.lan:/mnt/respaldos/usuario1/&quot;
+</code></pre></div>
+
+<p>Cierre la terminal, abra una nueva, y ejecute el <em>atajo</em> (que equivale al comando largo).</p>
+<div class="highlight"><pre><span></span><code>$<span class="w"> </span>respaldar
+</code></pre></div>
+
+<p>Así pues, procuro ejecutar <em>respaldar</em> frecuentemente para mantener una copia de mis documentos en el otro equipo. Puede automatizar esta labor si agrega el comando al <em>cron</em> y establece una hora del día a la cual se ejecute sin intervención del usuario. Esto se lo dejo de tarea.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>
