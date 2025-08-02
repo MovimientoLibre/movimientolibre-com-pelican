@@ -22,6 +22,8 @@ Desde 1760 les quitaron a los jesuitas las tierras de la Real Hacienda de Jimulc
 
 **Amador Cárdenas Ramón,** nacido en Monclova, decidió establecerse en la Hacienda de Jimulco. En 1880 nació su hijo menor y le pidió a Juan Gaidor que lo bautizara; reafirmando con ello su amistad y confianza. Al fallecer Juan Gaidor dejó en herencia sus propiedades a su ahijado. **Fue así como las tierras de Jimulco pasaron a ser propiedad de Amador Cárdenas, siendo el principal actor en el desarrollo histórico de la región.**
 
+<img class="img-fluid" src="fotografia-area-jimulco.jpg" alt="Fotografia area de Jimulco">
+
 ## El paso del Ferrocarril
 
 Al término del porfiriato había más de veinte mil kilómetros de vías férreas construidas en México. **La Comarca Lagunera fue el punto ideal para ser un nodo ferroviario, por dos buenas razones, ser un gran productor de algodón y por la topografía plana.** Si se hubiera trazado la vía por la capital de Durango, la serranía hubiera elevado mucho los costos de construcción.
@@ -35,6 +37,10 @@ Al término del porfiriato había más de veinte mil kilómetros de vías férre
 Don Amador, quien tenía una fuerte amistad con Don Porfirio, **consiguió que su amigo el Presidente programara una escala en Jimulco** en el viaje rumbo a Ciudad Juarez, a bordo del tren presidencial y en esta importante vía.
 
 En **1909** el **Presidente Porfirio Díaz** visitó la "Casa Grande", propiedad de **Don Amador Cárdenas** en **La Flor, Jimulco.** Se dice que la recepción fue en grande: desde el ferrocarril presidencial hasta la Casa Grande se colocó una alfombra y un arco hecho de pacas de algodón para proteger del Sol al Presidente.
+
+## Mapa de Coahuila de Zaragoza y Durango con Torreón y Jimulco
+
+<img class="img-fluid" src="mapa-coahuila-de-zaragoza-durango-torreon.png" alt="Mapa de Coahuila de Zaragoza y Durango con Torreón y Jimulco">
 
 ## Mapa Reserva Ecológica Municipal Sierra y Cañón de Jimulco y vías férreas
 
@@ -59,8 +65,6 @@ En contraste, Jimulco es relativamente poco poblado. **Se estiman más de cuatro
 Sus habitantes se distinguen por el amor a su tierra y la hospitalidad que brindan a los migrantes. **Es tan grande su generosidad que ofrecen techo, alimentos y ropa a quienes arriesgan su vida abordando el tren** para viajar a la frontera y buscar la oportunidad de cruzarla.
 
 La forma de ser de la gente de Jimulco es el resultado de la combinación del bello entorno natural entre el Río Aguanaval y la sierra, el paso del ferrocarril y los extranjeros que llegaron desde la colonización.
-
-<img class="img-fluid" src="fotografia-area-jimulco.jpg" alt="Fotografia area de Jimulco">
 
 ## Datos del INEGI Censo de Población y Vivienda 2010
 
