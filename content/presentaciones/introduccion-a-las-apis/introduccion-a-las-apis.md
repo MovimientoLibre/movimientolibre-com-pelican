@@ -2,8 +2,8 @@ Title: Introducción a las APIs RESTful
 Slug: introduccion-a-las-apis
 Summary: Como parte de una serie de conferencias sobre seguridad informática elaboré este material para explicar el funcionamiento de las APIs, en particular la arquitectura RESTful.
 Tags: desarrollo
-Date: 2025-11-02 14:30
-Modified: 2025-11-02 14:30
+Date: 2025-11-02 16:30
+Modified: 2025-11-02 16:30
 Category: presentaciones
 Preview: preview.png
 
