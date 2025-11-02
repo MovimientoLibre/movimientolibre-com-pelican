@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Pasos para configurar un servidor con Fedora Server 42 para que sea un ruteador a internet con muro de fuego y servicio de DHCP.">
+    <meta name="keywords" content="fedora, network, servidores, software libre, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Configurar Fedora Server 42 para compartir el acceso a internet">
+    <meta name="twitter:description" content="Pasos para configurar un servidor con Fedora Server 42 para que sea un ruteador a internet con muro de fuego y servicio de DHCP.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/fedora-server-42-network-shared/fedora-logo-icon.png">
+    <meta property="og:title" content="Configurar Fedora Server 42 para compartir el acceso a internet">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/fedora-server-42-network-shared/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/fedora-server-42-network-shared/fedora-logo-icon.png">
+    <meta property="og:description" content="Pasos para configurar un servidor con Fedora Server 42 para que sea un ruteador a internet con muro de fuego y servicio de DHCP.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Configurar Fedora Server 42 para compartir el acceso a internet - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Configurar Fedora Server 42 para compartir el acceso a internet",
+                "headline": "Configurar Fedora Server 42 para compartir el acceso a internet",
+                "description": "Pasos para configurar un servidor con Fedora Server 42 para que sea un ruteador a internet con muro de fuego y servicio de DHCP.",
+                "dateCreated": "2025-07-21 11:00:00-06:00",
+                "datePublished": "2025-07-21 11:00:00-06:00",
+                "dateModified": "2025-07-21 11:00:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/fedora-server-42-network-shared/fedora-logo-icon.png",
+                "url": "https://movimientolibre.com/apuntes/fedora-server-42-network-shared/"
+            }
+        </script>
+        <h2>Configurar Fedora Server 42 para compartir el acceso a internet</h2>
+        <p class="lead">Pasos para configurar un servidor con Fedora Server 42 para que sea un ruteador a internet con muro de fuego y servicio de DHCP.</p>
+        <p>21 July 2025</p>
+        <p>La Agencia de Seguridad Nacional de los EE.UU. / <a href="https://www.nsa.gov/">National Security Agency</a> ha publicado <a href="https://media.defense.gov/2023/Feb/22/2003165170/-1/-1/0/CSI_BEST_PRACTICES_FOR_SECURING_YOUR_HOME_NETWORK.PDF">recomendaciones para incrementar la seguridad de las redes hogareñas</a>. Entre las que menciona la actualización regular del software tanto de las computadoras como de los dispositivos electrónicos (ruteadores, teléfonos inteligentes, tabletas, televisores, consolas, asistentes, etc.).</p>
+<p>Debemos estar concientes de que todos estos aparatos que requieren conexión a internet también pueden enviar su información (actividad, voz y video) así como la que puedan averiguar de los dispositivos que estén en la misma red.</p>
+<p>Vamos a describir un ejemplo de una situción de riesgo: supongamos que tenemos un televisor que puede visualizar fotos y reproducir música y videos desde la red local, así que habilitamos en nuestra computadora el acceso a los mismos... y en un descuido, sin contraseña y a todos los documentos personales. Como en muchas casas, en la misma red está un foco inteligente cuyo software nunca ha sido actualizado o que desde su fabricación viene programado para hacer rutinas de observación... y tal vez de recolección de datos de lo que encuentre en su red hogareña.</p>
+<h2>Objetivo</h2>
+<p>Configurar un servidor con <a href="https://fedoraproject.org/server/">Fedora Server 42</a> para que sea un ruteador a internet con muro de fuego y servicio de DHCP. Las características de este equipo son relativamente modestas:</p>
+<ul>
+<li>Procesador Intel Celeron J1800 2.4 GHz de dos núcleos</li>
+<li>RAM 4 GB</li>
+<li>SSD 64 GB SATA</li>
+<li>Dispositivo de red ethernet integrado de 1Gbit/s</li>
+<li>Dispositivo de red ethernet PCI de 1Gbit/s</li>
+</ul>
+<p>También servirá para crear una red local cableada y separada de la red inalámbrica como se ilustra en este diagrama:</p>
+<p><img class="img-fluid" src="fedora-server-42-network-shared.png" alt="Fedora Server 42 network shared"></p>
+<p>Un componente adicional es una <a href="https://www.raspberrypi.com/">Raspberry Pi</a> con <a href="https://pi-hole.net/">Pi-Hole</a> para que funcione como el DNS de las dos redes.</p>
+<p>Comenzemos a partir de que ya tiene instalado Fedora Server 42 en el equipo.</p>
+<h2>Actualizar Fedora Server</h2>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>update
+</code></pre></div>
+
+<p>Instalar <code>lshw</code></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>dnf<span class="w"> </span>install<span class="w"> </span>lshw
+</code></pre></div>
+
+<p>Revisar los dispositivos de red</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>lshw<span class="w"> </span>-class<span class="w"> </span>network
+</code></pre></div>
+
+<p>Para este equipo en particular</p>
+<ul>
+<li><code>enp1s0</code> esta conectado a la red local y tendra la direccion IP estatica 10.11.11.1/24</li>
+<li><code>enp4s0</code> conectado al modem hacia internet con la direccion IP 192.168.100.15/24</li>
+</ul>
+<h2>Configurar los dispositivos con Network Manager</h2>
+<p>Revisar los dispositivos con Network Manager</p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>device<span class="w"> </span>status
+</code></pre></div>
+
+<p>Revisar las direcciones IP</p>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>a
+</code></pre></div>
+
+<p>Renombrar la conexion al dispositivo que va a <code>internet</code></p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>mod<span class="w"> </span>enp4s0<span class="w"> </span>connection.id<span class="w"> </span>internet
+</code></pre></div>
+
+<p>Agregar una nueva conexion <strong>compartida</strong> de nombre <code>local</code></p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>add<span class="w"> </span><span class="nb">type</span><span class="w"> </span>ethernet<span class="w"> </span>ifname<span class="w"> </span>enp1s0<span class="w"> </span>ipv4.method<span class="w"> </span>shared<span class="w"> </span>con-name<span class="w"> </span><span class="nb">local</span>
+</code></pre></div>
+
+<p>Donde el metodo <code>shared</code> hace que...</p>
+<ul>
+<li>Habilita <strong>IP forwarding</strong> en <code>enp1s0</code></li>
+<li>Agrega las reglas al muro de fuego para habilitar el <em>masquerading</em></li>
+<li>Arranca <strong>dnasmasq</strong> para ofrecer servicios de <strong>DHCP</strong> y <strong>DNS</strong></li>
+</ul>
+<p>Ver las conexiones resultantes</p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>show
+</code></pre></div>
+
+<p>Ver la direccion IP</p>
+<div class="highlight"><pre><span></span><code>ip<span class="w"> </span>-o<span class="w"> </span>addr<span class="w"> </span>show<span class="w"> </span>enp1s0
+</code></pre></div>
+
+<p>Definir la direccion IP de <code>local</code> a 10.11.11.1/24</p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>mod<span class="w"> </span><span class="nb">local</span><span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">10</span>.11.11.1/24
+</code></pre></div>
+
+<p>Levantar la conexion de nombre <code>local</code></p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>up<span class="w"> </span><span class="nb">local</span>
+</code></pre></div>
+
+<p>Ver las conexiones para identificar la que no se use</p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn
+</code></pre></div>
+
+<p>Eliminar la conexion no usada con su identificador</p>
+<div class="highlight"><pre><span></span><code>nmcli<span class="w"> </span>conn<span class="w"> </span>delete<span class="w"> </span>259601a2-6e56-4e37-b4a0-8a1ea1c68787
+</code></pre></div>
+
+<h2>Configurar el muro de fuego</h2>
+<p>Ver las zonas</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--get-active-zones
+</code></pre></div>
+
+<p>Debe mostrar estas dos zonas</p>
+<ul>
+<li><strong>FedoraServer</strong> con el dispositivo <code>enp4s0</code> hacia <code>internet</code></li>
+<li><strong>nm-shared</strong> con el dispositivo <code>enp1s0</code> hacia la red <code>local</code></li>
+</ul>
+<p>Ver los servicios de la zona <code>nm-shared</code></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--zone<span class="o">=</span>nm-shared<span class="w"> </span>--list-services
+</code></pre></div>
+
+<p>Agregar <code>cockpit</code> a los servicios de esa zona</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--zone<span class="o">=</span>nm-shared<span class="w"> </span>--add-service<span class="o">=</span>cockpit
+</code></pre></div>
+
+<p>Ver los servicios de la zona <code>FedoraServer</code></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--zone<span class="o">=</span>FedoraServer<span class="w"> </span>--list-services
+</code></pre></div>
+
+<p>Eliminar los servicios <code>cockpit</code> y <code>ssh</code> de esa zona</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--zone<span class="o">=</span>FedoraServer<span class="w"> </span>--remove-service<span class="o">=</span>cockpit
+sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--zone<span class="o">=</span>FedoraServer<span class="w"> </span>--remove-service<span class="o">=</span>ssh
+</code></pre></div>
+
+<p>Fijar todos los cambios para que sean permanantes</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>firewall-cmd<span class="w"> </span>--runtime-to-permanent
+</code></pre></div>
+
+<h2>Configurar el servicio DHCP</h2>
+<p>Crear un archivo de configuracion</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/NetworkManager/dnsmasq-shared.d/01-read-hosts.conf
+</code></pre></div>
+
+<p>Con este contenido</p>
+<div class="highlight"><pre><span></span><code><span class="na">addn-hosts</span><span class="o">=</span><span class="s">/etc/hosts</span>
+</code></pre></div>
+
+<p>Crear un archivo para configurar las direcciones IP estaticas con las <code>mac adresses</code> de los equipos en la red local</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/NetworkManager/dnsmasq-shared.d/11-local-network.conf
+</code></pre></div>
+
+<p>Escribir una linea para cada <em>mac address</em> y la direccion IP</p>
+<div class="highlight"><pre><span></span><code>dhcp-host=xx:xx:xx:xx:xx:xx,10.11.11.11
+dhcp-host=xx:xx:xx:xx:xx:xx,10.11.11.12
+dhcp-host=xx:xx:xx:xx:xx:xx,10.11.11.13
+dhcp-host=xx:xx:xx:xx:xx:xx,10.11.11.14
+</code></pre></div>
+
+<p>Editar <code>/etc/hosts</code></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nano<span class="w"> </span>/etc/hosts
+</code></pre></div>
+
+<p>Agregar una linea para cada direccion IP y el nombre de equipo en la red local</p>
+<div class="highlight"><pre><span></span><code><span class="mf">10.11.11.11</span><span class="w">  </span><span class="n">equipo1</span>
+<span class="mf">10.11.11.12</span><span class="w">  </span><span class="n">equipo2</span>
+<span class="mf">10.11.11.13</span><span class="w">  </span><span class="n">equipo3</span>
+<span class="mf">10.11.11.14</span><span class="w">  </span><span class="n">equipo4</span>
+</code></pre></div>
+
+<p>Reiniciar Network Manager para aplicar los cambios</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>NetworkManager
+</code></pre></div>
+
+<h2>Configurar Pi-Hole en IP estatica en el dispositivo a internet</h2>
+<p>Para usar una Raspberry Pi con Pi-Hole como servidor DNS en la red que proporciona el internet he de cambiar...</p>
+<p>Cambiar el metodo a manual</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nmcli<span class="w"> </span>con<span class="w"> </span>mod<span class="w"> </span>internet<span class="w"> </span>ipv4.method<span class="w"> </span>manual
+</code></pre></div>
+
+<p>Definir la direccion IP estatica del dispositivo que esta conectado al modem</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nmcli<span class="w"> </span>con<span class="w"> </span>mod<span class="w"> </span>internet<span class="w"> </span>ipv4.addresses<span class="w"> </span><span class="m">192</span>.168.100.102/24
+</code></pre></div>
+
+<p>Definir el ruteador por defecto con la direccion IP del modem</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nmcli<span class="w"> </span>con<span class="w"> </span>mod<span class="w"> </span>internet<span class="w"> </span>ipv4.gateway<span class="w"> </span><span class="m">192</span>.168.100.1
+</code></pre></div>
+
+<p>Definir la direccion IP del DNS hacia la Raspberry Pi</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nmcli<span class="w"> </span>con<span class="w"> </span>mod<span class="w"> </span>internet<span class="w"> </span>ipv4.dns<span class="w"> </span><span class="m">192</span>.168.100.103
+</code></pre></div>
+
+<p>Ignorar los datos que sobre DNS vaya a proporcionar el modem</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>nmcli<span class="w"> </span>con<span class="w"> </span>mod<span class="w"> </span>internet<span class="w"> </span>ipv4.ignore-auto-dns<span class="w"> </span>yes
+</code></pre></div>
+
+<p>Reiniciar Network Manager para aplicar los cambios</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>NetworkManager
+</code></pre></div>
+
+<h2>Referencias</h2>
+<ul>
+<li><a href="https://fedoramagazine.org/internet-connection-sharing-networkmanager/">Internet connection sharing with NetworkManager</a></li>
+</ul>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

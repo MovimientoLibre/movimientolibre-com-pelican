@@ -1,0 +1,577 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su desempeño y seguridad sean de lo mejor.">
+    <meta name="keywords" content="gentoo linux, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Instalación de Gentoo Linux para un servidor">
+    <meta name="twitter:description" content="En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su desempeño y seguridad sean de lo mejor.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/gentoo-en-servidor-instalacion-2014-05/preview.jpg">
+    <meta property="og:title" content="Instalación de Gentoo Linux para un servidor">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/gentoo-en-servidor-instalacion-2014-05/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/gentoo-en-servidor-instalacion-2014-05/preview.jpg">
+    <meta property="og:description" content="En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su desempeño y seguridad sean de lo mejor.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Instalación de Gentoo Linux para un servidor - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Instalación de Gentoo Linux para un servidor",
+                "headline": "Instalación de Gentoo Linux para un servidor",
+                "description": "En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su desempeño y seguridad sean de lo mejor.",
+                "dateCreated": "2014-06-15 08:00:00-05:00",
+                "datePublished": "2014-06-15 08:00:00-05:00",
+                "dateModified": "2014-06-15 08:00:00-05:00",
+                "image": "https://movimientolibre.com/apuntes/gentoo-en-servidor-instalacion-2014-05/preview.jpg",
+                "url": "https://movimientolibre.com/apuntes/gentoo-en-servidor-instalacion-2014-05/"
+            }
+        </script>
+        <h2>Instalación de Gentoo Linux para un servidor</h2>
+        <p class="lead">En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su desempeño y seguridad sean de lo mejor.</p>
+        <p>15 June 2014</p>
+        <p>Cuando hacemos una instalación de <a href="http://www.gentoo.org">Gentoo Linux</a> en una PC o laptop buscamos tener entorno gráfico y muchos programas; como reproductores multimedia, navegadores de internet, herramientas de desarrollo y hasta una suite de oficina. En cambio, <strong>para un servidor, nos enfocamos en instalar el sistema operativo base y los servicios que vaya otorgar a la red local o al internet.</strong></p>
+<p>En cantidad de programas y tiempo requerido, instalar un servidor requiere menos de los dos. Pero siempre, gracias a las ventajas de Gentoo Linux, cuidaremos que su <strong>desempeño</strong> y <strong>seguridad</strong> sean de lo mejor.</p>
+<p>En el siguiente apunte listo los pasos que tomé para instalar un <strong>servidor web con Apache/PHP/MySQL/PostgreSQL</strong>. No hago una explicación detallada de cada paso; simplemente enlisto los comandos para instalar.</p>
+<p><strong>ADVERTENCIA</strong>: El contenido de esta publicación es sólo un respaldo que puede servirle como base. <strong>Algunos comandos pueden destruir la información de su disco duro</strong>; por lo que el autor NO tiene ninguna responsabilidad en lo que resulte. Lea el manual oficial <a href="http://www.gentoo.org/doc/en/handbook/handbook-amd64.xml">Gentoo Handbook AMD64</a>.</p>
+<h3>Construir el Sistema</h3>
+<p>La gran flexibilidad de Gentoo Linux nos permite hacer esta "construcción" en un subdirectorio o una partición del disco duro. En contraste, otros sistemas operativos requieren un disco duro dedicado y reiniciar la computadora para ejecutar su asistente de instalación. Dicho de otra manera; puede estar construyendo un nuevo Gentoo Linux en una terminal mientras sigue trabajando/entreteniéndose en otra ventana.</p>
+<p>Ya teniendo particionado el disco duro y destinando <strong>/dev/sda5</strong> a la raíz del S.O. Formatee...</p>
+<div class="highlight"><pre><span></span><code># mkfs.ext4 -L Servidor201405 /dev/sda5
+# mkdir /mnt/gentoo
+# mount /dev/sda5 /mnt/gentoo
+</code></pre></div>
+
+<p>Previamente he bajado el <em>stage</em> y puesto en <strong>/mnt/tmp</strong>. Desempaque...</p>
+<div class="highlight"><pre><span></span><code># cd /mnt/gentoo
+# tar xvjpf /mnt/tmp/stage3-amd64-20140515.tar.bz2
+</code></pre></div>
+
+<p>Monte las particiones lógicas...</p>
+<div class="highlight"><pre><span></span><code># mount -t proc none /mnt/gentoo/proc
+# mount --rbind /sys /mnt/gentoo/sys
+# mount --rbind /dev /mnt/gentoo/dev
+</code></pre></div>
+
+<p>Tengo una partición dedicada para <strong>/usr/portage</strong> en <strong>/dev/sda6</strong>, así que sólo la monto en <strong>/mnt/gentoo/usr/portage</strong></p>
+<div class="highlight"><pre><span></span><code># mkdir /mnt/gentoo/usr/portage
+# mount /dev/sda6 /mnt/gentoo/usr/portage
+</code></pre></div>
+
+<p>Verifique lo montado...</p>
+<div class="highlight"><pre><span></span><code># mount | grep /mnt/gentoo
+</code></pre></div>
+
+<p>Copie <strong>resolv.conf</strong></p>
+<div class="highlight"><pre><span></span><code># cp /etc/resolv.conf /mnt/gentoo/etc/
+</code></pre></div>
+
+<p>Edite <strong>make.conf</strong></p>
+<div class="highlight"><pre><span></span><code># nano -w /mnt/gentoo/etc/portage/make.conf
+</code></pre></div>
+
+<p>Con este contenido...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span>
+<span class="err">#</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="nx">make</span><span class="p">.</span><span class="nx">conf</span>
+<span class="err">#</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Servidor</span><span class="w"> </span><span class="nx">Apache</span><span class="o">/</span><span class="nx">PHP</span><span class="o">/</span><span class="nx">PostgreSQL</span><span class="w"> </span><span class="nx">Gentoo</span><span class="w"> </span><span class="nx">Linux</span>
+<span class="err">#</span>
+
+<span class="err">#</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Servidor</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="nx">bits</span><span class="w"> </span><span class="nx">GENERICO</span>
+<span class="err">#</span>
+<span class="nx">CFLAGS</span><span class="p">=</span><span class="s">&quot;-O2 -pipe&quot;</span>
+<span class="nx">CXXFLAGS</span><span class="p">=</span><span class="s">&quot;${CFLAGS}&quot;</span>
+<span class="nx">CHOST</span><span class="p">=</span><span class="s">&quot;x86_64-pc-linux-gnu&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Cantidad</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">compilaciones</span><span class="w"> </span><span class="nx">simultaneas</span>
+<span class="nx">MAKEOPTS</span><span class="p">=</span><span class="s">&quot;-j2&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Español</span><span class="w"> </span><span class="nx">como</span><span class="w"> </span><span class="nx">lengua</span>
+<span class="nx">LINGUAS</span><span class="p">=</span><span class="s">&quot;es es_MX es_AR es_ES&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Aceptar</span><span class="w"> </span><span class="nx">todas</span><span class="w"> </span><span class="nx">las</span><span class="w"> </span><span class="nx">licencias</span>
+<span class="nx">ACCEPT_LICENSE</span><span class="p">=</span><span class="s">&quot;*&quot;</span>
+
+<span class="err">#</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">USE</span><span class="w"> </span><span class="nx">flags</span>
+<span class="err">#</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;mmx sse sse2&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Redes</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;${USE} apache2 fuse vhosts&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Base</span><span class="w"> </span><span class="nx">de</span><span class="w"> </span><span class="nx">datos</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;${USE} mysql postgres sqlite&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Desarrollo</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;${USE} git php python ruby&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Graficos</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;${USE} corefonts fontconfig freetype gd gnuplot graphviz imagemagick jpeg png tiff truetype&quot;</span>
+
+<span class="err">#</span><span class="w"> </span><span class="nx">Varios</span>
+<span class="nx">USE</span><span class="p">=</span><span class="s">&quot;${USE} latex&quot;</span>
+
+<span class="err">#</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Portage</span><span class="p">,</span><span class="w"> </span><span class="nx">esto</span><span class="w"> </span><span class="nx">es</span><span class="w"> </span><span class="nx">para</span><span class="w"> </span><span class="nx">usar</span><span class="w"> </span><span class="nx">otra</span><span class="w"> </span><span class="nx">computadora</span><span class="w"> </span><span class="nx">en</span><span class="w"> </span><span class="nx">la</span><span class="w"> </span><span class="nx">red</span><span class="w"> </span><span class="nx">como</span><span class="w"> </span><span class="nx">proveedor</span><span class="w"> </span><span class="nx">del</span><span class="w"> </span><span class="nx">portage</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="nx">los</span><span class="w"> </span><span class="nx">paquetes</span><span class="p">.</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">Cambie</span><span class="w"> </span><span class="nx">servidor</span><span class="p">.</span><span class="nx">dominio</span><span class="p">.</span><span class="nx">lan</span><span class="w"> </span><span class="nx">por</span><span class="w"> </span><span class="nx">el</span><span class="w"> </span><span class="nx">nombre</span><span class="w"> </span><span class="nx">o</span><span class="w"> </span><span class="nx">dirección</span><span class="w"> </span><span class="nx">IP</span>
+<span class="err">#</span>
+<span class="nx">SERVIDOR_PORTAGE</span><span class="p">=</span><span class="nx">servidor</span><span class="p">.</span><span class="nx">dominio</span><span class="p">.</span><span class="nx">lan</span>
+<span class="nx">PORTDIR</span><span class="p">=</span><span class="s">&quot;/usr/portage&quot;</span>
+<span class="nx">DISTDIR</span><span class="p">=</span><span class="s">&quot;${PORTDIR}/distfiles&quot;</span>
+<span class="nx">PKGDIR</span><span class="p">=</span><span class="s">&quot;${PORTDIR}/packages&quot;</span>
+<span class="nx">SYNC</span><span class="p">=</span><span class="nx">rsync</span><span class="p">:</span><span class="c1">//${SERVIDOR_PORTAGE}/gentoo-portage</span>
+<span class="nx">FETCHCOMMAND</span><span class="p">=</span><span class="s">&quot;rsync rsync://${SERVIDOR_PORTAGE}/gentoo-distfiles/\${FILE} ${DISTDIR}&quot;</span>
+</code></pre></div>
+
+<p>Configure <strong>locale.gen</strong></p>
+<div class="highlight"><pre><span></span><code># nano /mnt/gentoo/etc/locale.gen
+</code></pre></div>
+
+<p>Con este contenido...</p>
+<div class="highlight"><pre><span></span><code><span class="n">en_US</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">en_US</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">es_ES</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">es_ES</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">es_ES</span><span class="nv">@euro</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">15</span>
+<span class="n">es_MX</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">es_MX</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</code></pre></div>
+
+<p>Configure <strong>02locales</strong></p>
+<div class="highlight"><pre><span></span><code># nano /mnt/gentoo/etc/env.d/02locales
+</code></pre></div>
+
+<p>Con este contenido...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span>
+# 02locales
+<span class="gh">#</span>
+LANG=&quot;es_MX.UTF-8&quot;
+LANGUAGE=&quot;es_MX.UTF-8&quot;
+LC_ALL=&quot;es_MX.UTF-8&quot;
+</code></pre></div>
+
+<p>Haga el <em>chroot</em>:</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># chroot /mnt/gentoo /bin/bash</span>
+<span class="c1"># env-update</span>
+<span class="c1"># source /etc/profile</span>
+<span class="c1"># export PS1=&quot;(nuevo) $PS1&quot;</span>
+</code></pre></div>
+
+<p>Ejecute...</p>
+<div class="highlight"><pre><span></span><code># locale-gen
+</code></pre></div>
+
+<p>Salga del <em>chroot</em> y vuelva a entrar con los comandos anteriores; así nos aseguramos que se carguen las configuraciones.</p>
+<p>Para poder instalar paquetes que están marcados como inestables, hago uso de la reciente característica de Gentoo para desenmascarar paquetes con archivos individuales:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">mkdir</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">keywords</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;dev-ruby/kramdown&quot;</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">keywords</span><span class="o">/</span><span class="nx">dev</span><span class="o">-</span><span class="nx">ruby_kramdown</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;sys-fs/ecryptfs-utils&quot;</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">keywords</span><span class="o">/</span><span class="nx">sys</span><span class="o">-</span><span class="nx">fs_ecryptfs</span><span class="o">-</span><span class="nx">utils</span>
+</code></pre></div>
+
+<p>También para los <em>USE flags</em> se puede hacer lo mismo:</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">mkdir</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">use</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;app-text/texlive extra pstricks&quot;</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">use</span><span class="o">/</span><span class="nx">app</span><span class="o">-</span><span class="nx">text_texlive</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">echo</span><span class="w"> </span><span class="s">&quot;net-dns/bind -berkdb -mysql -postgres&quot;</span><span class="w"> </span><span class="p">&gt;</span><span class="w"> </span><span class="o">/</span><span class="nx">etc</span><span class="o">/</span><span class="nx">portage</span><span class="o">/</span><span class="kn">package</span><span class="p">.</span><span class="nx">use</span><span class="o">/</span><span class="nx">net</span><span class="o">-</span><span class="nx">dns_bind</span>
+</code></pre></div>
+
+<p>Como esta instalación es para un servidor NO cambio el profile, dejo el básico de <strong>AMD64</strong>:</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">eselect</span><span class="w"> </span><span class="nv">profile</span><span class="w"> </span><span class="k">show</span>
+<span class="nv">Current</span><span class="w"> </span><span class="o">/</span><span class="nv">etc</span><span class="o">/</span><span class="nv">portage</span><span class="o">/</span><span class="nv">make</span>.<span class="nv">profile</span><span class="w"> </span><span class="nv">symlink</span>:
+<span class="nv">default</span><span class="o">/</span><span class="nv">linux</span><span class="o">/</span><span class="nv">amd64</span><span class="o">/</span><span class="mi">13</span>.<span class="mi">0</span>
+</code></pre></div>
+
+<p>Edite...</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/conf.d/keymaps
+# nano -w /etc/hosts
+# nano -w /etc/conf.d/hostname
+</code></pre></div>
+
+<p>Luego defina la zona horaria de su región...</p>
+<div class="highlight"><pre><span></span><code># cp /usr/share/zoneinfo/Mexico/General /etc/localtime
+</code></pre></div>
+
+<p>Instale el <em>kernel</em>. Es largo de explicar, así que sólo diré que debe habilitar los controladores <strong>Virtio</strong> que son los necesarios para <strong>KVM</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> emerge gentoo-sources
+<span class="gh">#</span> cd /usr/src/linux
+<span class="gh">#</span> make menuconfig
+<span class="gh">#</span> make
+<span class="gh">#</span> make modules_install
+</code></pre></div>
+
+<p>Instale unas herramientas básicas...</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># emerge gentoolkit reiserfsprogs dhcpcd dosfstools app-misc/screen iptables pwgen pciutils</span>
+</code></pre></div>
+
+<p>Instale estos servicios básicos...</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">emerge</span><span class="w"> </span><span class="nv">acpid</span><span class="w"> </span><span class="nv">ntp</span><span class="w"> </span><span class="nv">syslog</span><span class="o">-</span><span class="nv">ng</span><span class="w"> </span><span class="nv">vixie</span><span class="o">-</span><span class="nv">cron</span><span class="w"> </span><span class="k">logrotate</span>
+#<span class="w"> </span><span class="nv">rc</span><span class="o">-</span><span class="nv">update</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="nv">acpid</span><span class="w"> </span><span class="nv">default</span>
+#<span class="w"> </span><span class="nv">rc</span><span class="o">-</span><span class="nv">update</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="nv">syslog</span><span class="o">-</span><span class="nv">ng</span><span class="w"> </span><span class="nv">default</span>
+#<span class="w"> </span><span class="nv">rc</span><span class="o">-</span><span class="nv">update</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="nv">vixie</span><span class="o">-</span><span class="nv">cron</span><span class="w"> </span><span class="nv">default</span>
+#<span class="w"> </span><span class="nv">rc</span><span class="o">-</span><span class="nv">update</span><span class="w"> </span><span class="nv">add</span><span class="w"> </span><span class="nv">ntpd</span><span class="w"> </span><span class="nv">default</span>
+</code></pre></div>
+
+<p>Cambie la contraseña de <em>root</em>:</p>
+<div class="highlight"><pre><span></span><code># passwd
+</code></pre></div>
+
+<p>Instale la base de datos <strong>PostgreSQL</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge postgresql-server
+</code></pre></div>
+
+<p>Instale <strong>Ruby</strong> y la gema <strong>RedCloth</strong> que uso para el <a href="http://cms.movimientolibre.com">CMS de Movimiento Libre</a>:</p>
+<div class="highlight"><pre><span></span><code># emerge ruby redcloth
+</code></pre></div>
+
+<p>Instale <strong>MySQL</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge mysql
+</code></pre></div>
+
+<p>Instale <strong>Apache2</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge apache
+</code></pre></div>
+
+<p>Instale <strong>PHP</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge php
+</code></pre></div>
+
+<p>Instale <strong>LaTeX</strong> y la gema de <strong>Ruby</strong> <strong>Kramdown</strong> que también uso en el CMS:</p>
+<div class="highlight"><pre><span></span><code># emerge texlive kramdown
+</code></pre></div>
+
+<p>Instale herramientas gráficas:</p>
+<div class="highlight"><pre><span></span><code># emerge graphviz imagemagick sci-visualization/gnuplot
+</code></pre></div>
+
+<p>Instale <strong>Git</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge git
+</code></pre></div>
+
+<p>Instale software para cifrado de discos:</p>
+<div class="highlight"><pre><span></span><code># emerge ecryptfs-utils cryptsetup
+</code></pre></div>
+
+<p>Al término de esta construcción, nos salimos del <em>chroot</em> y desmontamos las particiones auxiliares, más NO la raíz.</p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="k">exit</span>
+#<span class="w"> </span><span class="nv">umount</span><span class="w"> </span><span class="o">-</span><span class="nv">l</span><span class="w"> </span><span class="o">/</span><span class="nv">mnt</span><span class="o">/</span><span class="nv">gentoo</span><span class="o">/</span><span class="nv">sys</span>
+#<span class="w"> </span><span class="nv">umount</span><span class="w"> </span><span class="o">-</span><span class="nv">l</span><span class="w"> </span><span class="o">/</span><span class="nv">mnt</span><span class="o">/</span><span class="nv">gentoo</span><span class="o">/</span><span class="nv">dev</span>
+#<span class="w"> </span><span class="nv">umount</span><span class="w"> </span><span class="o">/</span><span class="nv">mnt</span><span class="o">/</span><span class="nv">gentoo</span><span class="o">/</span><span class="nv">proc</span>
+#<span class="w"> </span><span class="nv">umount</span><span class="w"> </span><span class="o">/</span><span class="nv">mnt</span><span class="o">/</span><span class="nv">gentoo</span><span class="o">/</span><span class="nv">usr</span><span class="o">/</span><span class="nv">portage</span>
+</code></pre></div>
+
+<h2>Preparar la virtualización KVM</h2>
+<p>Haciendo una analogía a <a href="https://es.wikipedia.org/wiki/Frankenstein_o_el_moderno_Prometeo">Frankestein</a>, ya tenemos listo el <em>cerebro</em> ahora vamos a preparar un <em>cuerpo</em>: Usando <a href="http://www.linux-kvm.org/page/Main_Page">KVM</a> cree una nueva virtualización con un disco duro virtual de 24,576 MB (o sea, 24 GB) y arranque con el ISO de Gentoo.</p>
+<p>Particione a su gusto con:</p>
+<div class="highlight"><pre><span></span><code># fdisk /dev/vda
+</code></pre></div>
+
+<p>Formatee la partición que va ser la raíz, en mi ejemplo es la <strong>/dev/vda6</strong></p>
+<div class="highlight"><pre><span></span><code># mkfs.ext4 -L Gentoo /dev/vda6
+</code></pre></div>
+
+<p>Monte la raíz:</p>
+<div class="highlight"><pre><span></span><code># mount /dev/vda6 /mnt/gentoo
+</code></pre></div>
+
+<p>Cambie la contraseña root e inicie el <em>daemon</em> OpenSSH...</p>
+<div class="highlight"><pre><span></span><code># passwd
+# /etc/init.d/sshd start
+</code></pre></div>
+
+<h3>Copiar todo a la virtualización</h3>
+<p>Estos comandos los ejecuto en mi Gentoo Linux que tengo de base.</p>
+<p>En mi caso tengo KVM con un bridge con red <strong>172.16.71.0/24</strong> y he configurado una dirección IP en la virtualización con <strong>172.16.71.11</strong>. Copie TODO a una sola partición de destino con un comando como éste:</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># cd /mnt/gentoo</span>
+<span class="cp"># tar -cvf - . | ssh root@172.16.71.11 tar -C /mnt/gentoo/ -xf -</span>
+</code></pre></div>
+
+<h3>O tener directorios en otras particiones de la virtualización</h3>
+<p>Se vale omitir uno o más directorios para después montar otra partición en la virtualización. Por ejemplo, para mantener <strong>/var</strong> en otra partición, primero copiaría TODO menos <strong>/var</strong> con:</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># tar -cvf - --exclude=/var . | ssh root@172.16.71.11 tar -C /mnt/gentoo/ -xf -</span>
+</code></pre></div>
+
+<p>Luego, en la virtualización ejecuto estos comandos, en mi ejemplo <strong>/var</strong> será <strong>/dev/vda7</strong></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># mkfs.ext4 -L Var /dev/vda7</span>
+<span class="c1"># mkdir /var</span>
+<span class="c1"># mount /dev/vda7 /var</span>
+</code></pre></div>
+
+<p>Regreso al sistema Gentoo Linux base y mando copia del directorio <strong>/var</strong> y su contenido</p>
+<div class="highlight"><pre><span></span><code><span class="cp"># cd /mnt/gentoo/var</span>
+<span class="cp"># tar -cvf - . | ssh root@172.16.71.11 tar -C /mnt/gentoo/var/ -xf -</span>
+</code></pre></div>
+
+<h3>De regreso a la virtualización</h3>
+<p>Monte...</p>
+<div class="highlight"><pre><span></span><code># mount -t proc none /mnt/gentoo/proc
+# mount -o bind /dev /mnt/gentoo/dev
+# mount -o bind /sys /mnt/gentoo/sys
+</code></pre></div>
+
+<p><em>Formatee</em> las otras particiones...</p>
+<div class="highlight"><pre><span></span><code># mkfs.ext2 -L Boot /dev/vda1
+# mkfs.ext4 -L Home /dev/vda2
+# mkfs.ext4 -L Portage /dev/vda3
+</code></pre></div>
+
+<p>Monte...</p>
+<div class="highlight"><pre><span></span><code># mount /dev/vda1 /mnt/gentoo/boot
+# mount /dev/vda3 /mnt/gentoo/usr/portage
+# mkswap /dev/vda5
+# swapon /dev/vda5
+</code></pre></div>
+
+<p>Sincronize el <em>portage</em>, en mi caso tengo un equipo con <em>rsyncd</em> andando...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> cd /mnt/gentoo/usr/portage
+<span class="gh">#</span> rsync -av rsync://servidorlocal/gentoo-portage/* .
+</code></pre></div>
+
+<p>Haga el <em>chroot</em>...</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># cp /etc/resolv.conf /mnt/gentoo/etc/</span>
+<span class="c1"># chroot /mnt/gentoo /bin/bash</span>
+<span class="c1"># source /etc/profile</span>
+<span class="c1"># export PS1=&quot;(nuevo) $PS1&quot;</span>
+</code></pre></div>
+
+<p>Edite <strong>fstab</strong></p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/fstab
+</code></pre></div>
+
+<p>Esta es una sugerencia de su contenido, va de acuerdo a como haya particionado...</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># &lt;fs&gt;       &lt;mountpoint&gt;    &lt;type&gt;    &lt;opts&gt;            &lt;dump/pass&gt;</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda1</span><span class="w">    </span><span class="o">/</span><span class="n">boot</span><span class="w">           </span><span class="n">ext2</span><span class="w">      </span><span class="n">noauto</span><span class="p">,</span><span class="n">noatime</span><span class="w">    </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda2</span><span class="w">    </span><span class="o">/</span><span class="n">home</span><span class="w">           </span><span class="n">ext4</span><span class="w">      </span><span class="n">defaults</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda3</span><span class="w">    </span><span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">portage</span><span class="w">    </span><span class="n">ext4</span><span class="w">      </span><span class="n">defaults</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="c1">#####  EXTENDED  #####</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda5</span><span class="w">    </span><span class="n">none</span><span class="w">            </span><span class="n">swap</span><span class="w">      </span><span class="n">sw</span><span class="w">                </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda6</span><span class="w">    </span><span class="o">/</span><span class="w">               </span><span class="n">ext4</span><span class="w">      </span><span class="n">defaults</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">vda7</span><span class="w">    </span><span class="o">/</span><span class="k">var</span><span class="w">            </span><span class="n">ext4</span><span class="w">      </span><span class="n">noatime</span><span class="w">           </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+
+<p>Instale el <em>kernel</em>...</p>
+<div class="highlight"><pre><span></span><code># cd /usr/src/linux
+# make install
+</code></pre></div>
+
+<p>Instale <strong>GRUB</strong>:</p>
+<div class="highlight"><pre><span></span><code># emerge -pv grub
+# emerge grub
+# grub2-install /dev/vda
+</code></pre></div>
+
+<p>Configure <strong>GRUB</strong>:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> cd /etc/default
+<span class="gh">#</span> nano grub
+<span class="gh">#</span> cd /etc/grub.d
+<span class="gh">#</span> nano 40_custom
+</code></pre></div>
+
+<p>En <strong>40_custom</strong> escriba la ruta correcta al kernel que haya instalado...</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="ch">#!/bin/sh</span>
+<span class="nb">exec</span><span class="w"> </span>tail<span class="w"> </span>-n<span class="w"> </span>+3<span class="w"> </span><span class="nv">$0</span>
+<span class="c1"># This file provides an easy way to add custom menu entries.  Simply type the</span>
+<span class="c1"># menu entries you want to add after this comment.  Be careful not to change</span>
+<span class="c1"># the &#39;exec tail&#39; line above.</span>
+
+<span class="c1">#</span>
+<span class="c1"># Gentoo Linux</span>
+<span class="c1">#</span>
+menuentry<span class="w"> </span><span class="s1">&#39;Gentoo Linux 2014-05-26 vda6 kernel 3.12.13&#39;</span><span class="w"> </span><span class="o">{</span>
+<span class="w">    </span>linux<span class="w"> </span>/vmlinuz-3.12.13-gentoo<span class="w"> </span><span class="nv">root</span><span class="o">=</span>/dev/vda6<span class="w"> </span><span class="nv">resume</span><span class="o">=</span>/dev/vda5
+<span class="o">}</span>
+</code></pre></div></td></tr></table></div>
+
+<p>Luego, pida a <strong>GRUB</strong> que haga la configuración...</p>
+<div class="highlight"><pre><span></span><code># grub2-mkconfig -o /boot/grub/grub.cfg
+</code></pre></div>
+
+<p>Programe que el <em>daemon</em> <strong>OpenSSH</strong> se inicie al encender...</p>
+<div class="highlight"><pre><span></span><code># /etc/init.d/sshd start
+# rc-update add sshd default
+</code></pre></div>
+
+<p>Ponga la contraseña de <em>root</em>...</p>
+<div class="highlight"><pre><span></span><code># passwd
+</code></pre></div>
+
+<p>Desmonte las particiones...</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># umount /mnt/gentoo/boot</span>
+<span class="c1"># umount /mnt/gentoo/usr/portage</span>
+<span class="c1"># umount /mnt/gentoo/var</span>
+<span class="c1"># umount -l /mnt/gentoo/sys</span>
+<span class="c1"># umount -l /mnt/gentoo/dev</span>
+<span class="c1"># umount /mnt/gentoo/proc</span>
+<span class="c1"># umount /mnt/gentoo</span>
+</code></pre></div>
+
+<p>Apague y pruebe...</p>
+<div class="highlight"><pre><span></span><code># halt
+</code></pre></div>
+
+<h3>Consola Serial</h3>
+<p>Usar una consola serial libera al virtualizador de tener simpre andando una interfaz gráfica para el huésped.</p>
+<p>Respalde y edite <strong>inittab</strong>...</p>
+<div class="highlight"><pre><span></span><code># cd /etc
+# cp inittab inittab.backup
+# nano inittab
+</code></pre></div>
+
+<p>Cambie estas líneas...</p>
+<div class="highlight"><pre><span></span><code># SERIAL CONSOLES
+s0:12345:respawn:/sbin/agetty -L -f /etc/issue.logo 9600 ttyS0 vt100
+s1:12345:respawn:/sbin/agetty -L -f /etc/issue.logo 38400 ttyS1 vt100
+</code></pre></div>
+
+<p>Modifique <strong>GRUB</strong>...</p>
+<div class="highlight"><pre><span></span><code># cd /etc/default/
+# nano grub
+</code></pre></div>
+
+<p>Haga que estas líneas tengan esto...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Append parameters to the linux kernel command line
+GRUB_CMDLINE_LINUX=&quot;console=ttyS1,38400&quot;
+
+<span class="gh">#</span> Append parameters to the linux kernel command line for non-recovery entries
+<span class="gh">#</span>GRUB_CMDLINE_LINUX_DEFAULT=&quot;&quot;
+
+<span class="gh">#</span> Uncomment to disable graphical terminal (grub-pc only)
+GRUB_TERMINAL=console
+</code></pre></div>
+
+<p>También cambie configuración del <strong>GRUB</strong> para la carga del kernel...</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> cd ../grub.d
+<span class="gh">#</span> nano 40_custom
+</code></pre></div>
+
+<p>Agregue <strong>console=ttyS1,38400</strong> al final de la instrucción...</p>
+<div class="highlight"><pre><span></span><code>#
+# Gentoo Linux
+#
+menuentry &#39;Gentoo Linux 2014-05-26 vda6 kernel 3.12.13&#39; {
+        linux /vmlinuz-3.12.13-gentoo root=/dev/vda6 resume=/dev/vda5 console=ttyS1,38400
+}
+</code></pre></div>
+
+<p>Apague la máquina virtual. En la configuración de la virtualización retire el monitor, el ratón, el dispositivo <em>spice</em> si lo hubiera y arranque de nuevo.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Documento paso a paso la instalación de Gentoo Linux en una netbook con procesador Intel Atom N280.">
+    <meta name="keywords" content="gentoo linux, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Gentoo Linux en una netbook (2010, parte 1)">
+    <meta name="twitter:description" content="Documento paso a paso la instalación de Gentoo Linux en una netbook con procesador Intel Atom N280.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/gentoo-linux-mi-instalacion-personal-2010-parte-1/preview.jpg">
+    <meta property="og:title" content="Gentoo Linux en una netbook (2010, parte 1)">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/gentoo-linux-mi-instalacion-personal-2010-parte-1/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/gentoo-linux-mi-instalacion-personal-2010-parte-1/preview.jpg">
+    <meta property="og:description" content="Documento paso a paso la instalación de Gentoo Linux en una netbook con procesador Intel Atom N280.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Gentoo Linux en una netbook (2010, parte 1) - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Gentoo Linux en una netbook (2010, parte 1)",
+                "headline": "Gentoo Linux en una netbook (2010, parte 1)",
+                "description": "Documento paso a paso la instalación de Gentoo Linux en una netbook con procesador Intel Atom N280.",
+                "dateCreated": "2010-11-20 10:40:00-06:00",
+                "datePublished": "2010-11-20 10:40:00-06:00",
+                "dateModified": "2010-11-20 10:40:00-06:00",
+                "image": "https://movimientolibre.com/apuntes/gentoo-linux-mi-instalacion-personal-2010-parte-1/preview.jpg",
+                "url": "https://movimientolibre.com/apuntes/gentoo-linux-mi-instalacion-personal-2010-parte-1/"
+            }
+        </script>
+        <h2>Gentoo Linux en una netbook (2010, parte 1)</h2>
+        <p class="lead">Documento paso a paso la instalación de Gentoo Linux en una netbook con procesador Intel Atom N280.</p>
+        <p>20 November 2010</p>
+        <p><img alt="Cow Push" src="cow-push.jpg"></p>
+<p>Después de varios meses de tener una instalación completa de <a href="http://www.kde.org/">KDE</a> en mi <em>netbook</em> comenzé a pensar de que el poderoso y grande ambiente gráfico le restaba potencial a mi equipo. Era frecuente que el administrador de archivos Dolphin demorara algunos segundos en cargar. También la carga y velocidad de respuesta de la suite de información personal (PIM), en particular de <a href="http://pim.kde.org/">KMail</a>, era lenta.</p>
+<p>El concepto de una <em>netbook</em> involucra un procesador versátil y modesto. El <a href="http://es.wikipedia.org/wiki/Intel_Atom">Intel Atom</a> fue diseñado con ese fin, hereda mucha tecnología de la familia Pentium y consume poca energía para prolongar la duración de la carga en un equipo portátil. Pero <strong>no</strong> se trata de un procesador de alto rendimiento. Recordemos que fue <em>Windows XP</em> y no <em>Windows Vista</em> el que apareció preinstalado en las <em>netbooks</em> a la venta, por obvias razones.</p>
+<p>Antes de buscar la reinstalación, me pregunté... ¿de verdad necesito vistosos elementos en mi escritorio?, ¿vale la pena que <a href="http://www.kde.org/workspaces/plasmadesktop/">Plasma</a> me consuma desde el 5% al 50% de mi procesador y en consecuencia más carga de mi batería?. Fue entonces que decidí arriesgarme, y tomar un entorno más simple, más rápido, que me consumiera menos recursos.</p>
+<p>Siguiendo los pasos de esta guía, lograremos tener un sistema <a href="http://www.gentoo.org/">Gentoo Linux</a> con tres opciones gráficas de trabajo:</p>
+<ul>
+<li><a href="http://www.fluxbox.org/">Fluxbox</a> es un gestor de ventanas muy ligero.</li>
+<li><a href="http://www.xfce.org/">XFCE4</a> es un entorno gráfico ligero con una buena cantidad de comodidades.</li>
+<li><a href="http://www.compiz.org/">Compiz</a> es un gestor de ventanas modular con efectos espectaculares.</li>
+</ul>
+<p>Aclaro que lo que sigue es solo una guía; los pasos que su servidor ha ejecutado. Usted tiene la libertad de tomar el rumbo que guste. No deje de consultar la <a href="http://www.gentoo.org/doc/en/handbook/">Documentación Oficial de Instalación</a> de Gentoo.</p>
+<p>A continuación, documento paso a paso la instalación de Gentoo Linux en una <em>netbook</em> con procesador <strong>Intel Atom N280</strong>. Le informo que los comandos con # son ejecutados con el super-usuario <strong>root</strong>, que de hecho, son la mayoría.</p>
+<h3>Instalación asistida</h3>
+<p><img class="img-fluid" src="instalacion-asistida.jpg" alt="Instalación asistida"></p>
+<p>No dudo que una <em>netbook</em> pueda compilar todos los paquetes que necesito instalar para mi escritorio con Gentoo Linux; pero tardaría mucho, mucho tiempo. Es por ello que le paso esa labor a un equipo más poderoso; que lo haga en menos tiempo.</p>
+<p>Ante esto... si los equipos son distintos... ¿funcionará lo que compile uno en el otro?. Para ello hay que revisar las similitudes y diferencias entre los procesadores de ambos equipos. Revise en <a href="https://wiki.gentoo.org/">Gentoo Wiki</a> el documento <a href="https://wiki.gentoo.org/wiki/Safe_Cflags">Safe CFlags</a> el cual muestra los parámetros recomendados de compilación para cada procesador.</p>
+<p>Afortunadamente, en el momento de escribir esta guía, tanto el <strong>Intel DualCore</strong> como el <strong>Atom 230, 330 N-Series</strong> tienen los mismos parámetros de compilación:</p>
+<div class="highlight"><pre><span></span><code>CHOST=&quot;i686-pc-linux-gnu&quot;
+CFLAGS=&quot;-march=prescott<span class="w"> </span>-O2<span class="w"> </span>-fomit-frame-pointer<span class="w"> </span>-pipe&quot;
+CXXFLAGS=&quot;<span class="cp">${</span><span class="n">CFLAGS</span><span class="cp">}</span>&quot;
+</code></pre></div>
+
+<p>También es posible hacer compilación asistida si el procesador del equipo <em>poderoso</em> tiene la misma arquitectura y/o es más <em>nuevo</em> que el de los equipos de destino. Cuestión de probarlo. Por ejemplo, las compilaciones hechas con parámetros para el <strong>VIA C7</strong> en el <em>Intel DualCore</em> me han funcionado:</p>
+<div class="highlight"><pre><span></span><code>CHOST=&quot;i686-pc-linux-gnu&quot;
+CFLAGS=&quot;-march=i686<span class="w"> </span>-mmmx<span class="w"> </span>-msse<span class="w"> </span>-msse2<span class="w"> </span>-msse3<span class="w"> </span>-O2<span class="w"> </span>-pipe<span class="w"> </span>-fomit-frame-pointer&quot;
+CXXFLAGS=&quot;<span class="cp">${</span><span class="n">CFLAGS</span><span class="cp">}</span>&quot;
+</code></pre></div>
+
+<p>Para hacer una instalación asistida elija una ubicación en el disco duro del equipo <em>poderoso</em> con suficiente espacio; lo necesario para contener el sistema completo y los archivos que descargue. Para dar una cifra, sugiero unos 8 GB libres. En mi equipo <em>poderoso</em> uso /mnt/archivos/instalaciones para ese fin. Voy a crear ahí un directorio con el nombre <em>prescott</em>:</p>
+<div class="highlight"><pre><span></span><code># cd /mnt/archivos/instalaciones
+# mkdir prescott
+</code></pre></div>
+
+<h3>Use el stage más reciente</h3>
+<p>Mi sitio predilecto para descargar el <em>stage</em> es en el <a href="http://osuosl.org/">Oregon State University - Open Source Lab</a> en éste URL: <a href="http://gentoo.osuosl.org/releases/">http://gentoo.osuosl.org/releases/</a>. Note que parece un nuevo <em>stage</em> frecuentemente. <strong>Le recomiendo que siempre use el stage más nuevo</strong>. Cuando escribí esta guía, bajé el <em>stage</em> <strong>x86</strong> del 9 de noviembre de 2010:</p>
+<div class="highlight"><pre><span></span><code># cd /mnt/archivos/software/gentoo
+# wget http://gentoo.osuosl.org/releases/x86/current-stage3/stage3-i686-20101109.tar.bz2
+# wget http://gentoo.osuosl.org/releases/x86/current-stage3/stage3-i686-20101109.tar.bz2.CONTENTS
+# wget http://gentoo.osuosl.org/releases/x86/current-stage3/stage3-i686-20101109.tar.bz2.DIGESTS
+# wget http://gentoo.osuosl.org/releases/x86/current-stage3/stage3-i686-20101109.tar.bz2.DIGESTS.asc
+</code></pre></div>
+
+<p>Compruebe la integridad de los archivos descargados con...</p>
+<div class="highlight"><pre><span></span><code># md5sum -c stage3-i686-20101109.tar.bz2.DIGESTS
+</code></pre></div>
+
+<p>Desempaque.</p>
+<div class="highlight"><pre><span></span><code># cd /mnt/archivos/instalaciones/prescott
+# tar xvf /mnt/archivos/software/gentoo/stage3-i686-20101109.tar.bz2
+</code></pre></div>
+
+<p>Monte <em>dev</em> y <em>proc</em>.</p>
+<div class="highlight"><pre><span></span><code># mount -t proc none /mnt/archivos/instalaciones/prescott/proc
+# mount -o bind /dev /mnt/archivos/instalaciones/prescott/dev
+</code></pre></div>
+
+<p>Copie la configuración de resolución de nombres. Esto es necesario para cuando el Gentoo esté <em>enjaulado</em> por <em>chroot</em>, así sabrá cual es el <em>DNS</em> de su red.</p>
+<div class="highlight"><pre><span></span><code># cp /etc/resolv.conf /mnt/archivos/instalaciones/prescott/etc/
+</code></pre></div>
+
+<p>Ingrese a al <em>stage</em> con <em>chroot</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># chroot /mnt/archivos/instalaciones/prescott /bin/bash</span>
+<span class="c1"># env-update</span>
+<span class="c1"># source /etc/profile</span>
+<span class="c1"># export PS1=&quot;(prescott) $PS1&quot;</span>
+</code></pre></div>
+
+<h3>Configure</h3>
+<p>Edite /etc/make.conf</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/make.conf
+</code></pre></div>
+
+<p>Para el cual sugiero el siguiente contenido...</p>
+<div class="highlight"><pre><span></span><code>#
+#<span class="w"> </span>/etc/make.conf
+#
+#<span class="w"> </span>Para<span class="w"> </span>Intel<span class="w"> </span>Prescott<span class="w"> </span>(Dual<span class="w"> </span>Core,<span class="w"> </span>Atom)<span class="w"> </span>de<span class="w"> </span>32<span class="w"> </span>bits
+#
+
+#<span class="w"> </span>WARNING:<span class="w"> </span>Changing<span class="w"> </span>your<span class="w"> </span>CHOST<span class="w"> </span>is<span class="w"> </span>not<span class="w"> </span>something<span class="w"> </span>that<span class="w"> </span>should<span class="w"> </span>be<span class="w"> </span>done<span class="w"> </span>lightly.
+#<span class="w"> </span>Please<span class="w"> </span>consult<span class="w"> </span>http://www.gentoo.org/doc/en/change-chost.xml<span class="w"> </span>before<span class="w"> </span>changing.
+CHOST=&quot;i686-pc-linux-gnu&quot;
+
+#
+#<span class="w"> </span>Netbook<span class="w"> </span>con<span class="w"> </span>Intel<span class="w"> </span>Atom<span class="w"> </span>N280<span class="w"> </span>@<span class="w"> </span>1.66<span class="w"> </span>GHz
+#
+CFLAGS=&quot;-march=prescott<span class="w"> </span>-O2<span class="w"> </span>-fomit-frame-pointer<span class="w"> </span>-pipe&quot;
+CXXFLAGS=&quot;<span class="cp">${</span><span class="n">CFLAGS</span><span class="cp">}</span>&quot;
+
+#<span class="w"> </span>Puede<span class="w"> </span>hacer<span class="w"> </span>tres<span class="w"> </span>compilaciones<span class="w"> </span>en<span class="w"> </span>paralelo
+MAKEOPTS=&quot;-j3&quot;
+
+#<span class="w"> </span>Espaniol<span class="w"> </span>como<span class="w"> </span>lengua
+LINGUAS=&quot;es<span class="w"> </span>es_MX&quot;
+
+#<span class="w"> </span>Aceptar<span class="w"> </span>todas<span class="w"> </span>las<span class="w"> </span>licencias
+ACCEPT_LICENSE=&quot;*&quot;
+
+#
+#<span class="w"> </span>Use<span class="w"> </span>Flags
+#
+
+#<span class="w"> </span>Intel<span class="w"> </span>Dual<span class="w"> </span>Core,<span class="w"> </span>Atom
+USE=&quot;acpi<span class="w"> </span>laptop<span class="w"> </span>mmx<span class="w"> </span>mmxext<span class="w"> </span>sse<span class="w"> </span>sse2<span class="w"> </span>ssse3<span class="w"> </span>threads&quot;
+
+#
+#<span class="w"> </span>Servidor<span class="w"> </span>Portage
+#
+SERVIDOR_PORTAGE=otroequipo.tured.lan
+PORTDIR=/usr/portage
+DISTDIR=<span class="cp">${</span><span class="n">PORTDIR</span><span class="cp">}</span>/distfiles
+SYNC=rsync://<span class="cp">${</span><span class="n">SERVIDOR_PORTAGE</span><span class="cp">}</span>/gentoo-portage
+FETCHCOMMAND=&quot;rsync<span class="w"> </span>rsync://<span class="cp">${</span><span class="n">SERVIDOR_PORTAGE</span><span class="cp">}</span>/gentoo-distfiles/\\<span class="cp">${</span><span class="n">FILE</span><span class="cp">}</span><span class="w"> </span><span class="cp">${</span><span class="n">DISTDIR</span><span class="cp">}</span>&quot;
+</code></pre></div>
+
+<p>Observe el final de /etc/make.conf donde configuro que las descargas se hagan desde <em>otroequipo.tured.lan</em>. Sustituya éste por el nombre de un equipo o por la dirección IP del equipo que comparta su <em>portage</em> con el <em>daemon rsyncd</em>. En cambio, si no usa un equipo para compartir el <em>portage</em> entonces omita las cinco últimas líneas para que las descargas se hagan desde internet.</p>
+<p>Configure /etc/locale.gen</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/locale.gen
+</code></pre></div>
+
+<p>Con este contenido...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="n">EEUU</span>
+<span class="n">en_US</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">en_US</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Espania</span>
+<span class="n">es_ES</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">es_ES</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+<span class="n">es_ES</span><span class="nv">@euro</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">15</span>
+
+<span class="err">#</span><span class="w"> </span><span class="n">Mexico</span>
+<span class="n">es_MX</span><span class="w"> </span><span class="n">ISO</span><span class="o">-</span><span class="mi">8859</span><span class="o">-</span><span class="mi">1</span>
+<span class="n">es_MX</span><span class="p">.</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="w"> </span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span>
+</code></pre></div>
+
+<p>Luego ejecute...</p>
+<div class="highlight"><pre><span></span><code># locale-gen
+</code></pre></div>
+
+<p>Descargue el <em>portage</em>.</p>
+<div class="highlight"><pre><span></span><code># mkdir /usr/portage
+# emerge --sync
+</code></pre></div>
+
+<p>Vamos a crear un nuevo archivo llamado <em>02locales</em>:</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/env.d/02locales
+</code></pre></div>
+
+<p>El archivo /etc/env.d/02locales contiene los parámetros de nuestro idioma y región:</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span>
+# /etc/env.d/02locales
+<span class="gh">#</span>
+LANG=&quot;es_MX.UTF-8&quot;
+LANGUAGE=&quot;es_MX.UTF-8&quot;
+LC_ALL=&quot;es_MX.UTF-8&quot;
+</code></pre></div>
+
+<p>Configure la zona horaria con:</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/conf.d/clock
+</code></pre></div>
+
+<p>Esta configuración hace que se ajuste la hora al iniciar o terminar el <a href="http://es.wikipedia.org/wiki/Horario_de_verano">Horario de verano</a> conocido en el idioma inglés como <em>Daylight Saving Time</em> (DST).</p>
+<div class="highlight"><pre><span></span><code>TIMEZONE=&quot;Mexico/General&quot;
+</code></pre></div>
+
+<p>Configure el mapa de caracteres de la terminal con:</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/conf.d/consolefont
+</code></pre></div>
+
+<p>Para tener un mayor soporte de caracteres uso:</p>
+<div class="highlight"><pre><span></span><code>CONSOLEFONT=&quot;lat9v-16&quot;
+</code></pre></div>
+
+<p>Configure el mapa del teclado con:</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/conf.d/keymaps
+</code></pre></div>
+
+<p>La gran mayoría de los teclados de computadoras de México funcionan con:</p>
+<div class="highlight"><pre><span></span><code>KEYMAP=&quot;la-latin1&quot;
+</code></pre></div>
+
+<p>Pero hay también un gran número de teclados españoles, se distinguen por tener la tecla "Ç", para esos hay que usar:</p>
+<div class="highlight"><pre><span></span><code>KEYMAP=&quot;es&quot;
+</code></pre></div>
+
+<p>Configure el nombre del equipo con:</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/conf.d/hostname
+</code></pre></div>
+
+<p>Recargue (de nuevo) las variables del entorno para asegurarnos que se apliquen los cambios hechos hasta el momento.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># env-update</span>
+<span class="c1"># source /etc/profile</span>
+<span class="c1"># export PS1=&quot;(prescott) $PS1&quot;</span>
+</code></pre></div>
+
+<h3>¿Quiere recompilar todo?</h3>
+<p>Es su decisión tener todos los paquetes del <em>stage</em> compilados a sus parámetros en <em>make.conf</em>. Si así lo desea; ejecute <em>emerge -e world</em>. Pero le advierto que toma bastante tiempo. Si no quiere hacerlo, no hay problema, simplemente cada paquete nuevo que instale o actualice será compilado con los parámetros de <em>make.conf</em>.</p>
+<div class="highlight"><pre><span></span><code># emerge -pe world
+# emerge -e world
+</code></pre></div>
+
+<h3>Kernel Linux</h3>
+<p>Instale <em>ccache</em>.</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># emerge ccache</span>
+<span class="c1"># ccache -M 2G</span>
+<span class="c1"># export PATH=&quot;/usr/lib/ccache/bin:${PATH}&quot;</span>
+</code></pre></div>
+
+<p>Descargue el <em>kernel</em>.</p>
+<div class="highlight"><pre><span></span><code># emerge gentoo-sources
+# cd /usr/src/linux
+</code></pre></div>
+
+<p>Si ya he compilado la misma versión con anterioridad, copie el archivo <em>.config</em> al directorio /usr/src/linux</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> make menuconfig
+<span class="gh">#</span> make
+<span class="gh">#</span> make modules_install
+</code></pre></div>
+
+<p>Como se trata de una compilación asistida, no voy a decirle que ejecute <em>make install</em> para instalar el kernel; eso lo haré cuando haya copiado la instalación al equipo final. Lo verá en la siguiente parte de esta guía.</p>
+<h3>Configure la tabla de particiones</h3>
+<p>Edite /etc/fstab</p>
+<div class="highlight"><pre><span></span><code># nano -w /etc/fstab
+</code></pre></div>
+
+<p>Este es un ejemplo de /etc/fstab</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="p">&lt;</span><span class="nx">fs</span><span class="p">&gt;</span><span class="w">      </span><span class="p">&lt;</span><span class="nx">mountpoint</span><span class="p">&gt;</span><span class="w">    </span><span class="p">&lt;</span><span class="k">type</span><span class="p">&gt;</span><span class="w">    </span><span class="p">&lt;</span><span class="nx">opts</span><span class="p">&gt;</span><span class="w">          </span><span class="p">&lt;</span><span class="nx">dump</span><span class="o">/</span><span class="nx">pass</span><span class="p">&gt;</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda1</span><span class="w">   </span><span class="o">/</span><span class="nx">boot</span><span class="w">           </span><span class="nx">ext2</span><span class="w">      </span><span class="nx">noauto</span><span class="p">,</span><span class="nx">noatime</span><span class="w">  </span><span class="mi">1</span><span class="w"> </span><span class="mi">2</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda2</span><span class="w">   </span><span class="o">/</span><span class="nx">home</span><span class="w">           </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">defaults</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda3</span><span class="w">   </span><span class="o">/</span><span class="nx">mnt</span><span class="o">/</span><span class="nx">respaldos</span><span class="w">  </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">noauto</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda5</span><span class="w">   </span><span class="nx">none</span><span class="w">            </span><span class="nx">swap</span><span class="w">      </span><span class="nx">sw</span><span class="w">              </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda6</span><span class="w">   </span><span class="o">/</span><span class="nx">mnt</span><span class="o">/</span><span class="nx">anterior</span><span class="w">   </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">noauto</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda7</span><span class="w">   </span><span class="o">/</span><span class="nx">mnt</span><span class="o">/</span><span class="nx">ubuntu</span><span class="w">     </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">noauto</span><span class="w">          </span><span class="mi">0</span><span class="w"> </span><span class="mi">0</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda8</span><span class="w">   </span><span class="o">/</span><span class="w">               </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">noatime</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda9</span><span class="w">   </span><span class="o">/</span><span class="nx">usr</span><span class="o">/</span><span class="nx">portage</span><span class="w">    </span><span class="nx">reiserfs</span><span class="w">  </span><span class="nx">defaults</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda10</span><span class="w">  </span><span class="o">/</span><span class="nx">tmp</span><span class="w">            </span><span class="nx">reiserfs</span><span class="w">  </span><span class="nx">noatime</span><span class="w">         </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+<span class="o">/</span><span class="nx">dev</span><span class="o">/</span><span class="nx">sda11</span><span class="w">  </span><span class="o">/</span><span class="nx">mnt</span><span class="o">/</span><span class="nx">archivos</span><span class="w">   </span><span class="nx">ext4</span><span class="w">      </span><span class="nx">defaults</span><span class="w">        </span><span class="mi">0</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div>
+
+<h3>Fin de la primera parte</h3>
+<p>Termina aquí la primera parte con una instalación de Gentoo Linux configurada y con un <em>kernel</em> preparado. En la <a href="gentoo-linux-mi-instalacion-personal-2010-parte-2.html">segunda parte</a>, cambiaremos el <em>profile</em> a <em>desktop</em> e iremos instalando las aplicaciones favoritas de su servidor.</p>
+<p><a href="gentoo-linux-mi-instalacion-personal-2010-parte-2.html">Vaya a la Segunda parte.</a></p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

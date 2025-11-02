@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Terminamos el Taller de Juypter Notebook usando el paquete Pandas con datos abiertos referentes a casos COVID-19 en México.">
+    <meta name="keywords" content="python, jupyter, Apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Proyecto Jupyter (parte 3) Pandas">
+    <meta name="twitter:description" content="Terminamos el Taller de Juypter Notebook usando el paquete Pandas con datos abiertos referentes a casos COVID-19 en México.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/jupyter-taller-03-pandas/jupyter.png">
+    <meta property="og:title" content="Proyecto Jupyter (parte 3) Pandas">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/jupyter-taller-03-pandas/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/jupyter-taller-03-pandas/jupyter.png">
+    <meta property="og:description" content="Terminamos el Taller de Juypter Notebook usando el paquete Pandas con datos abiertos referentes a casos COVID-19 en México.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Proyecto Jupyter (parte 3) Pandas - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Proyecto Jupyter (parte 3) Pandas",
+                "headline": "Proyecto Jupyter (parte 3) Pandas",
+                "description": "Terminamos el Taller de Juypter Notebook usando el paquete Pandas con datos abiertos referentes a casos COVID-19 en México.",
+                "dateCreated": "2021-10-26 22:20:00-05:00",
+                "datePublished": "2021-10-26 22:20:00-05:00",
+                "dateModified": "2021-10-27 20:00:00-05:00",
+                "image": "https://movimientolibre.com/Apuntes/jupyter-taller-03-pandas/jupyter.png",
+                "url": "https://movimientolibre.com/apuntes/jupyter-taller-03-pandas/"
+            }
+        </script>
+        <h2>Proyecto Jupyter (parte 3) Pandas</h2>
+        <p class="lead">Terminamos el Taller de Juypter Notebook usando el paquete Pandas con datos abiertos referentes a casos COVID-19 en México.</p>
+        <p>26 October 2021</p>
+        <h2>Descargar</h2>
+<p>Puede obtener el contenido de esta página como un <em>notebook</em>:</p>
+<ul>
+<li><a href="jupyter-taller-03-pandas.ipynb">jupyter-taller-03-pandas.ipynb</a></li>
+</ul>
+<h2>Intrucción a Pandas</h2>
+<p>Estudiaremos los datos abiertos referentes a casos <a href="https://datos.gob.mx/busca/dataset/informacion-referente-a-casos-covid-19-en-mexico">COVID-19 en México</a>.</p>
+<ol>
+<li>Descargue <strong>datos_abiertos_covid19.zip</strong> en el vínculo anterior.</li>
+<li>Descomprima el archivo y póngalo en el mismo directorio donde está este <em>notebook</em>.</li>
+<li>Cambie el nombre del archivo en <code>archivo_csv = Path("______COVID19MEXICO.csv")</code></li>
+</ol>
+<p>Ejecutamos en <strong>Jupyter Notebook</strong> la siguiente celda esperando ver el mensaje "Ya veo el archivo".</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pathlib es para usar archivos de nuestro sistema operativo</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span><span class="w"> </span><span class="n">Path</span>
+
+<span class="n">archivo_csv</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;______COVID19MEXICO.csv&quot;</span><span class="p">)</span>
+<span class="k">if</span><span class="w"> </span><span class="n">archivo_csv</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+<span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Ya veo el archivo&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">archivo_csv</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+<span class="w">    </span><span class="k">raise</span><span class="w"> </span><span class="n">Exception</span><span class="p">(</span><span class="s2">&quot;No lo encuentro&quot;</span><span class="p">)</span>
+</code></pre></div>
+
+<p>Si no lo ha hecho, instale en su entorno virtual el paquete pandas con <code>pip install pandas</code></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Pandas es excelente para analizar datos</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="c1"># Cargar el archivo. NOTA: Se tarda un buen tiempo por su tamaño, si falla agregue low_memory=False</span>
+<span class="n">covid19</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">archivo_csv</span><span class="p">,</span><span class="w"> </span><span class="n">low_memory</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># Dar un vistazo a sus primeros renglones</span>
+<span class="n">covid19</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Para conocer las columnas de este <em>dataset</em> baje el <a href="https://www.gob.mx/salud/documentos/datos-abiertos-152127">Diccionario de Datos</a>.</p>
+<div class="highlight"><pre><span></span><code># Mostrar las columnas
+covid19.columns
+</code></pre></div>
+
+<p>Apliquemos dos filtros, para quedarnos con los datos de un estado y los resultados positivos.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Coahuila de Zaragoza es la entidad 5
+<span class="gh">#</span> RESULTADO_LAB 1 es POSITIVO A SARS-COV-2
+entidad = covid19[(covid19.ENTIDAD_RES == 5) &amp; (covid19.RESULTADO_LAB == 1)]
+len(entidad)
+</code></pre></div>
+
+<p>Seleccionamos algunas de de las columnas y establecemos como categorias aquellas que son cualitativas.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">Elegimos</span><span class="w"> </span><span class="nx">unas</span><span class="w"> </span><span class="nx">columnas</span><span class="w"> </span><span class="nx">y</span><span class="w"> </span><span class="nx">las</span><span class="w"> </span><span class="nx">redefinimos</span><span class="w"> </span><span class="nx">como</span><span class="w"> </span><span class="nx">categorias</span><span class="w"> </span><span class="nx">para</span><span class="w"> </span><span class="nx">se</span><span class="w"> </span><span class="nx">cuantifiquen</span>
+<span class="nx">entidad</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entidad</span><span class="p">[[</span><span class="s">&quot;SEXO&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;ENTIDAD_RES&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;MUNICIPIO_RES&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;FECHA_DEF&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;INTUBADO&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;EDAD&quot;</span><span class="p">]]</span>
+<span class="nx">entidad</span><span class="p">.</span><span class="nx">SEXO</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entidad</span><span class="p">.</span><span class="nx">SEXO</span><span class="p">.</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">category</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">entidad</span><span class="p">.</span><span class="nx">ENTIDAD_RES</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entidad</span><span class="p">.</span><span class="nx">ENTIDAD_RES</span><span class="p">.</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">category</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">entidad</span><span class="p">.</span><span class="nx">MUNICIPIO_RES</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entidad</span><span class="p">.</span><span class="nx">MUNICIPIO_RES</span><span class="p">.</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">category</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">entidad</span><span class="p">.</span><span class="nx">INTUBADO</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">entidad</span><span class="p">.</span><span class="nx">INTUBADO</span><span class="p">.</span><span class="nx">astype</span><span class="p">(</span><span class="err">&#39;</span><span class="nx">category</span><span class="err">&#39;</span><span class="p">)</span>
+<span class="nx">entidad</span><span class="p">.</span><span class="nx">info</span><span class="p">()</span>
+</code></pre></div>
+
+<p>La columna SEXO tiene los valores 1 o 2. Vamos a reemplazarlos por MUJER y HOMBRE.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Los sexos
+entidad.SEXO.cat.categories
+
+<span class="gh">#</span> Reemplazar los sexos de numero a texto
+entidad[&quot;SEXO&quot;] = entidad[&quot;SEXO&quot;].replace(to_replace=[1,2], value=[&quot;MUJER&quot;,&quot;HOMBRE&quot;])
+</code></pre></div>
+
+<p>En MUNICIPIO_RES se usan números. Vamos a cambiarlos por sus nombres cargando <a href="municipios_coahuila.csv">municipios_coahuila.csv</a></p>
+<div class="highlight"><pre><span></span><code><span class="c1"># Los municipios</span>
+<span class="n">entidad</span><span class="o">.</span><span class="n">MUNICIPIO_RES</span><span class="o">.</span><span class="n">cat</span><span class="o">.</span><span class="n">categories</span>
+
+<span class="c1"># Cargar listados con las claves de los municipios de Coahuila</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">csv</span>
+<span class="n">claves</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">nombres</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="k">with</span><span class="w"> </span><span class="nb">open</span><span class="p">(</span><span class="s2">&quot;municipios_coahuila.csv&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf8&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">puntero</span><span class="p">:</span>
+<span class="w">    </span><span class="n">renglones</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">puntero</span><span class="p">)</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">renglon</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">renglones</span><span class="p">:</span>
+<span class="w">        </span><span class="n">claves</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">renglon</span><span class="p">[</span><span class="s2">&quot;CLAVE_MUNICIPIO&quot;</span><span class="p">]))</span>
+<span class="w">        </span><span class="n">nombres</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">renglon</span><span class="p">[</span><span class="s2">&quot;MUNICIPIO&quot;</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">claves</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nombres</span><span class="p">)</span>
+
+<span class="c1"># Reeplazar esas claves por los nombres de los municipios de Coahuila</span>
+<span class="n">entidad</span><span class="p">[</span><span class="s2">&quot;MUNICIPIO_RES&quot;</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">entidad</span><span class="p">[</span><span class="s2">&quot;MUNICIPIO_RES&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">to_replace</span><span class="o">=</span><span class="n">claves</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="o">=</span><span class="n">nombres</span><span class="p">)</span>
+<span class="n">entidad</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+
+<p>Al dar un vistazo en FECHA_DEF notamos que se trata como categorías, no como tiempos. En una próxima entrega resolveremos este reto.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Las fechas de defuncion
+entidad.FECHA_DEF.unique()
+</code></pre></div>
+
+<p>Elaboremos un reporte listando los casos positivos por sexo y municipio.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Pivot table por sexo
+entidad.pivot_table(
+    index=[&quot;MUNICIPIO_RES&quot;],
+    columns=pd.Grouper(key=&quot;SEXO&quot;),
+    values=&quot;ENTIDAD_RES&quot;,
+    aggfunc=&#39;count&#39;,
+)
+</code></pre></div>
+
+<p>Y terminamos con un reporte con las cantidades de casos positivos por edad y municipio.</p>
+<div class="highlight"><pre><span></span><code><span class="gh">#</span> Pivot table por edad
+entidad.pivot_table(
+    index=[&quot;MUNICIPIO_RES&quot;],
+    columns=pd.Grouper(key=&quot;EDAD&quot;),
+    values=&quot;ENTIDAD_RES&quot;,
+    aggfunc=&#39;count&#39;,
+)
+</code></pre></div>
+
+<h2>Ir a la primera parte <a href="../jupyter-taller-01-instalar/">Proyecto Jupyter: Instalar</a></h2>
+<h2>Ir a la segunda parte <a href="../jupyter-taller-02-python-basico/">Proyecto Jupyter: Python Básico</a></h2>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>

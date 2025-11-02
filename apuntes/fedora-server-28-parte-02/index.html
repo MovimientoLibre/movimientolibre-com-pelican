@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content="Pelican Static Site Generator, Powered by Python" />
+    <meta name="description" content="Proseguimos con la configuración de OpenSSH y de los dispositivos de red.">
+    <meta name="keywords" content="fedora, gnu linux, servidores, software libre, apuntes">
+    <meta name="author" content="Guillermo Valdés Lozano (guivaloz)">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@guivaloz">
+    <meta name="twitter:title" content="Instalación de Fedora Server 28, parte 2, configuración básica de red">
+    <meta name="twitter:description" content="Proseguimos con la configuración de OpenSSH y de los dispositivos de red.">
+    <meta name="twitter:image" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-02/fedora-logo-icon.png">
+    <meta property="og:title" content="Instalación de Fedora Server 28, parte 2, configuración básica de red">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-02/">
+    <meta property="og:image" content="https://movimientolibre.com/apuntes/fedora-server-28-parte-02/fedora-logo-icon.png">
+    <meta property="og:description" content="Proseguimos con la configuración de OpenSSH y de los dispositivos de red.">
+    <meta property="og:site_name" content="Movimiento Libre">
+    <title>Instalación de Fedora Server 28, parte 2, configuración básica de red - Movimiento Libre</title>
+    <link rel="shortcut icon" type="image/x-icon" href="https://movimientolibre.com/favicon.ico" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-hires.png" sizes="192x192" />
+    <link rel="icon" href="https://movimientolibre.com/theme/images/icon-normal.png" sizes="128x128" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-76x76.png" sizes="76x76" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-120x120.png" sizes="120x120" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-152x152.png" sizes="152x152" />
+    <link rel="apple-touch-icon" href="https://movimientolibre.com/theme/images/apple-touch-icon-180x180.png" sizes="180x180" />
+<link rel="alternate" href="https://movimientolibre.com/feeds/all.rss.xml" type="application/rss+xml" title="Movimiento Libre Full RSS Feed" /><script async src="https://www.googletagmanager.com/gtag/js?id=UA-74263253-1"></script><script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'UA-74263253-1'); </script>    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css" integrity="sha512-GQGU0fMMi238uA+a/bdWJfpUGKUkBdgfFdgBm72SUQ6BeyWjoY/ton0tEjH+OSH9iP4Dfh+7HM0I9f5eR0L/4w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noto+Sans&display=swap" />
+    <link rel="stylesheet" href="https://movimientolibre.com/theme/css/movimientolibre-bs5.css" />
+</head>
+<body>
+<nav id="navigationBase" class="navbar navbar-expand-sm fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="https://movimientolibre.com/"><i class="fa fa-home"></i></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navigationCollapse" aria-controls="navigationCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fas fa-bars"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navigationCollapse">
+            <ul class="navbar-nav me-auto mb-2 mb-sm-0">
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/apuntes.html">Apuntes</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/articulos.html">Artículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="https://movimientolibre.com/category/presentaciones.html">Presentaciones</a></li>
+            </ul>
+            <ul class="navbar-nav">
+                <li><a class="mx-2" href="https://twitter.com/guivaloz/" target="_blank"><i class="fab fa-twitter-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://www.facebook.com/movimientolibrepuntocom/" target="_blank"><i class="fab fa-facebook-square fa-2x"></i></a></li>
+                <li><a class="mx-2" href="https://github.com/movimientolibre" target="_blank"><i class="fab fa-github-square fa-2x"></i></a></li>
+<li><a class="mx-2" href="https://movimientolibre.com/feeds/all.rss.xml"><i class="fa fa-rss-square fa-2x"></i></a></li>            </ul>
+    </div>
+    </div>
+</nav><header id="headerSite" class="mb-4">
+    <div id="headerSiteImage" class="container" itemscope itemtype="http://schema.org/Organization">
+        <div class="row">
+            <div class="col-xl-8">
+                <h1 class="display-2" itemprop="name">Movimiento Libre</h1>
+                <p class="lead" itemprop="description">Plataforma de divulgación de conocimiento</p>
+            </div>
+        </div>
+    </div>
+</header>    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+    <article>
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org",
+                "@type": "Article",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "Movimiento Libre",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://movimientolibre.com/theme/images/movimientolibre.png"
+                    },
+                    "url": "https://movimientolibre.com"
+                },
+                "author": "Guillermo Valdés Lozano (guivaloz)",
+                "name": "Instalación de Fedora Server 28, parte 2, configuración básica de red",
+                "headline": "Instalación de Fedora Server 28, parte 2, configuración básica de red",
+                "description": "Proseguimos con la configuración de OpenSSH y de los dispositivos de red.",
+                "dateCreated": "2018-06-24 22:12:00-05:00",
+                "datePublished": "2018-06-24 22:12:00-05:00",
+                "dateModified": "2018-06-24 22:12:00-05:00",
+                "image": "https://movimientolibre.com/apuntes/fedora-server-28-parte-02/fedora-logo-icon.png",
+                "url": "https://movimientolibre.com/apuntes/fedora-server-28-parte-02/"
+            }
+        </script>
+        <h2>Instalación de Fedora Server 28, parte 2, configuración básica de red</h2>
+        <p class="lead">Proseguimos con la configuración de OpenSSH y de los dispositivos de red.</p>
+        <p>24 June 2018</p>
+        <h3>Detalles de los dispositivos de red</h3>
+<p>Liste todos los dispositivos de red con...</p>
+<div class="highlight"><pre><span></span><code># lspci | grep -i ethernet
+</code></pre></div>
+
+<p>Averigue detalles, como la velocidad actual de la conexión con...</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># ethtool enp1s0</span>
+<span class="c1"># ethtool enp4s0</span>
+</code></pre></div>
+
+<p>También puede instalar <strong>lshw</strong>.</p>
+<div class="highlight"><pre><span></span><code># dnf install lshw
+</code></pre></div>
+
+<p>Y ejecutar...</p>
+<div class="highlight"><pre><span></span><code># lshw -class network
+</code></pre></div>
+
+<h3>OpenSSH para usar par de llaves</h3>
+<p>Copie la llave pública <strong>desde su equipo personal</strong> al servidor con el comando...</p>
+<div class="highlight"><pre><span></span><code><span class="n">$</span><span class="w"> </span><span class="n">ssh</span><span class="o">-</span><span class="k">copy</span><span class="o">-</span><span class="kt">id</span><span class="w"> </span><span class="o">-</span><span class="n">i</span><span class="w"> </span><span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">usuario</span><span class="o">/</span><span class="p">.</span><span class="n">ssh</span><span class="o">/</span><span class="n">id_rsa</span><span class="p">.</span><span class="n">pub</span><span class="w"> </span><span class="n">usuario</span><span class="mf">@192.168</span><span class="p">.</span><span class="n">n</span><span class="p">.</span><span class="n">m</span>
+</code></pre></div>
+
+<p>Por supesto, cambie <code>usuario</code> por su nombre de usuario y <code>192.168.0.n.m</code> por la dirección IP del nuevo servidor.</p>
+<p>Luego edite de nuevo <code>/etc/ssh/sshd_config</code> y cambie...</p>
+<div class="highlight"><pre><span></span><code>LoginGraceTime 2m
+PermitRootLogin no
+StrictModes yes
+MaxAuthTries 8
+MaxSessions 4
+PubkeyAuthentication yes
+PermitEmptyPasswords no
+PasswordAuthentication no
+</code></pre></div>
+
+<p><strong>Advertencia:</strong> <code>PasswordAuthentication no</code> deshabilita el acceso con usuario y contraseña.</p>
+<p>Reinicie el <em>daemon</em> para aplicar estos cambios.</p>
+<div class="highlight"><pre><span></span><code># systemctl restart sshd
+</code></pre></div>
+
+<h3>Desactivar Network Manager</h3>
+<p>Por defecto, <strong>Network Manager</strong> está activo, por lo que los dispositivos de red son configurados por sus operaciones.</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">systemctl</span><span class="w"> </span><span class="nx">list</span><span class="o">-</span><span class="nx">units</span><span class="w"> </span><span class="o">--</span><span class="k">type</span><span class="p">=</span><span class="nx">service</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">systemctl</span><span class="w"> </span><span class="nx">status</span><span class="w"> </span><span class="nx">NetworkManager</span>
+</code></pre></div>
+
+<p>Y el servicio <code>systemd-networkd</code> está deshabilitado.</p>
+<div class="highlight"><pre><span></span><code># systemctl status systemd-networkd
+</code></pre></div>
+
+<p>Tome nota de los dispositivos de red...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span>
+</code></pre></div>
+
+<p>E identifique cuál está conectado con la red local y cuál será para Internet. Por ejemplo:</p>
+<ul>
+<li>enp4s0 estará conectado al WAN (es decir, al Internet) con la dirección IP 192.168.1.21/24 (elija cualquiera que no se use)</li>
+<li>enp1s0 estará conectado a la LAN (red local) con la dirección IP 192.168.4.1/24</li>
+</ul>
+<p>Para configurar los dispositivos de red de forma manual cámbiese al directorio...</p>
+<div class="highlight"><pre><span></span><code># cd /etc/systemd/network/
+</code></pre></div>
+
+<p>Cree el archivo de configuración...</p>
+<div class="highlight"><pre><span></span><code># nano enp4s0.network
+</code></pre></div>
+
+<p>Con este contenido que define su dirección IP, <em>puerta de acceso</em>, servidores DNS e <em>ip forward</em>...</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Match]</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">enp4s0</span>
+
+<span class="k">[Network]</span>
+<span class="na">Address</span><span class="o">=</span><span class="s">192.168.1.21/24</span>
+<span class="na">Gateway</span><span class="o">=</span><span class="s">192.168.1.254</span>
+<span class="na">DNS</span><span class="o">=</span><span class="s">8.8.8.8</span>
+<span class="na">DNS</span><span class="o">=</span><span class="s">8.8.4.4</span>
+<span class="na">IPForward</span><span class="o">=</span><span class="s">yes</span>
+</code></pre></div>
+
+<p><strong>Nota:</strong> Usé los <a href="https://developers.google.com/speed/public-dns/">DNS públicos de Google</a>. Elija los de su preferencia.</p>
+<p>Cree el archivo de configuración...</p>
+<div class="highlight"><pre><span></span><code># nano enp1s0.network
+</code></pre></div>
+
+<p>Con este contenido...</p>
+<div class="highlight"><pre><span></span><code><span class="k">[Match]</span>
+<span class="na">Name</span><span class="o">=</span><span class="s">enp1s0</span>
+
+<span class="k">[Network]</span>
+<span class="na">Address</span><span class="o">=</span><span class="s">192.168.4.1/24</span>
+<span class="na">IPForward</span><span class="o">=</span><span class="s">yes</span>
+</code></pre></div>
+
+<p>Ahora deshabilite <strong>Network Manager</strong> y habilite <strong>systemd-networkd</strong></p>
+<div class="highlight"><pre><span></span><code>#<span class="w"> </span><span class="nv">systemctl</span><span class="w"> </span><span class="nv">disable</span><span class="w"> </span><span class="nv">NetworkManager</span>
+#<span class="w"> </span><span class="nv">systemctl</span><span class="w"> </span><span class="nv">disable</span><span class="w"> </span><span class="nv">ModemManager</span>
+#<span class="w"> </span><span class="nv">systemctl</span><span class="w"> </span><span class="nv">mask</span><span class="w"> </span><span class="nv">NetworkManager</span>
+#<span class="w"> </span><span class="nv">systemctl</span><span class="w"> </span><span class="nv">mask</span><span class="w"> </span><span class="nv">NetworkManager</span><span class="o">-</span><span class="k">wait</span><span class="o">-</span><span class="nv">online</span>
+#<span class="w"> </span><span class="nv">systemctl</span><span class="w"> </span><span class="nv">enable</span><span class="w"> </span><span class="nv">systemd</span><span class="o">-</span><span class="nv">networkd</span>
+</code></pre></div>
+
+<h3>Apague el servidor</h3>
+<div class="highlight"><pre><span></span><code># systemctl poweroff
+</code></pre></div>
+
+<p>Estando apagado los cables de red del modem a <code>enp4s0</code> y de <code>enp1s0</code> a su <em>switch</em> o <em>access point</em>.</p>
+<h3>Encienda el servidor</h3>
+<p>Revise con con el comando <code>networkctl</code>...</p>
+<div class="highlight"><pre><span></span><code># networkctl
+IDX LINK             TYPE               OPERATIONAL SETUP
+  1 lo               loopback           carrier     unmanaged
+  2 enp4s0           ether              routable    configured
+  3 enp1s0           ether              routable    configured
+</code></pre></div>
+
+<p>También revise...</p>
+<div class="highlight"><pre><span></span><code><span class="err">#</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">enp1s0</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">ip</span><span class="w"> </span><span class="kd">addr</span><span class="w"> </span><span class="nx">show</span><span class="w"> </span><span class="nx">enp4s0</span>
+<span class="err">#</span><span class="w"> </span><span class="nx">route</span><span class="w"> </span><span class="o">-</span><span class="nx">n</span>
+</code></pre></div>
+
+<h3>Continuación...</h3>
+<p><a href="https://movimientolibre.com/apuntes/fedora-server-28-parte-03/">Vaya a la parte 3, servicios DHCP y DNS</a>.</p>
+    </article>
+            </div>
+            <div class="col-lg-4">
+                <aside>
+<div id="asideAbout" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">A cerca de</h3>
+        <p class="card-text">
+            Este es un sitio web que busca divulgar
+            conocimiento y promover el uso de software libre.
+            Su creador es reconocido como desarrollador que
+            fabrica estas herramientas tanto para entidades
+            públicas como privadas.
+        </p>
+        <a href="/portafolio/contacto/" class="card-link">Contacto</a>
+    </div>
+</div><div id="asideSearch" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Buscador</h3>
+        <p class="card-text">
+            <script> (function() { var cx = '015464194519155410478:jqayrodgycs'; var gcse = document.createElement('script'); gcse.type = 'text/javascript'; gcse.async = true; gcse.src = 'https://cse.google.com/cse.js?cx=' + cx; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(gcse, s); })(); </script>
+            <gcse:search></gcse:search>
+        </p>
+    </div>
+</div><div id="asideTags" class="card border-0">
+    <div class="card-body">
+        <h3 class="card-title mt-0">Etiquetas</h3>
+        <ul class="list-group list-group-flush">
+<li class="list-group-item"><a href="https://movimientolibre.com/tag/astronomia.html">astronomía</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ciencia-de-datos.html">ciencia de datos</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/conferencias.html">conferencias</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/contenedores.html">contenedores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/desarrollo.html">desarrollo</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/educacion.html">educación</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/fedora.html">fedora</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/flisol.html">flisol</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gentoo-linux.html">gentoo linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gis.html">gis</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/git.html">git</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gnu-linux.html">gnu linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/gulag.html">gulag</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/hardware.html">hardware</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/jupyter.html">jupyter</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kde.html">kde</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/kernel-linux.html">kernel linux</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/latex.html">latex</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/markdown.html">markdown</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/network.html">network</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/php.html">php</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/politica.html">política</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/postgresql.html">postgresql</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/python.html">python</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/ruby.html">ruby</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/servidores.html">servidores</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/software-libre.html">software libre</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/vida-cotidiana.html">vida cotidiana</a></li><li class="list-group-item"><a href="https://movimientolibre.com/tag/wallpapers.html">wallpapers</a></li>        </ul>
+    </div>
+</div>                </aside>
+            </div>
+        </div>
+    </div>
+<footer class="text-muted">
+    <div class="container">
+        <p>
+            Copyright &copy; 2006-2025 Guillermo Valdés Lozano.
+            Protegidos por la licencia <a href="https://movimientolibre.com/licencias/gfdl-es/">GFDL</a>.
+            Se otorga permiso para copiar, distribuir y/o modificar estos documentos.
+            Sitio web elaborado con <a href="https://blog.getpelican.com/">Pelican</a> que es programado en <a href="https://python.org/">Python</a>; el código fuente está en <a href="https://github.com/MovimientoLibre/plataforma.web">GitHub</a> protegido por la licencia <a href="https://movimientolibre.com/licencias/gpl-2-es/">GPLv3</a>.
+        </p>
+    </div>
+</footer>    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.min.js" integrity="sha512-OvBgP9A2JBgiRad/mM36mkzXSXaJE9BEIENnVEmeZdITvwT09xnxLtT4twkCa8m/loMbPHsvPl0T8lRGVBwjlQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://movimientolibre.com/theme/js/navigation.js"></script>
+</body>
+</html>
