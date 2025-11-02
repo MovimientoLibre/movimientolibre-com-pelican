@@ -12,9 +12,7 @@ Preview: preview.png
 ![Introducción a las APIs 2](introduccion-a-las-apis-2.jpg)
 ![Introducción a las APIs 3](introduccion-a-las-apis-3.jpg)
 
-Como parte de una serie de conferencias sobre seguridad informática elaboré este material para explicar el
-funcionamiento de las APIs, en particular la arquitectura RESTful. Es el conocimiento básico que deseé saber
-hace años, cuando las conocí.
+En esta presentación está el conocimiento básico que deseé saber hace años, cuando descubrí las APIs.
 
 [De clic aquí para ver esta presentación](https://guivaloz.github.io/presentacion-introduccion-apis/) en el navegador de internet.
 
